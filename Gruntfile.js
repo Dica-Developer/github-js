@@ -1,0 +1,103 @@
+/*jshint camelcase: false*/
+
+module.exports = function (grunt) {
+    'use strict';
+
+    require('time-grunt')(grunt);
+    require('load-grunt-tasks')(grunt);
+    grunt.loadNpmTasks('grunt-karma-coveralls');
+    var config = {
+        api: 'api',
+        dist: 'dist',
+        test: 'test'
+    };
+
+    grunt.initConfig({
+        config: config,
+        watch: {
+            options: {
+                nospawn: true
+            },
+            dev: {
+                files: [
+                    '<%= config.app %>/css/*',
+                    '<%= config.app %>/js/**/*',
+                    '<%= config.app %>/worker/**/*',
+                    '<%= config.app %>/*.html',
+                    '<%= config.app %>/templates/**/*',
+                    '!<%= config.app %>/bower_components/*'
+                ],
+                tasks: ['devWatch']
+            }
+        },
+        clean: {
+            dist: {
+                files: [{
+                    dot: true,
+                    src: [
+                        '<%= config.dist %>/*'
+                    ]
+                }]
+            }
+        },
+        jsdoc : {
+            dist : {
+                src: ['<%= api %>/*.js', 'error.js', 'index.js', 'util.js'],
+                options: {
+                    destination: 'doc'
+                }
+            }
+        },
+        jshint: {
+            options: {
+                jshintrc: '.jshintrc'
+            },
+            files: '<%= config.app %>/js/{,*/}*.js'
+        },
+        requirejs: {
+            options: {
+                loglevel: 5,
+                findNestedDependencies: true,
+                inlineText: true,
+                mainConfigFile: 'app/js/main.js'
+            },
+            dist: {
+                options: {
+                    out: '<%= config.dist %>/js/main.js',
+                    optimize: 'uglify',
+                    name: 'main'
+                }
+            }
+        },
+        karma: {
+            dev: {
+                configFile: '<%= config.test %>/dev.karma.conf.js'
+            },
+            travis: {
+                configFile: '<%= config.test %>/travis.karma.conf.js'
+            }
+        },
+        coveralls: {
+            options: {
+                debug: true,
+                coverage_dir: 'coverage'
+            }
+        }
+    });
+
+
+    grunt.registerTask('devWatch', [
+        'jshint'
+    ]);
+
+    grunt.registerTask('dist', [
+        'clean:dist',
+        'jshint',
+        'requirejs:dist'
+    ]);
+
+    grunt.registerTask('test', [
+        'karma:dev'
+    ]);
+
+};
