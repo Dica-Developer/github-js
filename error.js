@@ -1,5 +1,6 @@
 /**
- *  Copyright 2012 Cloud9 IDE, Inc.
+ *  @overview
+ *  @copyright Copyright 2012 Cloud9 IDE, Inc.
  *
  *  This product includes software developed by
  *  Cloud9 IDE, Inc (http://c9.io).
@@ -9,7 +10,7 @@
 define('HttpError',
     /**
      * @exports HttpError
-     **/
+     */
         function () {
         'use strict';
 
