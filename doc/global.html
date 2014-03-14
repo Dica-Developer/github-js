@@ -84,286 +84,156 @@
     
     
     
-        <h3 class="subsection-title">Members</h3>
+    
+    
+    
+    
+        <h3 class="subsection-title">Type Definitions</h3>
         
         <dl>
-            
+                
 <dt>
-    <h4 class="name" id="Client"><span class="type-signature"></span>Client<span class="type-signature"></span></h4>
+    <h4 class="name" id="authConfig">authConfig</h4>
     
     
 </dt>
 <dd>
     
-    <div class="description">
-        section: github
-class Client
-
- Copyright 2012 Cloud9 IDE, Inc.
-
- This product includes software developed by
- Cloud9 IDE, Inc (http://c9.io).
-
- Author: Mike de Boer <mike@c9.io>
-
- [[Client]] can load any version of the [[github]] client API, with the
- requirement that a valid routes.json definition file is present in the
- `api/[VERSION]` directory and that the routes found in this file are
- implemented as well.
-
- Upon instantiation of the [[Client]] class, the routes.json file is loaded
- from the API version specified in the configuration and, parsed and from it
- the routes for HTTP requests are extracted. For each HTTP endpoint to the
- HTTP server, a method is generated which accepts a Javascript Object
- with parameters and an optional callback to be invoked when the API request
- returns from the server or when the parameters could not be validated.
-
- When an HTTP endpoint is processed and a method is generated as described
- above, [[Client]] also sets up parameter validation with the rules as
- defined in the routes.json. A full example that illustrates how this works
- is shown below:
-
- ##### Example
-
- First, we look at a listing of a sample routes.json routes definition file:
-
-     {
-         "defines": {
-             "constants": {
-                 "name": "Github",
-                 "description": "A Node.JS module, which provides an object oriented wrapper for the GitHub v3 API.",
-                 "protocol": "https",
-                 "host": "api.github.com",
-                 "port": 443,
-                 "dateFormat": "YYYY-MM-DDTHH:MM:SSZ",
-                 "requestFormat": "json"
-             },
-             "response-headers": [
-                 "X-RateLimit-Limit",
-                 "X-RateLimit-Remaining",
-                 "Link"
-             ],
-             "params": {
-                 "files": {
-                     "type": "Json",
-                     "required": true,
-                     "validation": "",
-                     "invalidmsg": "",
-                     "description": "Files that make up this gist. The key of which should be a required string filename and the value another required hash with parameters: 'content'"
-                 },
-                 "user": {
-                     "type": "String",
-                     "required": true,
-                     "validation": "",
-                     "invalidmsg": "",
-                     "description": ""
-                 },
-                 "description": {
-                     "type": "String",
-                     "required": false,
-                     "validation": "",
-                     "invalidmsg": "",
-                     "description": ""
-                 },
-                 "page": {
-                     "type": "Number",
-                     "required": false,
-                     "validation": "^[0-9]+$",
-                     "invalidmsg": "",
-                     "description": "Page number of the results to fetch."
-                 },
-                 "per_page": {
-                     "type": "Number",
-                     "required": false,
-                     "validation": "^[0-9]+$",
-                     "invalidmsg": "",
-                     "description": "A custom page size up to 100. Default is 30."
-                 }
-             }
-         },
-
-         "gists": {
-             "get-from-user": {
-                 "url": ":user/gists",
-                 "method": "GET",
-                 "params": {
-                     "$user": null,
-                     "$page": null,
-                     "$per_page": null
-                 }
-             },
-
-             "create": {
-                 "url": "/gists",
-                 "method": "POST",
-                 "params": {
-                     "$description": null,
-                     "public": {
-                         "type": "Boolean",
-                         "required": true,
-                         "validation": "",
-                         "invalidmsg": "",
-                         "description": ""
-                     },
-                     "$files": null
-                 }
-             }
-         }
-      }
-
- You probably noticed that the definition is quite verbose and the decision
- for its design was made to be verbose whilst still allowing for basic variable
- definitions and substitions for request parameters.
-
- There are two sections; 'defines' and 'gists' in this example.
-
- The `defines` section contains a list of `constants` that will be used by the
- [[Client]] to make requests to the right URL that hosts the API.
- The `gists` section defines the endpoints for calls to the API server, for
- gists specifically in this example, but the other API sections are defined in
- the exact same way.
- These definitions are parsed and methods are created that the client can call
- to make an HTTP request to the server.
- there is one endpoint defined: .
- In this example, the endpoint `gists/get-from-user` will be exposed as a member
- on the [[Client]] object and may be invoked with
-
-     client.getFromUser({
-         "user": "bob"
-     }, function(err, ret) {
-         // do something with the result here.
-     });
-
-     // or to fetch a specfic page:
-     client.getFromUser({
-         "user": "bob",
-         "page": 2,
-         "per_page": 100
-     }, function(err, ret) {
-         // do something with the result here.
-     });
-
- All the parameters as specified in the Object that is passed to the function
- as first argument, will be validated according to the rules in the `params`
- block of the route definition.
- Thus, in the case of the `user` parameter, according to the definition in
- the `params` block, it's a variable that first needs to be looked up in the
- `params` block of the `defines` section (at the top of the JSON file). Params
- that start with a `$` sign will be substituted with the param with the same
- name from the `defines/params` section.
- There we see that it is a required parameter (needs to hold a value). In other
- words, if the validation requirements are not met, an HTTP error is passed as
- first argument of the callback.
-
- Implementation Notes: the `method` is NOT case sensitive, whereas `url` is.
- The `url` parameter also supports denoting parameters inside it as follows:
-
-     "get-from-user": {
-         "url": ":user/gists",
-         "method": "GET"
-         ...
-     }
-    </div>
     
     
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+            </li>
+        </ul>
     
 
     
 <dl class="details">
     
         
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line175">line 175</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-</dd>
-
-        </dl>
-    
-    
-    
-        <h3 class="subsection-title">Methods</h3>
+        <h5 class="subsection-title">Properties:</h5>
         
         <dl>
+
+<table class="props">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
             
-<dt>
-    <h4 class="name" id="authenticate"><span class="type-signature"></span>authenticate<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Client#authenticate(options) -> null
-     - options (Object): Object containing the authentication type and credentials
-         - type (String): One of the following: `basic` or `oauth`
-         - username (String): Github username
-         - password (String): Password to your account
-         - token (String): OAuth2 token
+                <td class="name"><code>type</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
 
- Set an authentication method to have access to protected resources.
 
- ##### Example
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">One of the following: `basic` or `oauth`</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>username</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
 
-     // basic
-     github.authenticate({
-         type: "basic",
-         username: "mikedeboertest",
-         password: "test1324"
-     });
 
-     // or oauth
-     github.authenticate({
-         type: "oauth",
-         token: "e5a4a27487c26e571892846366de023349321a73"
-     });
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Github username</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>password</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
 
-     // or oauth key/ secret
-     github.authenticate({
-         type: "oauth",
-         key: "clientID",
-         secret: "clientSecret"
-     });
-    </div>
-    
 
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Password to your account</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>token</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">OAuth2 token</td>
+        </tr>
+	
+	
+	</tbody>
+</table></dl>
+        
     
         
     
@@ -385,7 +255,7 @@ class Client
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line406">line 406</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line206">line 206</a>
     </li></ul></dd>
     
     
@@ -398,771 +268,9 @@ class Client
 
     
     
-
-    
-
-    
-    
-    
-    
-    
-    
-    
 </dd>
 
-        
-            
-<dt>
-    <h4 class="name" id="getFirstPage"><span class="type-signature"></span>getFirstPage<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Client#getFirstPage(link, callback) -> null
-     - link (mixed): response of a request or the contents of the Link header
-     - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-
- Get the first page, based on the contents of the `Link` header
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line559">line 559</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="getLastPage"><span class="type-signature"></span>getLastPage<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Client#getLastPage(link, callback) -> null
-     - link (mixed): response of a request or the contents of the Link header
-     - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-
- Get the last page, based on the contents of the `Link` header
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line548">line 548</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="getNextPage"><span class="type-signature"></span>getNextPage<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Client#getNextPage(link, callback) -> null
-     - link (mixed): response of a request or the contents of the Link header
-     - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-
- Get the next page, based on the contents of the `Link` header
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line526">line 526</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="getPreviousPage"><span class="type-signature"></span>getPreviousPage<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Client#getPreviousPage(link, callback) -> null
-     - link (mixed): response of a request or the contents of the Link header
-     - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-
- Get the previous page, based on the contents of the `Link` header
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line537">line 537</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="hasFirstPage"><span class="type-signature"></span>hasFirstPage<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Client#hasFirstPage(link) -> null
-     - link (mixed): response of a request or the contents of the Link header
-
- Check if a request result contains a link to the first page
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line475">line 475</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="hasLastPage"><span class="type-signature"></span>hasLastPage<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Client#hasLastPage(link) -> null
-     - link (mixed): response of a request or the contents of the Link header
-
- Check if a request result contains a link to the last page
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line465">line 465</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="hasNextPage"><span class="type-signature"></span>hasNextPage<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Client#hasNextPage(link) -> null
-     - link (mixed): response of a request or the contents of the Link header
-
- Check if a request result contains a link to the next page
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line445">line 445</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="hasPreviousPage"><span class="type-signature"></span>hasPreviousPage<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Client#hasPreviousPage(link) -> null
-     - link (mixed): response of a request or the contents of the Link header
-
- Check if a request result contains a link to the previous page
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line455">line 455</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="httpSend"><span class="type-signature"></span>httpSend<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Client#httpSend(msg, block, callback) -> null
-     - msg (Object): parameters to send as the request body
-     - block (Object): parameter definition from the `routes.json` file that
-         contains validation rules
-     - callback (Function): function to be called when the request returns.
-         If the the request returns with an error, the error is passed to
-         the callback as its first argument (NodeJS-style).
-
- Send an HTTP request to the server and pass the result to a callback.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line622">line 622</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="setupRoutes"><span class="type-signature"></span>setupRoutes<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Client#setupRoutes() -> null
-
- Configures the routes as defined in a routes.json file of an API version
-
- [[Client#setupRoutes]] is invoked by the constructor, takes the
- contents of the JSON document that contains the definitions of all the
- available API routes and iterates over them.
-
- It first recurses through each definition block until it reaches an API
- endpoint. It knows that an endpoint is found when the `url` and `param`
- definitions are found as a direct member of a definition block.
- Then the availability of an implementation by the API is checked; if it's
- not present, this means that a portion of the API as defined in the routes.json
- file is not implemented properly, thus an exception is thrown.
- After this check, a method is attached to the [[Client]] instance
- and becomes available for use. Inside this method, the parameter validation
- and typecasting is done, according to the definition of the parameters in
- the `params` block, upon invocation.
-
- This mechanism ensures that the handlers ALWAYS receive normalized data
- that is of the correct format and type. JSON parameters are parsed, Strings
- are trimmed, Numbers and Floats are casted and checked for NaN after that.
-
- Note: Query escaping for usage with SQL products is something that can be
- implemented additionally by adding an additional parameter type.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line221">line 221</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-        </dl>
-    
-    
+            </dl>
     
     
     
@@ -1176,13 +284,13 @@ class Client
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="module-HttpError.html">HttpError</a></li><li><a href="module-Util.html">Util</a></li></ul><h3>Classes</h3><ul><li><a href="module-HttpError-HttpError.html">HttpError</a></li><li><a href="module-Util-Util.html">Util</a></li></ul><h3>Global</h3><ul><li><a href="global.html#authenticate">authenticate</a></li><li><a href="global.html#Client">Client</a></li><li><a href="global.html#getFirstPage">getFirstPage</a></li><li><a href="global.html#getLastPage">getLastPage</a></li><li><a href="global.html#getNextPage">getNextPage</a></li><li><a href="global.html#getPreviousPage">getPreviousPage</a></li><li><a href="global.html#hasFirstPage">hasFirstPage</a></li><li><a href="global.html#hasLastPage">hasLastPage</a></li><li><a href="global.html#hasNextPage">hasNextPage</a></li><li><a href="global.html#hasPreviousPage">hasPreviousPage</a></li><li><a href="global.html#httpSend">httpSend</a></li><li><a href="global.html#setupRoutes">setupRoutes</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="module-Client.html">Client</a></li><li><a href="module-HttpError.html">HttpError</a></li><li><a href="module-Util.html">Util</a></li></ul><h3>Classes</h3><ul><li><a href="module-Client-Client.html">Client</a></li><li><a href="module-HttpError-HttpError.html">HttpError</a></li><li><a href="module-Util-Util.html">Util</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Fri Mar 14 2014 20:05:11 GMT+0100 (CET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Fri Mar 14 2014 21:54:02 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>
