@@ -5,6 +5,4 @@ node_modules
 .settings
 .c9revisions
 /nbproject/private/
-.idea/node-github.iml
-.idea/scopes/scope_settings.xml
-.idea/workspace.xml
+.idea
