@@ -7,6 +7,7 @@ module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
     grunt.loadNpmTasks('grunt-karma-coveralls');
     var config = {
+        lib: 'lib',
         api: 'api',
         dist: 'dist',
         test: 'test'
@@ -42,7 +43,7 @@ module.exports = function (grunt) {
         },
         jsdoc : {
             dist : {
-                src: ['<%= api %>/*.js', 'error.js', 'index.js', 'util.js'],
+                src: ['<%= config.lib %>/*.js'],
                 options: {
                     destination: 'doc'
                 }
@@ -52,18 +53,18 @@ module.exports = function (grunt) {
             options: {
                 jshintrc: '.jshintrc'
             },
-            files: '<%= config.app %>/js/{,*/}*.js'
+            files: '<%= config.lib %>/js/{,*/}*.js'
         },
         requirejs: {
             options: {
                 loglevel: 5,
                 findNestedDependencies: true,
                 inlineText: true,
-                mainConfigFile: 'app/js/main.js'
+                mainConfigFile: '<%= config.lib %>/main.js'
             },
             dist: {
                 options: {
-                    out: '<%= config.dist %>/js/main.js',
+                    out: '<%= config.dist %>/github.js',
                     optimize: 'uglify',
                     name: 'main'
                 }
