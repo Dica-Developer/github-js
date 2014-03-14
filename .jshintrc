@@ -19,6 +19,6 @@
   "strict"        : true,
   "trailing"      : true,
   "globals"       : {
-      "define" : false
+      "define" : true
   }
 }
