@@ -1,5 +1,4 @@
 /**
- *  mixin <%sectionName%>
  *
  *  Copyright 2012 Cloud9 IDE, Inc.
  *
@@ -8,16 +7,21 @@
  *
  *  Author: Mike de Boer <info@mikedeboer.nl>
  **/
+define(
+    /**
+    * @exports Client#<%sectionName%>
+    */
+    function(){
+        'use strict';
 
-"use strict";
+        var <%sectionName%> = {
+            <%sectionName%>: {}
+        };
 
-var error = require("./../../error");
-var Util = require("./../../util");
+        (function() {
+          <%sectionBody%>
+        }).call(<%sectionName%>.<%sectionName%>);
 
-var <%sectionName%> = module.exports = {
-    <%sectionName%>: {}
-};
+        return <%sectionName%>
+    });
 
-(function() {
-<%sectionBody%>
-}).call(<%sectionName%>.<%sectionName%>);
