@@ -22,6 +22,6 @@ define(
           <%sectionBody%>
         }).call(<%sectionName%>.<%sectionName%>);
 
-        return <%sectionName%>
+        return <%sectionName%>;
     });
 
