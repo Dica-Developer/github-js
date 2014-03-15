@@ -13,67 +13,49 @@ define(['Github'], function (Client) {
 
     describe('[authorization]', function () {
         var client;
-//        var token = 'c286e38330e15246a640c2cf32a45ea45d93b2ba';
-
-//        this.timeout(10000);
+        var token = '44046cd4b4b85afebfe3ccaec13fd8c08cc80aad';
 
         beforeEach(function () {
-            client = new Client({
-                version: '3.0.0'
-            });
+            client = new Client();
             client.authenticate({
-                type: 'basic',
-                username: 'mikedeboertest',
-                password: 'test1324'
+                type: 'oauth',
+                token: token
             });
         });
 
-        it('should successfully execute GET /authorizations (getAll)', function (next) {
+        it('should successfully execute GET /authorizations (getAll)', function (done) {
+            var id;
+
+            function getAllClbk2(err, res) {
+                expect(err).toBeNull();
+                expect(res.length).toBe(0);
+                done();
+            }
+
+            function authGetAllClbk(err, res) {
+                expect(err).toBeNull();
+                expect(res.length).toBe(1);
+
+                client.authorization['delete']({ id: id },
+                    function (err) {
+                        expect(err).toBeNull();
+                        client.authorization.getAll({ page: '1', per_page: '100'}, getAllClbk2);
+                    }
+                );
+            }
+
+            function authCreateClbk(err, res) {
+                expect(err).toBeNull();
+                id = res.id;
+                client.authorization.getAll({ page: '1', per_page: '100' }, authGetAllClbk);
+            }
+
             client.authorization.create(
                 {
                     scopes: ['user', 'public_repo', 'repo', 'repo:status', 'delete_repo', 'gist'],
                     note: 'Authorization created to unit tests auth',
-                    note_url: 'https://github.com/ajaxorg/node-github'
-                },
-                function (err, res) {
-
-                    expect(err).not.toBeNull();
-                    var id = res.id;
-
-                    client.authorization.getAll(
-                        {
-                            page: '1',
-                            per_page: '100'
-                        },
-                        function (err, res) {
-                            Assert.equal(err, null);
-                            Assert.equal(res.length, 1);
-
-                            client.authorization['delete'](
-                                {
-                                    id: id
-                                },
-                                function (err, res) {
-                                    Assert.equal(err, null);
-
-                                    client.authorization.getAll(
-                                        {
-                                            page: '1',
-                                            per_page: '100'
-                                        },
-                                        function (err, res) {
-                                            Assert.equal(err, null);
-                                            Assert.equal(res.length, 0);
-
-                                            next();
-                                        }
-                                    );
-                                }
-                            );
-                        }
-                    );
-                }
-            );
+                    note_url: 'https://github.com/jwebertest/forTestOnly'
+                }, authCreateClbk);
         });
 
 //        it('should successfully execute GET /authorizations/:id (get)', function (next) {
