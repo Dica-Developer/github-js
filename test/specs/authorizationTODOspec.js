@@ -36,7 +36,7 @@ define(['Github'], function (Client) {
                     note_url: 'https://github.com/ajaxorg/node-github'
                 },
                 function (err, res) {
-                    console.log(res);
+
                     expect(err).not.toBeNull();
                     var id = res.id;
 
