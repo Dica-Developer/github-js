@@ -104,7 +104,8 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('travis', [
-        'karma:travis'
+        'karma:travis',
+        'coveralls'
     ]);
 
 };
