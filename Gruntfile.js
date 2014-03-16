@@ -103,4 +103,8 @@ module.exports = function (grunt) {
         'karma:dev'
     ]);
 
+    grunt.registerTask('travis', [
+        'karma:travis'
+    ]);
+
 };

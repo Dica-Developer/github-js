@@ -1,8 +1,8 @@
 {
-  "name": "github",
-  "version": "0.1.14",
+  "name": "github-js",
+  "version": "0.1.0",
   "description": "NodeJS wrapper for the GitHub API",
-  "author": "Mike de Boer <info@mikedeboer.nl>",
+  "author": "Jörg Weber",
   "contributors": [
     {
       "name": "Mike de Boer",
@@ -13,18 +13,16 @@
       "email": "fabian@c9.io"
     }
   ],
-  "homepage": "http://github.com/mikedeboer/node-github",
+  "homepage": "",
   "repository": {
     "type": "git",
-    "url": "http://github.com/mikedeboer/node-github.git"
+    "url": "http://github.com/JayGray/node-github.git"
   },
   "engine": {
     "node": ">=0.4.0"
   },
   "devDependencies": {
-    "oauth": "~0.9.7",
     "optimist": "~0.6.0",
-    "mocha": "~1.13.0",
     "grunt": "^0.4.4",
     "grunt-jsdoc": "^0.5.4",
     "time-grunt": "^0.2.10",
@@ -41,7 +39,7 @@
   },
   "main": ".",
   "scripts": {
-    "test": "node ./test/all.js"
+		"test": "grunt travis"
   },
   "licenses": [
     {
