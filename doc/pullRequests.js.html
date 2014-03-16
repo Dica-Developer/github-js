@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: api/pullRequests.js</title>
+    
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+    
+    <h1 class="page-title">Source: api/pullRequests.js</h1>
+    
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>/*global define*/
+define(function(){
+    'use strict';
+
+    /**
+     * @exports pullRequests
+     * @memberof Client
+     */
+    var pullRequests = {
+        pullRequests: {}
+    };
+
+        /**
+     *  @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     *  @config {Object} headers Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: If-Modified-Since, If-None-Match, Cookie, User-Agent
+     *  @config {String} user 
+     *  @config {String} repo 
+     *  @config {String} [state] Validation rule: ` ^(open|closed)$ `.
+     *  @config {Number} [page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    pullRequests.pullRequests.prototype.getAll = function(msg, block, callback) {
+        var self = this;
+        this.client.httpSend(msg, block, function(err, res) {
+            if (err) {
+                return self.sendError(err, null, msg, callback);
+            }
+
+            var ret;
+            if (typeof res.headers !== 'undefined' && typeof res.headers['content-type'] !== 'undefined' && res.headers['content-type'].indexOf('text/html') > -1) {
+                ret = {
+                    data: res.data
+                };
+            } else {
+                try {
+                    ret = res.data && JSON.parse(res.data);
+                } catch (ex) {
+                    if (callback) {
+                        callback(new Error(ex), res);
+                    }
+                    return;
+                }
+            }
+            
+            if (!ret) {
+                ret = {};
+            }
+            if (!ret.meta) {
+                ret.meta = {};
+            }
+            ['x-ratelimit-limit', 'x-ratelimit-remaining', 'x-oauth-scopes', 'link', 'location', 'last-modified', 'etag', 'status'].forEach(function(header) {
+                if (res.headers[header]) {
+                    ret.meta[header] = res.headers[header];
+                }
+            });
+
+            if (callback){
+                callback(null, ret);
+            }
+        });
+    };
+
+    /**
+     *  @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     *  @config {Object} headers Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: If-Modified-Since, If-None-Match, Cookie, User-Agent
+     *  @config {String} user 
+     *  @config {String} repo 
+     *  @config {Number} number Validation rule: ` ^[0-9]+$ `.
+     *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    pullRequests.pullRequests.prototype.get = function(msg, block, callback) {
+        var self = this;
+        this.client.httpSend(msg, block, function(err, res) {
+            if (err) {
+                return self.sendError(err, null, msg, callback);
+            }
+
+            var ret;
+            if (typeof res.headers !== 'undefined' && typeof res.headers['content-type'] !== 'undefined' && res.headers['content-type'].indexOf('text/html') > -1) {
+                ret = {
+                    data: res.data
+                };
+            } else {
+                try {
+                    ret = res.data && JSON.parse(res.data);
+                } catch (ex) {
+                    if (callback) {
+                        callback(new Error(ex), res);
+                    }
+                    return;
+                }
+            }
+            
+            if (!ret) {
+                ret = {};
+            }
+            if (!ret.meta) {
+                ret.meta = {};
+            }
+            ['x-ratelimit-limit', 'x-ratelimit-remaining', 'x-oauth-scopes', 'link', 'location', 'last-modified', 'etag', 'status'].forEach(function(header) {
+                if (res.headers[header]) {
+                    ret.meta[header] = res.headers[header];
+                }
+            });
+
+            if (callback){
+                callback(null, ret);
+            }
+        });
+    };
+
+    /**
+     *  @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     *  @config {Object} headers Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: If-Modified-Since, If-None-Match, Cookie, User-Agent
+     *  @config {String} user 
+     *  @config {String} repo 
+     *  @config {String} title 
+     *  @config {String} [body] 
+     *  @config {String} base Required string - The branch (or git ref) you want your changes pulled into. This should be an existing branch on the current repository. You cannot submit a pull request to one repo that requests a merge to a base of another repo. 
+     *  @config {String} head Required string - The branch (or git ref) where your changes are implemented. 
+     *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    pullRequests.pullRequests.prototype.create = function(msg, block, callback) {
+        var self = this;
+        this.client.httpSend(msg, block, function(err, res) {
+            if (err) {
+                return self.sendError(err, null, msg, callback);
+            }
+
+            var ret;
+            if (typeof res.headers !== 'undefined' && typeof res.headers['content-type'] !== 'undefined' && res.headers['content-type'].indexOf('text/html') > -1) {
+                ret = {
+                    data: res.data
+                };
+            } else {
+                try {
+                    ret = res.data && JSON.parse(res.data);
+                } catch (ex) {
+                    if (callback) {
+                        callback(new Error(ex), res);
+                    }
+                    return;
+                }
+            }
+            
+            if (!ret) {
+                ret = {};
+            }
+            if (!ret.meta) {
+                ret.meta = {};
+            }
+            ['x-ratelimit-limit', 'x-ratelimit-remaining', 'x-oauth-scopes', 'link', 'location', 'last-modified', 'etag', 'status'].forEach(function(header) {
+                if (res.headers[header]) {
+                    ret.meta[header] = res.headers[header];
+                }
+            });
+
+            if (callback){
+                callback(null, ret);
+            }
+        });
+    };
+
+    /**
+     *  @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     *  @config {Object} headers Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: If-Modified-Since, If-None-Match, Cookie, User-Agent
+     *  @config {String} user 
+     *  @config {String} repo 
+     *  @config {Number} issue Validation rule: ` ^[0-9]+$ `.
+     *  @config {String} base Required string - The branch (or git ref) you want your changes pulled into. This should be an existing branch on the current repository. You cannot submit a pull request to one repo that requests a merge to a base of another repo. 
+     *  @config {String} head Required string - The branch (or git ref) where your changes are implemented. 
+     *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    pullRequests.pullRequests.prototype.createFromIssue = function(msg, block, callback) {
+        var self = this;
+        this.client.httpSend(msg, block, function(err, res) {
+            if (err) {
+                return self.sendError(err, null, msg, callback);
+            }
+
+            var ret;
+            if (typeof res.headers !== 'undefined' && typeof res.headers['content-type'] !== 'undefined' && res.headers['content-type'].indexOf('text/html') > -1) {
+                ret = {
+                    data: res.data
+                };
+            } else {
+                try {
+                    ret = res.data && JSON.parse(res.data);
+                } catch (ex) {
+                    if (callback) {
+                        callback(new Error(ex), res);
+                    }
+                    return;
+                }
+            }
+            
+            if (!ret) {
+                ret = {};
+            }
+            if (!ret.meta) {
+                ret.meta = {};
+            }
+            ['x-ratelimit-limit', 'x-ratelimit-remaining', 'x-oauth-scopes', 'link', 'location', 'last-modified', 'etag', 'status'].forEach(function(header) {
+                if (res.headers[header]) {
+                    ret.meta[header] = res.headers[header];
+                }
+            });
+
+            if (callback){
+                callback(null, ret);
+            }
+        });
+    };
+
+    /**
+     *  @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     *  @config {Object} headers Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: If-Modified-Since, If-None-Match, Cookie, User-Agent
+     *  @config {String} user 
+     *  @config {String} repo 
+     *  @config {Number} number Validation rule: ` ^[0-9]+$ `.
+     *  @config {String} [state] Validation rule: ` ^(open|closed)$ `.
+     *  @config {String} title 
+     *  @config {String} [body] 
+     *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    pullRequests.pullRequests.prototype.update = function(msg, block, callback) {
+        var self = this;
+        this.client.httpSend(msg, block, function(err, res) {
+            if (err) {
+                return self.sendError(err, null, msg, callback);
+            }
+
+            var ret;
+            if (typeof res.headers !== 'undefined' && typeof res.headers['content-type'] !== 'undefined' && res.headers['content-type'].indexOf('text/html') > -1) {
+                ret = {
+                    data: res.data
+                };
+            } else {
+                try {
+                    ret = res.data && JSON.parse(res.data);
+                } catch (ex) {
+                    if (callback) {
+                        callback(new Error(ex), res);
+                    }
+                    return;
+                }
+            }
+            
+            if (!ret) {
+                ret = {};
+            }
+            if (!ret.meta) {
+                ret.meta = {};
+            }
+            ['x-ratelimit-limit', 'x-ratelimit-remaining', 'x-oauth-scopes', 'link', 'location', 'last-modified', 'etag', 'status'].forEach(function(header) {
+                if (res.headers[header]) {
+                    ret.meta[header] = res.headers[header];
+                }
+            });
+
+            if (callback){
+                callback(null, ret);
+            }
+        });
+    };
+
+    /**
+     *  @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     *  @config {Object} headers Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: If-Modified-Since, If-None-Match, Cookie, User-Agent
+     *  @config {String} user 
+     *  @config {String} repo 
+     *  @config {Number} number Validation rule: ` ^[0-9]+$ `.
+     *  @config {Number} [page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    pullRequests.pullRequests.prototype.getCommits = function(msg, block, callback) {
+        var self = this;
+        this.client.httpSend(msg, block, function(err, res) {
+            if (err) {
+                return self.sendError(err, null, msg, callback);
+            }
+
+            var ret;
+            if (typeof res.headers !== 'undefined' && typeof res.headers['content-type'] !== 'undefined' && res.headers['content-type'].indexOf('text/html') > -1) {
+                ret = {
+                    data: res.data
+                };
+            } else {
+                try {
+                    ret = res.data && JSON.parse(res.data);
+                } catch (ex) {
+                    if (callback) {
+                        callback(new Error(ex), res);
+                    }
+                    return;
+                }
+            }
+            
+            if (!ret) {
+                ret = {};
+            }
+            if (!ret.meta) {
+                ret.meta = {};
+            }
+            ['x-ratelimit-limit', 'x-ratelimit-remaining', 'x-oauth-scopes', 'link', 'location', 'last-modified', 'etag', 'status'].forEach(function(header) {
+                if (res.headers[header]) {
+                    ret.meta[header] = res.headers[header];
+                }
+            });
+
+            if (callback){
+                callback(null, ret);
+            }
+        });
+    };
+
+    /**
+     *  @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     *  @config {Object} headers Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: If-Modified-Since, If-None-Match, Cookie, User-Agent
+     *  @config {String} user 
+     *  @config {String} repo 
+     *  @config {Number} number Validation rule: ` ^[0-9]+$ `.
+     *  @config {Number} [page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    pullRequests.pullRequests.prototype.getFiles = function(msg, block, callback) {
+        var self = this;
+        this.client.httpSend(msg, block, function(err, res) {
+            if (err) {
+                return self.sendError(err, null, msg, callback);
+            }
+
+            var ret;
+            if (typeof res.headers !== 'undefined' && typeof res.headers['content-type'] !== 'undefined' && res.headers['content-type'].indexOf('text/html') > -1) {
+                ret = {
+                    data: res.data
+                };
+            } else {
+                try {
+                    ret = res.data && JSON.parse(res.data);
+                } catch (ex) {
+                    if (callback) {
+                        callback(new Error(ex), res);
+                    }
+                    return;
+                }
+            }
+            
+            if (!ret) {
+                ret = {};
+            }
+            if (!ret.meta) {
+                ret.meta = {};
+            }
+            ['x-ratelimit-limit', 'x-ratelimit-remaining', 'x-oauth-scopes', 'link', 'location', 'last-modified', 'etag', 'status'].forEach(function(header) {
+                if (res.headers[header]) {
+                    ret.meta[header] = res.headers[header];
+                }
+            });
+
+            if (callback){
+                callback(null, ret);
+            }
+        });
+    };
+
+    /**
+     *  @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     *  @config {Object} headers Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: If-Modified-Since, If-None-Match, Cookie, User-Agent
+     *  @config {String} user 
+     *  @config {String} repo 
+     *  @config {Number} number Validation rule: ` ^[0-9]+$ `.
+     *  @config {Number} [page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    pullRequests.pullRequests.prototype.getMerged = function(msg, block, callback) {
+        var self = this;
+        this.client.httpSend(msg, block, function(err, res) {
+            if (err) {
+                return self.sendError(err, null, msg, callback);
+            }
+
+            var ret;
+            if (typeof res.headers !== 'undefined' && typeof res.headers['content-type'] !== 'undefined' && res.headers['content-type'].indexOf('text/html') > -1) {
+                ret = {
+                    data: res.data
+                };
+            } else {
+                try {
+                    ret = res.data && JSON.parse(res.data);
+                } catch (ex) {
+                    if (callback) {
+                        callback(new Error(ex), res);
+                    }
+                    return;
+                }
+            }
+            
+            if (!ret) {
+                ret = {};
+            }
+            if (!ret.meta) {
+                ret.meta = {};
+            }
+            ['x-ratelimit-limit', 'x-ratelimit-remaining', 'x-oauth-scopes', 'link', 'location', 'last-modified', 'etag', 'status'].forEach(function(header) {
+                if (res.headers[header]) {
+                    ret.meta[header] = res.headers[header];
+                }
+            });
+
+            if (callback){
+                callback(null, ret);
+            }
+        });
+    };
+
+    /**
+     *  @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     *  @config {Object} headers Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: If-Modified-Since, If-None-Match, Cookie, User-Agent
+     *  @config {String} user 
+     *  @config {String} repo 
+     *  @config {Number} number Validation rule: ` ^[0-9]+$ `.
+     *  @config {String} [commit_message] Optional string - The message that will be used for the merge commit 
+     *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    pullRequests.pullRequests.prototype.merge = function(msg, block, callback) {
+        var self = this;
+        this.client.httpSend(msg, block, function(err, res) {
+            if (err) {
+                return self.sendError(err, null, msg, callback);
+            }
+
+            var ret;
+            if (typeof res.headers !== 'undefined' && typeof res.headers['content-type'] !== 'undefined' && res.headers['content-type'].indexOf('text/html') > -1) {
+                ret = {
+                    data: res.data
+                };
+            } else {
+                try {
+                    ret = res.data && JSON.parse(res.data);
+                } catch (ex) {
+                    if (callback) {
+                        callback(new Error(ex), res);
+                    }
+                    return;
+                }
+            }
+            
+            if (!ret) {
+                ret = {};
+            }
+            if (!ret.meta) {
+                ret.meta = {};
+            }
+            ['x-ratelimit-limit', 'x-ratelimit-remaining', 'x-oauth-scopes', 'link', 'location', 'last-modified', 'etag', 'status'].forEach(function(header) {
+                if (res.headers[header]) {
+                    ret.meta[header] = res.headers[header];
+                }
+            });
+
+            if (callback){
+                callback(null, ret);
+            }
+        });
+    };
+
+    /**
+     *  @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     *  @config {Object} headers Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: If-Modified-Since, If-None-Match, Cookie, User-Agent
+     *  @config {String} user 
+     *  @config {String} repo 
+     *  @config {Number} number Validation rule: ` ^[0-9]+$ `.
+     *  @config {Number} [page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    pullRequests.pullRequests.prototype.getComments = function(msg, block, callback) {
+        var self = this;
+        this.client.httpSend(msg, block, function(err, res) {
+            if (err) {
+                return self.sendError(err, null, msg, callback);
+            }
+
+            var ret;
+            if (typeof res.headers !== 'undefined' && typeof res.headers['content-type'] !== 'undefined' && res.headers['content-type'].indexOf('text/html') > -1) {
+                ret = {
+                    data: res.data
+                };
+            } else {
+                try {
+                    ret = res.data && JSON.parse(res.data);
+                } catch (ex) {
+                    if (callback) {
+                        callback(new Error(ex), res);
+                    }
+                    return;
+                }
+            }
+            
+            if (!ret) {
+                ret = {};
+            }
+            if (!ret.meta) {
+                ret.meta = {};
+            }
+            ['x-ratelimit-limit', 'x-ratelimit-remaining', 'x-oauth-scopes', 'link', 'location', 'last-modified', 'etag', 'status'].forEach(function(header) {
+                if (res.headers[header]) {
+                    ret.meta[header] = res.headers[header];
+                }
+            });
+
+            if (callback){
+                callback(null, ret);
+            }
+        });
+    };
+
+    /**
+     *  @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     *  @config {Object} headers Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: If-Modified-Since, If-None-Match, Cookie, User-Agent
+     *  @config {String} user 
+     *  @config {String} repo 
+     *  @config {Number} number Validation rule: ` ^[0-9]+$ `.
+     *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    pullRequests.pullRequests.prototype.getComment = function(msg, block, callback) {
+        var self = this;
+        this.client.httpSend(msg, block, function(err, res) {
+            if (err) {
+                return self.sendError(err, null, msg, callback);
+            }
+
+            var ret;
+            if (typeof res.headers !== 'undefined' && typeof res.headers['content-type'] !== 'undefined' && res.headers['content-type'].indexOf('text/html') > -1) {
+                ret = {
+                    data: res.data
+                };
+            } else {
+                try {
+                    ret = res.data && JSON.parse(res.data);
+                } catch (ex) {
+                    if (callback) {
+                        callback(new Error(ex), res);
+                    }
+                    return;
+                }
+            }
+            
+            if (!ret) {
+                ret = {};
+            }
+            if (!ret.meta) {
+                ret.meta = {};
+            }
+            ['x-ratelimit-limit', 'x-ratelimit-remaining', 'x-oauth-scopes', 'link', 'location', 'last-modified', 'etag', 'status'].forEach(function(header) {
+                if (res.headers[header]) {
+                    ret.meta[header] = res.headers[header];
+                }
+            });
+
+            if (callback){
+                callback(null, ret);
+            }
+        });
+    };
+
+    /**
+     *  @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     *  @config {Object} headers Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: If-Modified-Since, If-None-Match, Cookie, User-Agent
+     *  @config {String} user 
+     *  @config {String} repo 
+     *  @config {Number} number Validation rule: ` ^[0-9]+$ `.
+     *  @config {String} body 
+     *  @config {String} commit_id Required string - Sha of the commit to comment on. 
+     *  @config {String} path Required string - Relative path of the file to comment on. 
+     *  @config {Number} position Required number - Column index in the diff to comment on. 
+     *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    pullRequests.pullRequests.prototype.createComment = function(msg, block, callback) {
+        var self = this;
+        this.client.httpSend(msg, block, function(err, res) {
+            if (err) {
+                return self.sendError(err, null, msg, callback);
+            }
+
+            var ret;
+            if (typeof res.headers !== 'undefined' && typeof res.headers['content-type'] !== 'undefined' && res.headers['content-type'].indexOf('text/html') > -1) {
+                ret = {
+                    data: res.data
+                };
+            } else {
+                try {
+                    ret = res.data && JSON.parse(res.data);
+                } catch (ex) {
+                    if (callback) {
+                        callback(new Error(ex), res);
+                    }
+                    return;
+                }
+            }
+            
+            if (!ret) {
+                ret = {};
+            }
+            if (!ret.meta) {
+                ret.meta = {};
+            }
+            ['x-ratelimit-limit', 'x-ratelimit-remaining', 'x-oauth-scopes', 'link', 'location', 'last-modified', 'etag', 'status'].forEach(function(header) {
+                if (res.headers[header]) {
+                    ret.meta[header] = res.headers[header];
+                }
+            });
+
+            if (callback){
+                callback(null, ret);
+            }
+        });
+    };
+
+    /**
+     *  @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     *  @config {Object} headers Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: If-Modified-Since, If-None-Match, Cookie, User-Agent
+     *  @config {String} user 
+     *  @config {String} repo 
+     *  @config {Number} number Validation rule: ` ^[0-9]+$ `.
+     *  @config {String} body 
+     *  @config {Number} in_reply_to 
+     *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    pullRequests.pullRequests.prototype.createCommentReply = function(msg, block, callback) {
+        var self = this;
+        this.client.httpSend(msg, block, function(err, res) {
+            if (err) {
+                return self.sendError(err, null, msg, callback);
+            }
+
+            var ret;
+            if (typeof res.headers !== 'undefined' && typeof res.headers['content-type'] !== 'undefined' && res.headers['content-type'].indexOf('text/html') > -1) {
+                ret = {
+                    data: res.data
+                };
+            } else {
+                try {
+                    ret = res.data && JSON.parse(res.data);
+                } catch (ex) {
+                    if (callback) {
+                        callback(new Error(ex), res);
+                    }
+                    return;
+                }
+            }
+            
+            if (!ret) {
+                ret = {};
+            }
+            if (!ret.meta) {
+                ret.meta = {};
+            }
+            ['x-ratelimit-limit', 'x-ratelimit-remaining', 'x-oauth-scopes', 'link', 'location', 'last-modified', 'etag', 'status'].forEach(function(header) {
+                if (res.headers[header]) {
+                    ret.meta[header] = res.headers[header];
+                }
+            });
+
+            if (callback){
+                callback(null, ret);
+            }
+        });
+    };
+
+    /**
+     *  @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     *  @config {Object} headers Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: If-Modified-Since, If-None-Match, Cookie, User-Agent
+     *  @config {String} user 
+     *  @config {String} repo 
+     *  @config {Number} number Validation rule: ` ^[0-9]+$ `.
+     *  @config {String} body 
+     *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    pullRequests.pullRequests.prototype.updateComment = function(msg, block, callback) {
+        var self = this;
+        this.client.httpSend(msg, block, function(err, res) {
+            if (err) {
+                return self.sendError(err, null, msg, callback);
+            }
+
+            var ret;
+            if (typeof res.headers !== 'undefined' && typeof res.headers['content-type'] !== 'undefined' && res.headers['content-type'].indexOf('text/html') > -1) {
+                ret = {
+                    data: res.data
+                };
+            } else {
+                try {
+                    ret = res.data && JSON.parse(res.data);
+                } catch (ex) {
+                    if (callback) {
+                        callback(new Error(ex), res);
+                    }
+                    return;
+                }
+            }
+            
+            if (!ret) {
+                ret = {};
+            }
+            if (!ret.meta) {
+                ret.meta = {};
+            }
+            ['x-ratelimit-limit', 'x-ratelimit-remaining', 'x-oauth-scopes', 'link', 'location', 'last-modified', 'etag', 'status'].forEach(function(header) {
+                if (res.headers[header]) {
+                    ret.meta[header] = res.headers[header];
+                }
+            });
+
+            if (callback){
+                callback(null, ret);
+            }
+        });
+    };
+
+    /**
+     *  @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     *  @config {Object} headers Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: If-Modified-Since, If-None-Match, Cookie, User-Agent
+     *  @config {String} user 
+     *  @config {String} repo 
+     *  @config {Number} number Validation rule: ` ^[0-9]+$ `.
+     *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    pullRequests.pullRequests.prototype.deleteComment = function(msg, block, callback) {
+        var self = this;
+        this.client.httpSend(msg, block, function(err, res) {
+            if (err) {
+                return self.sendError(err, null, msg, callback);
+            }
+
+            var ret;
+            if (typeof res.headers !== 'undefined' && typeof res.headers['content-type'] !== 'undefined' && res.headers['content-type'].indexOf('text/html') > -1) {
+                ret = {
+                    data: res.data
+                };
+            } else {
+                try {
+                    ret = res.data && JSON.parse(res.data);
+                } catch (ex) {
+                    if (callback) {
+                        callback(new Error(ex), res);
+                    }
+                    return;
+                }
+            }
+            
+            if (!ret) {
+                ret = {};
+            }
+            if (!ret.meta) {
+                ret.meta = {};
+            }
+            ['x-ratelimit-limit', 'x-ratelimit-remaining', 'x-oauth-scopes', 'link', 'location', 'last-modified', 'etag', 'status'].forEach(function(header) {
+                if (res.headers[header]) {
+                    ret.meta[header] = res.headers[header];
+                }
+            });
+
+            if (callback){
+                callback(null, ret);
+            }
+        });
+    };
+
+
+    return pullRequests;
+});
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="authorization.html">authorization</a></li><li><a href="events.html">events</a></li><li><a href="gists.html">gists</a></li><li><a href="gitdata.html">gitdata</a></li><li><a href="issues.html">issues</a></li><li><a href="markdown.html">markdown</a></li><li><a href="orgs.html">orgs</a></li><li><a href="pullRequests.html">pullRequests</a></li><li><a href="repos.html">repos</a></li><li><a href="search.html">search</a></li><li><a href="statuses.html">statuses</a></li><li><a href="user.html">user</a></li></ul><h3>Classes</h3><ul><li><a href="Client.html">Client</a></li><li><a href="HttpError.html">HttpError</a></li><li><a href="Util.html">Util</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun Mar 16 2014 18:14:40 GMT+0100 (CET)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
