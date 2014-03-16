@@ -1,20 +1,14 @@
-# JavaScript GitHub API for Node.JS
+# github-js
 
-A Node.JS module, which provides an object oriented wrapper for the GitHub v3 API.
+## Rewrite of [Mike de Boer](https://github.com/mikedeboer)'s fantastic [node-github](https://github.com/mikedeboer/node-github) to work in browser
 
 ## Installation
 
-  Install with the Node.JS package manager [npm](http://npmjs.org/) ![NPM version](https://badge.fury.io/js/github.png):
-
-      $ npm install github
-
-or
-
   Install via git clone:
-
-      $ git clone git://github.com/mikedeboer/node-github.git
-      $ cd node-github
-      $ npm install
+```shell
+$ git clone git://github.com/JayGray/node-github.git
+$ cd node-github
+```
 
 ## Documentation
 
@@ -30,9 +24,6 @@ Print all followers of the user "mikedeboer" to the console.
 var GitHubApi = require("github");
 
 var github = new GitHubApi({
-    // required
-    version: "3.0.0",
-    // optional
     debug: true,
     protocol: "https",
     host: "github.my-GHE-enabled-company.com",
@@ -94,13 +85,6 @@ github.authenticate({
     token: token
 });
 
-// OAuth2 Key/Secret
-github.authenticate({
-    type: "oauth",
-    key: "clientID",
-    secret: "clientSecret"
-})
-
 // Deprecated Gihub API token (seems not to be working with the v3 API)
 github.authenticate({
     type: "token",
@@ -117,6 +101,7 @@ For example:
 2. Create an application token programmatically with the scopes you need and, if you use two-factor authentication send the `X-GitHub-OTP` header with the one-time-password you get on your token device.
 
 ```javascript
+
 github.authorization.create({
     scopes: ["user", "public_repo", "repo", "repo:status", "gist"],
     note: "what this auth is for",
@@ -129,6 +114,169 @@ github.authorization.create({
         //save and use res.token as in the Oauth process above from now on
     }
 });
+
+```
+### For Developers
+
+Client can load any version of the [[github]] client API, with the
+requirement that a valid routes.json definition file is present in the
+`api/[VERSION]` directory and that the routes found in this file are
+implemented as well.
+
+Upon instantiation of the {@link Client} class, the routes.json file is loaded
+from the API version specified in the configuration and, parsed and from it
+the routes for HTTP requests are extracted. For each HTTP endpoint to the
+HTTP server, a method is generated which accepts a Javascript Object
+with parameters and an optional callback to be invoked when the API request
+returns from the server or when the parameters could not be validated.
+
+When an HTTP endpoint is processed and a method is generated as described
+above, {@link Client} also sets up parameter validation with the rules as
+defined in the routes.json. A full example that illustrates how this works
+is shown below:
+
+First, we look at a listing of a sample routes.json routes definition file:
+```javascript
+   {
+       "defines": {
+           "constants": {
+               "name": "Github",
+               "description": "A Node.JS module, which provides an object oriented wrapper for the GitHub v3 API.",
+               "protocol": "https",
+               "host": "api.github.com",
+               "port": 443,
+               "dateFormat": "YYYY-MM-DDTHH:MM:SSZ",
+               "requestFormat": "json"
+           },
+           "response-headers": [
+               "X-RateLimit-Limit",
+               "X-RateLimit-Remaining",
+               "Link"
+           ],
+           "params": {
+               "files": {
+                   "type": "Json",
+                   "required": true,
+                   "validation": "",
+                   "invalidmsg": "",
+                   "description": "Files that make up this gist. The key of which should be a required string filename and the value another required hash with parameters: 'content'"
+               },
+               "user": {
+                   "type": "String",
+                   "required": true,
+                   "validation": "",
+                   "invalidmsg": "",
+                   "description": ""
+               },
+               "description": {
+                   "type": "String",
+                   "required": false,
+                   "validation": "",
+                   "invalidmsg": "",
+                   "description": ""
+               },
+               "page": {
+                   "type": "Number",
+                   "required": false,
+                   "validation": "^[0-9]+$",
+                   "invalidmsg": "",
+                   "description": "Page number of the results to fetch."
+               },
+               "per_page": {
+                   "type": "Number",
+                   "required": false,
+                   "validation": "^[0-9]+$",
+                   "invalidmsg": "",
+                   "description": "A custom page size up to 100. Default is 30."
+               }
+           }
+       },
+
+       "gists": {
+           "get-from-user": {
+               "url": ":user/gists",
+               "method": "GET",
+               "params": {
+                   "$user": null,
+                   "$page": null,
+                   "$per_page": null
+               }
+           },
+
+           "create": {
+               "url": "/gists",
+               "method": "POST",
+               "params": {
+                   "$description": null,
+                   "public": {
+                       "type": "Boolean",
+                       "required": true,
+                       "validation": "",
+                       "invalidmsg": "",
+                       "description": ""
+                   },
+                   "$files": null
+               }
+           }
+       }
+    }
+```
+
+You probably noticed that the definition is quite verbose and the decision
+for its design was made to be verbose whilst still allowing for basic variable
+definitions and substitions for request parameters.
+
+There are two sections; 'defines' and 'gists' in this example.
+
+The `defines` section contains a list of `constants` that will be used by the
+[[Client]] to make requests to the right URL that hosts the API.
+The `gists` section defines the endpoints for calls to the API server, for
+gists specifically in this example, but the other API sections are defined in
+the exact same way.
+These definitions are parsed and methods are created that the client can call
+to make an HTTP request to the server.
+there is one endpoint defined: .
+In this example, the endpoint `gists/get-from-user` will be exposed as a member
+on the [[Client]] object and may be invoked with
+
+```javascript
+   client.getFromUser({
+       "user": "bob"
+   }, function(err, ret) {
+       // do something with the result here.
+   });
+
+   // or to fetch a specfic page:
+   client.getFromUser({
+       "user": "bob",
+       "page": 2,
+       "per_page": 100
+   }, function(err, ret) {
+       // do something with the result here.
+   });
+```
+
+All the parameters as specified in the Object that is passed to the function
+as first argument, will be validated according to the rules in the `params`
+block of the route definition.
+Thus, in the case of the `user` parameter, according to the definition in
+the `params` block, it's a variable that first needs to be looked up in the
+`params` block of the `defines` section (at the top of the JSON file). Params
+that start with a `$` sign will be substituted with the param with the same
+name from the `defines/params` section.
+There we see that it is a required parameter (needs to hold a value). In other
+words, if the validation requirements are not met, an HTTP error is passed as
+first argument of the callback.
+
+Implementation Notes: the `method` is NOT case sensitive, whereas `url` is.
+The `url` parameter also supports denoting parameters inside it as follows:
+
+```javascript
+   "get-from-user": {
+       "url": ":user/gists",
+       "method": "GET"
+       ...
+   }
 ```
 
 ## Implemented GitHub APIs
