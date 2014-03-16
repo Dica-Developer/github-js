@@ -165,7 +165,7 @@ var main = module.exports = function (routes, tests/*, restore*/) {
 
                 parts.splice(0, 2);
                 var funcName = toCamelCase(parts.join('-'));
-                var comment = createComment(block.params, '            ');
+                var comment = createComment(block.params, '        ');
 
                 // add the handler to the sections
                 if (!sections[section]){
@@ -180,6 +180,7 @@ var main = module.exports = function (routes, tests/*, restore*/) {
                 sections[section].push(HandlerTpl
                     .replace('<%funcName%>', funcName)
                     .replace('<%comment%>', comment)
+                    .replace(/<%sectionName%>/g, section)
                     .replace('<%afterRequest%>', afterRequest)
                 );
 
@@ -190,7 +191,7 @@ var main = module.exports = function (routes, tests/*, restore*/) {
                 testSections[section].push(TestHandlerTpl
                     .replace('<%name%>', block.method + ' ' + block.url + ' (' + funcName + ')')
                     .replace('<%funcName%>', section + '.' + funcName)
-                    .replace('<%params%>', getParams(block.params, '            '))
+                    .replace('<%params%>', getParams(block.params, '        '))
                 );
             } else {
                 // recurse into this block next:

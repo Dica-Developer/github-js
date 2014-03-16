@@ -9,7 +9,7 @@
  **/
 define(
     /**
-    * @exports Client#<%sectionName%>
+    * @exports <%sectionName%>
     */
     function(){
         'use strict';
@@ -18,9 +18,7 @@ define(
             <%sectionName%>: {}
         };
 
-        (function() {
-            <%sectionBody%>
-        }).call(<%sectionName%>.<%sectionName%>);
+        <%sectionBody%>
 
         return <%sectionName%>;
     });
