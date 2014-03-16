@@ -1,5 +1,5 @@
     <%comment%>
-    <%sectionName%>.<%sectionName%>.prototype.<%funcName%> = function(msg, block, callback) {
+    <%sectionName%>.<%sectionName%>.<%funcName%> = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
