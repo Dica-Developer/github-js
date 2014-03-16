@@ -42,20 +42,20 @@ define(['Github'], function (Client) {
         it('should successfully execute GET /repos/:user/:repo/events (getFromRepo)', function (done) {
             function callback(err, res) {
                 expect(err).toBeNull();
-//                expect(res.length).toBe(5);
+                expect(res.length).toBe(1);
                 var last = res.pop();
                 expect(last.type).toBe('CreateEvent');
-                expect(last.created_at).toBe('2014-03-16T00:44:27Z');
-                expect(last.id).toBe('2017308219');
+                expect(last.created_at).toBe('2014-03-16T01:37:42Z');
+                expect(last.id).toBe('2017326039');
                 expect(last.public).toBeTruthy();
                 expect(last.actor.login).toBe('jwebertest');
-                expect(last.repo.name).toBe('jwebertest/forTestUseOnly');
+                expect(last.repo.name).toBe('jwebertest/gh-review');
                 done();
             }
 
             client.events.getFromRepo({
                 user: 'jwebertest',
-                repo: 'forTestUseOnly'
+                repo: 'gh-review'
             }, callback);
         });
 
