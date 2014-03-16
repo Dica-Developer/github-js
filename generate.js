@@ -209,8 +209,6 @@ var main = module.exports = function (routes, tests/*, restore*/) {
         return 'api/' + name;
     });
 
-    console.log(sectionPaths);
-
     console.log('Writing index.js file');
     Fs.writeFileSync(Path.join(dir, 'index.js'),
         IndexTpl
