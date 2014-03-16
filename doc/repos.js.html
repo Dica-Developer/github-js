@@ -47,7 +47,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.getAll = function(msg, block, callback) {
+    repos.repos.getAll = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -99,7 +99,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.getFromUser = function(msg, block, callback) {
+    repos.repos.getFromUser = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -149,7 +149,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.getFromOrg = function(msg, block, callback) {
+    repos.repos.getFromOrg = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -204,7 +204,7 @@ define(function(){
      *  @config {String} [gitignore_template] Optional string - Desired language or platform .gitignore template to apply. Ignored if auto_init parameter is not provided. 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.create = function(msg, block, callback) {
+    repos.repos.create = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -261,7 +261,7 @@ define(function(){
      *  @config {Number} [team_id] Optional number - The id of the team that will be granted access to this repository. This is only valid when creating a repo in an organization. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.createFromOrg = function(msg, block, callback) {
+    repos.repos.createFromOrg = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -309,7 +309,7 @@ define(function(){
      *  @config {String} repo 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.get = function(msg, block, callback) {
+    repos.repos.get = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -364,7 +364,7 @@ define(function(){
      *  @config {Boolean} [has_downloads] Optional boolean - true to enable downloads for this repository, false to disable them. Default is true. 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.update = function(msg, block, callback) {
+    repos.repos.update = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -412,7 +412,7 @@ define(function(){
      *  @config {String} repo 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.delete = function(msg, block, callback) {
+    repos.repos.delete = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -463,7 +463,7 @@ define(function(){
      *  @config {String} [commit_message] Optional string - Commit message to use for the merge commit. If omitted, a default message will be used. 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.merge = function(msg, block, callback) {
+    repos.repos.merge = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -514,7 +514,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.getContributors = function(msg, block, callback) {
+    repos.repos.getContributors = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -564,7 +564,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.getLanguages = function(msg, block, callback) {
+    repos.repos.getLanguages = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -614,7 +614,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.getTeams = function(msg, block, callback) {
+    repos.repos.getTeams = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -664,7 +664,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.getTags = function(msg, block, callback) {
+    repos.repos.getTags = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -714,7 +714,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.getBranches = function(msg, block, callback) {
+    repos.repos.getBranches = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -765,7 +765,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.getBranch = function(msg, block, callback) {
+    repos.repos.getBranch = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -815,7 +815,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.getCollaborators = function(msg, block, callback) {
+    repos.repos.getCollaborators = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -864,7 +864,7 @@ define(function(){
      *  @config {String} collabuser 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.getCollaborator = function(msg, block, callback) {
+    repos.repos.getCollaborator = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -913,7 +913,7 @@ define(function(){
      *  @config {String} collabuser 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.addCollaborator = function(msg, block, callback) {
+    repos.repos.addCollaborator = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -962,7 +962,7 @@ define(function(){
      *  @config {String} collabuser 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.removeCollaborator = function(msg, block, callback) {
+    repos.repos.removeCollaborator = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -1017,7 +1017,7 @@ define(function(){
      *  @config {Date} [until] Optional string of a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.getCommits = function(msg, block, callback) {
+    repos.repos.getCommits = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -1066,7 +1066,7 @@ define(function(){
      *  @config {String} sha 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.getCommit = function(msg, block, callback) {
+    repos.repos.getCommit = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -1116,7 +1116,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.getAllCommitComments = function(msg, block, callback) {
+    repos.repos.getAllCommitComments = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -1167,7 +1167,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.getCommitComments = function(msg, block, callback) {
+    repos.repos.getCommitComments = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -1221,7 +1221,7 @@ define(function(){
      *  @config {Number} [line] Optional number - Line number in the file to comment on. Defaults to 1. 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.createCommitComment = function(msg, block, callback) {
+    repos.repos.createCommitComment = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -1270,7 +1270,7 @@ define(function(){
      *  @config {String} id 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.getCommitComment = function(msg, block, callback) {
+    repos.repos.getCommitComment = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -1320,7 +1320,7 @@ define(function(){
      *  @config {String} body 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.updateCommitComment = function(msg, block, callback) {
+    repos.repos.updateCommitComment = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -1370,7 +1370,7 @@ define(function(){
      *  @config {String} head Required string - The branch (or git ref) where your changes are implemented. 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.compareCommits = function(msg, block, callback) {
+    repos.repos.compareCommits = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -1419,7 +1419,7 @@ define(function(){
      *  @config {String} id 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.deleteCommitComment = function(msg, block, callback) {
+    repos.repos.deleteCommitComment = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -1468,7 +1468,7 @@ define(function(){
      *  @config {String} [ref] The String name of the Commit/Branch/Tag. Defaults to master. 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.getReadme = function(msg, block, callback) {
+    repos.repos.getReadme = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -1518,7 +1518,7 @@ define(function(){
      *  @config {String} [ref] The String name of the Commit/Branch/Tag. Defaults to master. 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.getContent = function(msg, block, callback) {
+    repos.repos.getContent = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -1568,7 +1568,7 @@ define(function(){
      *  @config {String} archive_format Either tarball or zipball Validation rule: ` ^(tarball|zipball)$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.getArchiveLink = function(msg, block, callback) {
+    repos.repos.getArchiveLink = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -1618,7 +1618,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.getDownloads = function(msg, block, callback) {
+    repos.repos.getDownloads = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -1667,7 +1667,7 @@ define(function(){
      *  @config {String} id 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.getDownload = function(msg, block, callback) {
+    repos.repos.getDownload = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -1716,7 +1716,7 @@ define(function(){
      *  @config {String} id 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.deleteDownload = function(msg, block, callback) {
+    repos.repos.deleteDownload = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -1767,7 +1767,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.getForks = function(msg, block, callback) {
+    repos.repos.getForks = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -1816,7 +1816,7 @@ define(function(){
      *  @config {String} [org] Optional String - Organization login. The repository will be forked into this organization. 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.fork = function(msg, block, callback) {
+    repos.repos.fork = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -1866,7 +1866,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.getKeys = function(msg, block, callback) {
+    repos.repos.getKeys = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -1915,7 +1915,7 @@ define(function(){
      *  @config {String} id 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.getKey = function(msg, block, callback) {
+    repos.repos.getKey = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -1965,7 +1965,7 @@ define(function(){
      *  @config {String} key 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.createKey = function(msg, block, callback) {
+    repos.repos.createKey = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -2016,7 +2016,7 @@ define(function(){
      *  @config {String} key 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.updateKey = function(msg, block, callback) {
+    repos.repos.updateKey = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -2065,7 +2065,7 @@ define(function(){
      *  @config {String} id 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.deleteKey = function(msg, block, callback) {
+    repos.repos.deleteKey = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -2115,7 +2115,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.getStargazers = function(msg, block, callback) {
+    repos.repos.getStargazers = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -2163,7 +2163,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.getStarred = function(msg, block, callback) {
+    repos.repos.getStarred = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -2212,7 +2212,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.getStarredFromUser = function(msg, block, callback) {
+    repos.repos.getStarredFromUser = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -2262,7 +2262,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.getStarring = function(msg, block, callback) {
+    repos.repos.getStarring = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -2310,7 +2310,7 @@ define(function(){
      *  @config {String} repo 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.star = function(msg, block, callback) {
+    repos.repos.star = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -2358,154 +2358,7 @@ define(function(){
      *  @config {String} repo 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.unStar = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err) {
-                return self.sendError(err, null, msg, callback);
-            }
-
-            var ret;
-            if (typeof res.headers !== 'undefined' && typeof res.headers['content-type'] !== 'undefined' && res.headers['content-type'].indexOf('text/html') > -1) {
-                ret = {
-                    data: res.data
-                };
-            } else {
-                try {
-                    ret = res.data && JSON.parse(res.data);
-                } catch (ex) {
-                    if (callback) {
-                        callback(new Error(ex), res);
-                    }
-                    return;
-                }
-            }
-            
-            if (!ret) {
-                ret = {};
-            }
-            if (!ret.meta) {
-                ret.meta = {};
-            }
-            ['x-ratelimit-limit', 'x-ratelimit-remaining', 'x-oauth-scopes', 'link', 'location', 'last-modified', 'etag', 'status'].forEach(function(header) {
-                if (res.headers[header]) {
-                    ret.meta[header] = res.headers[header];
-                }
-            });
-
-            if (callback){
-                callback(null, ret);
-            }
-        });
-    };
-
-    /**
-     *  @param {Object} msg Object that contains the parameters and their values to be sent to the server.
-     *  @config {Object} headers Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: If-Modified-Since, If-None-Match, Cookie, User-Agent
-     *  @config {String} user 
-     *  @config {String} repo 
-     *  @config {Number} [page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
-     *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
-     **/
-    repos.repos.prototype.getWatchers = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err) {
-                return self.sendError(err, null, msg, callback);
-            }
-
-            var ret;
-            if (typeof res.headers !== 'undefined' && typeof res.headers['content-type'] !== 'undefined' && res.headers['content-type'].indexOf('text/html') > -1) {
-                ret = {
-                    data: res.data
-                };
-            } else {
-                try {
-                    ret = res.data && JSON.parse(res.data);
-                } catch (ex) {
-                    if (callback) {
-                        callback(new Error(ex), res);
-                    }
-                    return;
-                }
-            }
-            
-            if (!ret) {
-                ret = {};
-            }
-            if (!ret.meta) {
-                ret.meta = {};
-            }
-            ['x-ratelimit-limit', 'x-ratelimit-remaining', 'x-oauth-scopes', 'link', 'location', 'last-modified', 'etag', 'status'].forEach(function(header) {
-                if (res.headers[header]) {
-                    ret.meta[header] = res.headers[header];
-                }
-            });
-
-            if (callback){
-                callback(null, ret);
-            }
-        });
-    };
-
-    /**
-     *  @param {Object} msg Object that contains the parameters and their values to be sent to the server.
-     *  @config {Object} headers Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: If-Modified-Since, If-None-Match, Cookie, User-Agent
-     *  @config {Number} [page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
-     *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
-     **/
-    repos.repos.prototype.getWatched = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err) {
-                return self.sendError(err, null, msg, callback);
-            }
-
-            var ret;
-            if (typeof res.headers !== 'undefined' && typeof res.headers['content-type'] !== 'undefined' && res.headers['content-type'].indexOf('text/html') > -1) {
-                ret = {
-                    data: res.data
-                };
-            } else {
-                try {
-                    ret = res.data && JSON.parse(res.data);
-                } catch (ex) {
-                    if (callback) {
-                        callback(new Error(ex), res);
-                    }
-                    return;
-                }
-            }
-            
-            if (!ret) {
-                ret = {};
-            }
-            if (!ret.meta) {
-                ret.meta = {};
-            }
-            ['x-ratelimit-limit', 'x-ratelimit-remaining', 'x-oauth-scopes', 'link', 'location', 'last-modified', 'etag', 'status'].forEach(function(header) {
-                if (res.headers[header]) {
-                    ret.meta[header] = res.headers[header];
-                }
-            });
-
-            if (callback){
-                callback(null, ret);
-            }
-        });
-    };
-
-    /**
-     *  @param {Object} msg Object that contains the parameters and their values to be sent to the server.
-     *  @config {Object} headers Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: If-Modified-Since, If-None-Match, Cookie, User-Agent
-     *  @config {String} user 
-     *  @config {Number} [page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
-     *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
-     **/
-    repos.repos.prototype.getWatchedFromUser = function(msg, block, callback) {
+    repos.repos.unStar = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -2555,7 +2408,55 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.getWatching = function(msg, block, callback) {
+    repos.repos.getWatchers = function(msg, block, callback) {
+        var self = this;
+        this.client.httpSend(msg, block, function(err, res) {
+            if (err) {
+                return self.sendError(err, null, msg, callback);
+            }
+
+            var ret;
+            if (typeof res.headers !== 'undefined' && typeof res.headers['content-type'] !== 'undefined' && res.headers['content-type'].indexOf('text/html') > -1) {
+                ret = {
+                    data: res.data
+                };
+            } else {
+                try {
+                    ret = res.data && JSON.parse(res.data);
+                } catch (ex) {
+                    if (callback) {
+                        callback(new Error(ex), res);
+                    }
+                    return;
+                }
+            }
+            
+            if (!ret) {
+                ret = {};
+            }
+            if (!ret.meta) {
+                ret.meta = {};
+            }
+            ['x-ratelimit-limit', 'x-ratelimit-remaining', 'x-oauth-scopes', 'link', 'location', 'last-modified', 'etag', 'status'].forEach(function(header) {
+                if (res.headers[header]) {
+                    ret.meta[header] = res.headers[header];
+                }
+            });
+
+            if (callback){
+                callback(null, ret);
+            }
+        });
+    };
+
+    /**
+     *  @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     *  @config {Object} headers Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: If-Modified-Since, If-None-Match, Cookie, User-Agent
+     *  @config {Number} [page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    repos.repos.getWatched = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -2600,58 +2501,11 @@ define(function(){
      *  @param {Object} msg Object that contains the parameters and their values to be sent to the server.
      *  @config {Object} headers Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: If-Modified-Since, If-None-Match, Cookie, User-Agent
      *  @config {String} user 
-     *  @config {String} repo 
+     *  @config {Number} [page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.watch = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err) {
-                return self.sendError(err, null, msg, callback);
-            }
-
-            var ret;
-            if (typeof res.headers !== 'undefined' && typeof res.headers['content-type'] !== 'undefined' && res.headers['content-type'].indexOf('text/html') > -1) {
-                ret = {
-                    data: res.data
-                };
-            } else {
-                try {
-                    ret = res.data && JSON.parse(res.data);
-                } catch (ex) {
-                    if (callback) {
-                        callback(new Error(ex), res);
-                    }
-                    return;
-                }
-            }
-            
-            if (!ret) {
-                ret = {};
-            }
-            if (!ret.meta) {
-                ret.meta = {};
-            }
-            ['x-ratelimit-limit', 'x-ratelimit-remaining', 'x-oauth-scopes', 'link', 'location', 'last-modified', 'etag', 'status'].forEach(function(header) {
-                if (res.headers[header]) {
-                    ret.meta[header] = res.headers[header];
-                }
-            });
-
-            if (callback){
-                callback(null, ret);
-            }
-        });
-    };
-
-    /**
-     *  @param {Object} msg Object that contains the parameters and their values to be sent to the server.
-     *  @config {Object} headers Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: If-Modified-Since, If-None-Match, Cookie, User-Agent
-     *  @config {String} user 
-     *  @config {String} repo 
-     *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
-     **/
-    repos.repos.prototype.unWatch = function(msg, block, callback) {
+    repos.repos.getWatchedFromUser = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -2701,7 +2555,153 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.getHooks = function(msg, block, callback) {
+    repos.repos.getWatching = function(msg, block, callback) {
+        var self = this;
+        this.client.httpSend(msg, block, function(err, res) {
+            if (err) {
+                return self.sendError(err, null, msg, callback);
+            }
+
+            var ret;
+            if (typeof res.headers !== 'undefined' && typeof res.headers['content-type'] !== 'undefined' && res.headers['content-type'].indexOf('text/html') > -1) {
+                ret = {
+                    data: res.data
+                };
+            } else {
+                try {
+                    ret = res.data && JSON.parse(res.data);
+                } catch (ex) {
+                    if (callback) {
+                        callback(new Error(ex), res);
+                    }
+                    return;
+                }
+            }
+            
+            if (!ret) {
+                ret = {};
+            }
+            if (!ret.meta) {
+                ret.meta = {};
+            }
+            ['x-ratelimit-limit', 'x-ratelimit-remaining', 'x-oauth-scopes', 'link', 'location', 'last-modified', 'etag', 'status'].forEach(function(header) {
+                if (res.headers[header]) {
+                    ret.meta[header] = res.headers[header];
+                }
+            });
+
+            if (callback){
+                callback(null, ret);
+            }
+        });
+    };
+
+    /**
+     *  @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     *  @config {Object} headers Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: If-Modified-Since, If-None-Match, Cookie, User-Agent
+     *  @config {String} user 
+     *  @config {String} repo 
+     *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    repos.repos.watch = function(msg, block, callback) {
+        var self = this;
+        this.client.httpSend(msg, block, function(err, res) {
+            if (err) {
+                return self.sendError(err, null, msg, callback);
+            }
+
+            var ret;
+            if (typeof res.headers !== 'undefined' && typeof res.headers['content-type'] !== 'undefined' && res.headers['content-type'].indexOf('text/html') > -1) {
+                ret = {
+                    data: res.data
+                };
+            } else {
+                try {
+                    ret = res.data && JSON.parse(res.data);
+                } catch (ex) {
+                    if (callback) {
+                        callback(new Error(ex), res);
+                    }
+                    return;
+                }
+            }
+            
+            if (!ret) {
+                ret = {};
+            }
+            if (!ret.meta) {
+                ret.meta = {};
+            }
+            ['x-ratelimit-limit', 'x-ratelimit-remaining', 'x-oauth-scopes', 'link', 'location', 'last-modified', 'etag', 'status'].forEach(function(header) {
+                if (res.headers[header]) {
+                    ret.meta[header] = res.headers[header];
+                }
+            });
+
+            if (callback){
+                callback(null, ret);
+            }
+        });
+    };
+
+    /**
+     *  @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     *  @config {Object} headers Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: If-Modified-Since, If-None-Match, Cookie, User-Agent
+     *  @config {String} user 
+     *  @config {String} repo 
+     *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    repos.repos.unWatch = function(msg, block, callback) {
+        var self = this;
+        this.client.httpSend(msg, block, function(err, res) {
+            if (err) {
+                return self.sendError(err, null, msg, callback);
+            }
+
+            var ret;
+            if (typeof res.headers !== 'undefined' && typeof res.headers['content-type'] !== 'undefined' && res.headers['content-type'].indexOf('text/html') > -1) {
+                ret = {
+                    data: res.data
+                };
+            } else {
+                try {
+                    ret = res.data && JSON.parse(res.data);
+                } catch (ex) {
+                    if (callback) {
+                        callback(new Error(ex), res);
+                    }
+                    return;
+                }
+            }
+            
+            if (!ret) {
+                ret = {};
+            }
+            if (!ret.meta) {
+                ret.meta = {};
+            }
+            ['x-ratelimit-limit', 'x-ratelimit-remaining', 'x-oauth-scopes', 'link', 'location', 'last-modified', 'etag', 'status'].forEach(function(header) {
+                if (res.headers[header]) {
+                    ret.meta[header] = res.headers[header];
+                }
+            });
+
+            if (callback){
+                callback(null, ret);
+            }
+        });
+    };
+
+    /**
+     *  @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     *  @config {Object} headers Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: If-Modified-Since, If-None-Match, Cookie, User-Agent
+     *  @config {String} user 
+     *  @config {String} repo 
+     *  @config {Number} [page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    repos.repos.getHooks = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -2750,7 +2750,7 @@ define(function(){
      *  @config {String} id 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.getHook = function(msg, block, callback) {
+    repos.repos.getHook = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -2802,7 +2802,7 @@ define(function(){
      *  @config {Boolean} [active] Optional boolean - Determines whether the hook is actually triggered on pushes. 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.createHook = function(msg, block, callback) {
+    repos.repos.createHook = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -2857,7 +2857,7 @@ define(function(){
      *  @config {Boolean} [active] Optional boolean - Determines whether the hook is actually triggered on pushes. 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.updateHook = function(msg, block, callback) {
+    repos.repos.updateHook = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -2906,7 +2906,7 @@ define(function(){
      *  @config {String} id 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.testHook = function(msg, block, callback) {
+    repos.repos.testHook = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -2955,7 +2955,7 @@ define(function(){
      *  @config {String} id 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    repos.repos.prototype.deleteHook = function(msg, block, callback) {
+    repos.repos.deleteHook = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -3016,7 +3016,7 @@ define(function(){
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun Mar 16 2014 18:14:40 GMT+0100 (CET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun Mar 16 2014 18:57:16 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -47,7 +47,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    gitdata.gitdata.prototype.getBlob = function(msg, block, callback) {
+    gitdata.gitdata.getBlob = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -97,7 +97,7 @@ define(function(){
      *  @config {String} encoding 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    gitdata.gitdata.prototype.createBlob = function(msg, block, callback) {
+    gitdata.gitdata.createBlob = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -146,7 +146,7 @@ define(function(){
      *  @config {String} sha 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    gitdata.gitdata.prototype.getCommit = function(msg, block, callback) {
+    gitdata.gitdata.getCommit = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -199,7 +199,7 @@ define(function(){
      *  @config {Json} [committer] 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    gitdata.gitdata.prototype.createCommit = function(msg, block, callback) {
+    gitdata.gitdata.createCommit = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -248,7 +248,7 @@ define(function(){
      *  @config {String} ref String of the name of the fully qualified reference (ie: heads/master). If it doesn’t have at least one slash, it will be rejected. 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    gitdata.gitdata.prototype.getReference = function(msg, block, callback) {
+    gitdata.gitdata.getReference = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -298,7 +298,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    gitdata.gitdata.prototype.getAllReferences = function(msg, block, callback) {
+    gitdata.gitdata.getAllReferences = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -348,7 +348,7 @@ define(function(){
      *  @config {String} sha 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    gitdata.gitdata.prototype.createReference = function(msg, block, callback) {
+    gitdata.gitdata.createReference = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -399,7 +399,7 @@ define(function(){
      *  @config {Boolean} force Boolean indicating whether to force the update or to make sure the update is a fast-forward update. The default is false, so leaving this out or setting it to false will make sure you’re not overwriting work. 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    gitdata.gitdata.prototype.updateReference = function(msg, block, callback) {
+    gitdata.gitdata.updateReference = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -448,7 +448,7 @@ define(function(){
      *  @config {String} ref String of the name of the fully qualified reference (ie: heads/master). If it doesn’t have at least one slash, it will be rejected. 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    gitdata.gitdata.prototype.deleteReference = function(msg, block, callback) {
+    gitdata.gitdata.deleteReference = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -497,7 +497,7 @@ define(function(){
      *  @config {String} sha 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    gitdata.gitdata.prototype.getTag = function(msg, block, callback) {
+    gitdata.gitdata.getTag = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -550,7 +550,7 @@ define(function(){
      *  @config {Json} tagger JSON object that contains the following keys: `name` - String of the name of the author of the tag, `email` - String of the email of the author of the tag, `date` - Timestamp of when this object was tagged 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    gitdata.gitdata.prototype.createTag = function(msg, block, callback) {
+    gitdata.gitdata.createTag = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -600,7 +600,7 @@ define(function(){
      *  @config {Boolean} [recursive] 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    gitdata.gitdata.prototype.getTree = function(msg, block, callback) {
+    gitdata.gitdata.getTree = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -650,7 +650,7 @@ define(function(){
      *  @config {String} [base_tree] String of the SHA1 of the tree you want to update with new data 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    gitdata.gitdata.prototype.createTree = function(msg, block, callback) {
+    gitdata.gitdata.createTree = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -711,7 +711,7 @@ define(function(){
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun Mar 16 2014 18:14:40 GMT+0100 (CET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun Mar 16 2014 18:57:16 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -45,7 +45,7 @@ define(function(){
      *  @config {Date} [since] Optional string of a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    gists.gists.prototype.getAll = function(msg, block, callback) {
+    gists.gists.getAll = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -95,7 +95,7 @@ define(function(){
      *  @config {Date} [since] Optional string of a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    gists.gists.prototype.getFromUser = function(msg, block, callback) {
+    gists.gists.getFromUser = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -144,7 +144,7 @@ define(function(){
      *  @config {Json} files Files that make up this gist. The key of which should be a required string filename and the value another required hash with parameters: 'content' 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    gists.gists.prototype.create = function(msg, block, callback) {
+    gists.gists.create = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -193,7 +193,7 @@ define(function(){
      *  @config {Json} files Files that make up this gist. The key of which should be a required string filename and the value another required hash with parameters: 'content' 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    gists.gists.prototype.edit = function(msg, block, callback) {
+    gists.gists.edit = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -240,7 +240,7 @@ define(function(){
      *  @config {Date} [since] Optional string of a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    gists.gists.prototype.public = function(msg, block, callback) {
+    gists.gists.public = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -287,7 +287,7 @@ define(function(){
      *  @config {Date} [since] Optional string of a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    gists.gists.prototype.starred = function(msg, block, callback) {
+    gists.gists.starred = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -334,7 +334,7 @@ define(function(){
      *  @config {String} id 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    gists.gists.prototype.get = function(msg, block, callback) {
+    gists.gists.get = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -381,7 +381,7 @@ define(function(){
      *  @config {String} id 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    gists.gists.prototype.star = function(msg, block, callback) {
+    gists.gists.star = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -428,7 +428,7 @@ define(function(){
      *  @config {String} id 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    gists.gists.prototype.deleteStar = function(msg, block, callback) {
+    gists.gists.deleteStar = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -475,7 +475,7 @@ define(function(){
      *  @config {String} id 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    gists.gists.prototype.checkStar = function(msg, block, callback) {
+    gists.gists.checkStar = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -522,7 +522,7 @@ define(function(){
      *  @config {String} id 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    gists.gists.prototype.fork = function(msg, block, callback) {
+    gists.gists.fork = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -569,7 +569,7 @@ define(function(){
      *  @config {String} id 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    gists.gists.prototype.delete = function(msg, block, callback) {
+    gists.gists.delete = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -616,7 +616,7 @@ define(function(){
      *  @config {String} gist_id 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    gists.gists.prototype.getComments = function(msg, block, callback) {
+    gists.gists.getComments = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -664,7 +664,7 @@ define(function(){
      *  @config {String} id 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    gists.gists.prototype.getComment = function(msg, block, callback) {
+    gists.gists.getComment = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -712,7 +712,7 @@ define(function(){
      *  @config {String} body 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    gists.gists.prototype.createComment = function(msg, block, callback) {
+    gists.gists.createComment = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -761,7 +761,7 @@ define(function(){
      *  @config {String} body 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    gists.gists.prototype.editComment = function(msg, block, callback) {
+    gists.gists.editComment = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -809,7 +809,7 @@ define(function(){
      *  @config {String} id 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    gists.gists.prototype.deleteComment = function(msg, block, callback) {
+    gists.gists.deleteComment = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -870,7 +870,7 @@ define(function(){
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun Mar 16 2014 18:14:40 GMT+0100 (CET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun Mar 16 2014 18:57:16 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>

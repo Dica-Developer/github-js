@@ -44,7 +44,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    events.events.prototype.get = function(msg, block, callback) {
+    events.events.get = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -94,7 +94,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    events.events.prototype.getFromRepo = function(msg, block, callback) {
+    events.events.getFromRepo = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -144,7 +144,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    events.events.prototype.getFromRepoIssues = function(msg, block, callback) {
+    events.events.getFromRepoIssues = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -194,7 +194,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    events.events.prototype.getFromRepoNetwork = function(msg, block, callback) {
+    events.events.getFromRepoNetwork = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -243,7 +243,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    events.events.prototype.getFromOrg = function(msg, block, callback) {
+    events.events.getFromOrg = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -292,7 +292,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    events.events.prototype.getReceived = function(msg, block, callback) {
+    events.events.getReceived = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -341,7 +341,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    events.events.prototype.getReceivedPublic = function(msg, block, callback) {
+    events.events.getReceivedPublic = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -390,7 +390,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    events.events.prototype.getFromUser = function(msg, block, callback) {
+    events.events.getFromUser = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -439,7 +439,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    events.events.prototype.getFromUserPublic = function(msg, block, callback) {
+    events.events.getFromUserPublic = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -489,7 +489,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    events.events.prototype.getFromUserOrg = function(msg, block, callback) {
+    events.events.getFromUserOrg = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -550,7 +550,7 @@ define(function(){
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun Mar 16 2014 18:14:40 GMT+0100 (CET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun Mar 16 2014 18:57:16 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>

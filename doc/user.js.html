@@ -43,7 +43,7 @@ define(function(){
      *  @config {String} user 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    user.user.prototype.getFrom = function(msg, block, callback) {
+    user.user.getFrom = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -90,7 +90,7 @@ define(function(){
      *  No other params, simply pass an empty Object literal `{}`
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    user.user.prototype.get = function(msg, block, callback) {
+    user.user.get = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -143,7 +143,7 @@ define(function(){
      *  @config {String} [bio] 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    user.user.prototype.update = function(msg, block, callback) {
+    user.user.update = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -191,7 +191,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    user.user.prototype.getOrgs = function(msg, block, callback) {
+    user.user.getOrgs = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -239,7 +239,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    user.user.prototype.getEmails = function(msg, block, callback) {
+    user.user.getEmails = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -286,7 +286,7 @@ define(function(){
      *  No other params, simply pass an empty Object literal `{}`
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    user.user.prototype.addEmails = function(msg, block, callback) {
+    user.user.addEmails = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -333,7 +333,7 @@ define(function(){
      *  No other params, simply pass an empty Object literal `{}`
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    user.user.prototype.deleteEmails = function(msg, block, callback) {
+    user.user.deleteEmails = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -382,7 +382,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    user.user.prototype.getFollowers = function(msg, block, callback) {
+    user.user.getFollowers = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -431,7 +431,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    user.user.prototype.getFollowingFromUser = function(msg, block, callback) {
+    user.user.getFollowingFromUser = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -479,7 +479,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    user.user.prototype.getFollowing = function(msg, block, callback) {
+    user.user.getFollowing = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -528,7 +528,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    user.user.prototype.getFollowUser = function(msg, block, callback) {
+    user.user.getFollowUser = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -575,7 +575,7 @@ define(function(){
      *  @config {String} user 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    user.user.prototype.followUser = function(msg, block, callback) {
+    user.user.followUser = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -622,7 +622,7 @@ define(function(){
      *  @config {String} user 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    user.user.prototype.unFollowUser = function(msg, block, callback) {
+    user.user.unFollowUser = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -670,7 +670,7 @@ define(function(){
      *  @config {Number} [per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    user.user.prototype.getKeys = function(msg, block, callback) {
+    user.user.getKeys = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -717,7 +717,7 @@ define(function(){
      *  @config {String} id 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    user.user.prototype.getKey = function(msg, block, callback) {
+    user.user.getKey = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -765,7 +765,7 @@ define(function(){
      *  @config {String} key 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    user.user.prototype.createKey = function(msg, block, callback) {
+    user.user.createKey = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -814,7 +814,7 @@ define(function(){
      *  @config {String} key 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    user.user.prototype.updateKey = function(msg, block, callback) {
+    user.user.updateKey = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -861,7 +861,7 @@ define(function(){
      *  @config {String} id 
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    user.user.prototype.deleteKey = function(msg, block, callback) {
+    user.user.deleteKey = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err) {
@@ -922,7 +922,7 @@ define(function(){
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun Mar 16 2014 18:14:40 GMT+0100 (CET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun Mar 16 2014 18:57:16 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>
