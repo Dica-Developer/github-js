@@ -71,9 +71,10 @@ var main = module.exports = function (routes, tests/*, restore*/) {
         var params = Object.keys(paramsStruct);
         var comment = [
             '/**',
+            indent + ' *  @function',
             indent + ' *  @param {Object} msg Object that contains the parameters and their values to be sent to the server.'
         ];
-        comment.push(indent + ' *  @config {Object} headers Optional. Key/ value pair ' +
+        comment.push(indent + ' *  @param {Object} [msg.headers] Key/ value pair ' +
             'of request headers to pass along with the HTTP request. Valid headers are: ' +
             defines['request-headers'].join(', ')
         );
@@ -97,9 +98,9 @@ var main = module.exports = function (routes, tests/*, restore*/) {
                 def = paramsStruct[paramName];
             }
 
-            line = indent + ' *  @config {' + (def.type || '*') + '}';
+            line = indent + ' *  @param {' + (def.type || '*') + '}';
             line += ' ';
-            line += def.required ? paramName : '[' + paramName + ']';
+            line += def.required ? 'msg.' + paramName : '[msg.' + paramName + ']';
             line += ' ';
             if (def.description){
                 line += def.description;
