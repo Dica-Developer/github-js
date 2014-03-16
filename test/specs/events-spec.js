@@ -1,4 +1,4 @@
-/*global define, describe, it, expect, beforeEach, xit*/
+/*global define, describe, it, expect, beforeEach*/
 /*
  * Copyright 2012 Cloud9 IDE, Inc.
  *
