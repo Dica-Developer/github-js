@@ -7,13 +7,19 @@
                     }
 
                     var ret;
-                    try {
-                        ret = res.data && JSON.parse(res.data);
-                    } catch (ex) {
-                        if (callback) {
-                            callback(new Error(ex), res);
+                    if (typeof res.headers !== 'undefined' && typeof res.headers['content-type'] !== 'undefined' && res.headers['content-type'].indexOf('text/html') > -1) {
+                        ret = {
+                            data: res.data
+                        };
+                    } else {
+                        try {
+                            ret = res.data && JSON.parse(res.data);
+                        } catch (ex) {
+                            if (callback) {
+                                callback(new Error(ex), res);
+                            }
+                            return;
                         }
-                        return;
                     }
                     <%afterRequest%>
                     if (callback){
