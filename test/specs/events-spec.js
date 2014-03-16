@@ -45,8 +45,8 @@ define(['Github'], function (Client) {
 //                expect(res.length).toBe(5);
                 var last = res.pop();
                 expect(last.type).toBe('CreateEvent');
-                expect(last.created_at).toBe('2014-03-15T00:23:40Z');
-                expect(last.id).toBe('2016750786');
+                expect(last.created_at).toBe('2014-03-16T00:44:27Z');
+                expect(last.id).toBe('2017308219');
                 expect(last.public).toBeTruthy();
                 expect(last.actor.login).toBe('jwebertest');
                 expect(last.repo.name).toBe('jwebertest/forTestUseOnly');
