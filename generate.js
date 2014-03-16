@@ -178,7 +178,7 @@ var main = module.exports = function (routes, tests/*, restore*/) {
                         headers.join('\', \'') + '\'');
                 }
                 sections[section].push(HandlerTpl
-                    .replace('<%funcName%>', funcName)
+                    .replace(/<%funcName%>/g, funcName)
                     .replace('<%comment%>', comment)
                     .replace(/<%sectionName%>/g, section)
                     .replace('<%afterRequest%>', afterRequest)
