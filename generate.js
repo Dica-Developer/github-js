@@ -165,7 +165,7 @@ var main = module.exports = function (routes, tests/*, restore*/) {
 
                 parts.splice(0, 2);
                 var funcName = toCamelCase(parts.join('-'));
-                var comment = createComment(block.params, '        ');
+                var comment = createComment(block.params, '    ');
 
                 // add the handler to the sections
                 if (!sections[section]){

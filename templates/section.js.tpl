@@ -1,25 +1,17 @@
-/**
- *
- *  Copyright 2012 Cloud9 IDE, Inc.
- *
- *  This product includes software developed by
- *  Cloud9 IDE, Inc (http://c9.io).
- *
- *  Author: Mike de Boer <info@mikedeboer.nl>
- **/
-define(
+/*global define*/
+define(function(){
+    'use strict';
+
     /**
-    * @exports <%sectionName%>
-    */
-    function(){
-        'use strict';
+     * @exports <%sectionName%>
+     * @memberof Client
+     */
+    var <%sectionName%> = {
+        <%sectionName%>: {}
+    };
 
-        var <%sectionName%> = {
-            <%sectionName%>: {}
-        };
+    <%sectionBody%>
 
-        <%sectionBody%>
-
-        return <%sectionName%>;
-    });
+    return <%sectionName%>;
+});
 
