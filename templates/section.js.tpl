@@ -19,7 +19,7 @@ define(
         };
 
         (function() {
-          <%sectionBody%>
+            <%sectionBody%>
         }).call(<%sectionName%>.<%sectionName%>);
 
         return <%sectionName%>;

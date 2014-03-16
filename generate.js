@@ -67,10 +67,10 @@ var main = module.exports = function (routes, tests/*, restore*/) {
     var sections = {};
     var testSections = {};
 
-    function createComment(paramsStruct, section, funcName, indent) {
+    function createComment(paramsStruct, indent) {
         var params = Object.keys(paramsStruct);
         var comment = [
-            indent + '/**',
+            '/**',
             indent + ' *  @param {Object} msg Object that contains the parameters and their values to be sent to the server.'
         ];
         comment.push(indent + ' *  @config {Object} headers Optional. Key/ value pair ' +
@@ -165,7 +165,7 @@ var main = module.exports = function (routes, tests/*, restore*/) {
 
                 parts.splice(0, 2);
                 var funcName = toCamelCase(parts.join('-'));
-                var comment = createComment(block.params, section, funcName, '    ');
+                var comment = createComment(block.params, '            ');
 
                 // add the handler to the sections
                 if (!sections[section]){
@@ -232,7 +232,7 @@ var main = module.exports = function (routes, tests/*, restore*/) {
             return;
         }
 
-        def = testSections[section];
+//        def = testSections[section];
         // test if previous tests already contained implementations by checking
         // if the difference in character count between the current test file
         // and the newly generated one is more than twenty characters.
