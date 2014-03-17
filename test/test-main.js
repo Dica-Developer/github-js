@@ -20,13 +20,13 @@
         baseUrl: '/base/src',
 
         paths: {
-            Github: '../lib/index',
+            githubjs: '../lib/githubjs',
             GitHubUtils: '../lib/util',
             GitHubHttpError: '../lib/HttpError',
             GitHubApiIndex: '../lib/api/index'
         },
         map: {
-            Github: {
+            githubjs: {
                 'api/index': 'GitHubApiIndex',
                 'util': 'GitHubUtils',
                 'HttpError': 'GitHubHttpError'

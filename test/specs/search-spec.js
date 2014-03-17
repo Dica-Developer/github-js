@@ -8,7 +8,7 @@
  * Author: Mike de Boer <info@mikedeboer.nl>
  */
 
-define(['Github'], function (Client) {
+define(['githubjs'], function (Client) {
     'use strict';
     describe('[search]', function () {
         var client;

@@ -9,7 +9,7 @@
  * Author: Mike de Boer <mike@c9.io>
  */
 
-define(['Github'], function (Client) {
+define(['githubjs'], function (Client) {
     'use strict';
 
     /*
