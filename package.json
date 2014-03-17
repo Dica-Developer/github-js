@@ -36,7 +36,8 @@
     "karma-requirejs": "^0.2.1",
     "karma-phantomjs-launcher": "^0.1.2",
     "karma-chrome-launcher": "^0.1.2",
-    "grunt-karma-coveralls": "^2.4.3"
+    "grunt-karma-coveralls": "^2.4.3",
+    "grunt-contrib-requirejs": "^0.4.3"
   },
   "main": ".",
   "scripts": {

@@ -60,17 +60,13 @@ module.exports = function (grunt) {
         requirejs: {
             options: {
                 loglevel: 5,
-                findNestedDependencies: true,
                 inlineText: true,
-                mainConfigFile: '<%= config.lib %>/main.js'
+                baseUrl: './lib',
+                optimize: 'uglify',
+                name: 'githubjs',
+                out: 'dist/github.min.js'
             },
-            dist: {
-                options: {
-                    out: '<%= config.dist %>/github.js',
-                    optimize: 'uglify',
-                    name: 'main'
-                }
-            }
+            dist: {}
         },
         karma: {
             dev: {
