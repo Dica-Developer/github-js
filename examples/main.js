@@ -7,14 +7,15 @@
         baseUrl: '../lib',
 
         paths: {
-            Github: '../lib/index',
+            Github: '../lib/githubjs',
             GitHubUtils: '../lib/util',
             GitHubHttpError: '../lib/HttpError',
-            GitHubApiIndex: '../lib/api/index'
+            GitHubApiIndex: '../lib/api/index',
+            githubjs: '../dist/github.min'
         }
     });
 
-    requirejs(['Github'], function(Github){
-        console.log(Github);
+    requirejs(['githubjs', 'Github'], function(Github, Github2){
+        console.log(Github, Github2);
     });
 }());
