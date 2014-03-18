@@ -50,8 +50,9 @@ var main = module.exports = function (routes, tests, tutorials) {
     }
     var sections = {};
     var testSections = {};
+    var tutorialSections = {};
 
-    function createComment(paramsStruct, indent) {
+    function createComment(paramsStruct, section, funcName, indent) {
         var params = Object.keys(paramsStruct);
         var comment = [
             '/**',
