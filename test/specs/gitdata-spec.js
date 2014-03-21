@@ -8,7 +8,7 @@
  * Author: Mike de Boer <info@mikedeboer.nl>
  */
 
-define(['githubjs'], function (Client) {
+define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
     'use strict';
 
     describe('[gitdata]', function () {
@@ -473,5 +473,29 @@ define(['githubjs'], function (Client) {
 //                }
 //            );
 //        });
+    });
+
+    describe('[gitdata] failure', function () {
+        var client;
+
+        beforeEach(function () {
+            client = new Client();
+        });
+
+        it('should successfully execute POST /repos/:user/:repo/git/blobs (createBlob)', function (done) {
+            function blobCreateClbk(err) {
+                expect(err).not.toBeNull();
+                expect(err instanceof HttpError).toBeTruthy();
+                done();
+            }
+
+            client.gitdata.createBlob(
+                {
+                    user: 'jwebertest',
+                    repo: 'forTestUseOnly',
+                    content: 'test',
+                    encoding: 'utf-8'
+                }, blobCreateClbk);
+        });
     });
 });

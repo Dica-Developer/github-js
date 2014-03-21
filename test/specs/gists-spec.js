@@ -8,7 +8,7 @@
  * Author: Mike de Boer <info@mikedeboer.nl>
  */
 
-define(['githubjs'], function (Client) {
+define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
     'use strict';
 
     var gistTmpl = {
@@ -477,6 +477,28 @@ define(['githubjs'], function (Client) {
                             done();
                         }
                     );
+                }
+            );
+        });
+    });
+
+    describe('[gists] failure', function () {
+        var client;
+
+        beforeEach(function () {
+            client = new Client();
+        });
+
+        it('should successfully execute POST /gists/:gist_id/comments (createComment)', function (done) {
+            client.gists.createComment(
+                {
+                    gist_id: '1e2f2c21e78106c2cd14',
+                    body: 'This is a test comment.'
+                },
+                function (err) {
+                    expect(err).not.toBeNull();
+                    expect(err instanceof HttpError).toBeTruthy();
+                    done();
                 }
             );
         });
