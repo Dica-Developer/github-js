@@ -69,7 +69,6 @@
                 },
                 function (err, res) {
                     expect(err).not.toBeNull();
-                    expect(err instanceof HttpError).not.toBeNull();
                     done();
                 }
             );

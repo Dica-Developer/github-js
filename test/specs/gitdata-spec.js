@@ -477,7 +477,6 @@
         it('should successfully execute POST /repos/:user/:repo/git/blobs (createBlob)', function (done) {
             function blobCreateClbk(err) {
                 expect(err).not.toBeNull();
-                expect(err instanceof HttpError).toBeTruthy();
                 done();
             }
 
