@@ -28,16 +28,16 @@ var Path = require('path');
 
 var Optimist = require('optimist');
 
-var IndexTpl = Fs.readFileSync(__dirname + '/templates/index.js.tpl', 'utf8');
-var SectionTpl = Fs.readFileSync(__dirname + '/templates/section.js.tpl', 'utf8');
-var HandlerTpl = Fs.readFileSync(__dirname + '/templates/handler.js.tpl', 'utf8');
-var AfterRequestTpl = Fs.readFileSync(__dirname + '/templates/after_request.js.tpl', 'utf8');
-var TutorialTpl = Fs.readFileSync(__dirname + '/templates/tutorial.js.tpl', 'utf8');
+var IndexTpl = Fs.readFileSync(__dirname + '/templates/requirejs/index.js.tpl', 'utf8');
+var SectionTpl = Fs.readFileSync(__dirname + '/templates/requirejs/section.js.tpl', 'utf8');
+var HandlerTpl = Fs.readFileSync(__dirname + '/templates/requirejs/handler.js.tpl', 'utf8');
+var AfterRequestTpl = Fs.readFileSync(__dirname + '/templates/requirejs/after_request.js.tpl', 'utf8');
+var TutorialTpl = Fs.readFileSync(__dirname + '/templates/requirejs/tutorial.js.tpl', 'utf8');
 
 var main = module.exports = function (routes, tests, tutorials) {
     console.log('Generating');
 
-    var dir = Path.join(__dirname, 'lib', 'api');
+    var dir = Path.join(__dirname, 'lib', 'requirejs', 'api');
 
     var defines = routes.defines;
     delete routes.defines;
