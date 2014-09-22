@@ -7,9 +7,11 @@ module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
     grunt.loadNpmTasks('grunt-karma-coveralls');
     var config = {
-        lib: 'lib',
-        api: 'api',
-        dist: 'dist',
+        requirejs: {
+            lib: 'lib/requirejs',
+            api: 'lib/requirejs/api',
+            dist: 'dist'
+        },
         test: 'test'
     };
 
@@ -42,8 +44,8 @@ module.exports = function (grunt) {
             }
         },
         jsdoc : {
-            dist : {
-                src: ['<%= config.lib %>/*.js', '<%= config.lib %>/api/*.js', 'README.md'],
+            requirejs_dist : {
+                src: ['<%= config.lib %>/*.js', '<%= config.api %>/*.js', 'README.md'],
                 options: {
                     destination: 'doc',
                     configure: 'jsdoc.conf.json',
@@ -62,10 +64,10 @@ module.exports = function (grunt) {
             options: {
                 loglevel: 5,
                 inlineText: true,
-                baseUrl: './lib',
-                optimize: 'uglify',
+                baseUrl: './lib/requirejs',
+                optimize: 'uglify2',
                 name: 'githubjs',
-                out: 'dist/github.min.js'
+                out: 'dist/github.requirejs.min.js'
             },
             dist: {}
         },
@@ -91,7 +93,7 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('dist', [
-        'clean:dist',
+//        'clean:dist',
         'jshint',
         'requirejs:dist'
     ]);
