@@ -215,7 +215,7 @@ module.exports = function (grunt) {
                 }
             });
 
-        grunt.file.write(config.build + '/index.js', appTemplate, 'utf8');
+        grunt.file.write(config.build + '/github.js', appTemplate, 'utf8');
 
     });
 
