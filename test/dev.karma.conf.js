@@ -3,23 +3,21 @@ module.exports = function(config) {
 
     config.set({
         basePath: '..',
-        frameworks: ['jasmine', 'requirejs'],
+        frameworks: ['jasmine'],
 
         files: [
-            {pattern: 'lib/requirejs/**/*.js', included: false},
-            {pattern: 'test/specs/**/*-spec.js', included: false},
-
-            'test/test-main.js'
+            {pattern: 'lib/wo_require/index.js', included: true},
+            {pattern: 'test/specs/**/*-spec.js', included: true}
         ],
 
         browsers: ['PhantomJS'],
         reporters: ['dots', 'coverage'],
         preprocessors: {
-            'lib/requirejs//**/*.js': ['coverage']
+            'lib/wo_require/index.js': ['coverage']
         },
         coverageReporter: {
             type : 'html',
-            dir : 'coverage'
+            dir : 'test/coverage'
         },
 
         logLevel: config.LOG_INFO,

@@ -1,29 +1,20 @@
 /*global define, describe, it, beforeEach, expect*/
-/*
- * Copyright 2012 Cloud9 IDE, Inc.
- *
- * This product includes software developed by
- * Cloud9 IDE, Inc (http://c9.io).
- *
- * Author: Mike de Boer <info@mikedeboer.nl>
- */
-
-define(['githubjs'], function (Client) {
+(function () {
     'use strict';
     describe('[markdown]', function () {
-        var client;
+        var github;
         var token = '44046cd4b4b85afebfe3ccaec13fd8c08cc80aad';
 
         beforeEach(function () {
-            client = new Client();
-            client.authenticate({
+            github = new Github();
+            github.authenticate({
                 type: 'oauth',
                 token: token
             });
         });
 
         it('should successfully execute POST /markdown (render)', function (done) {
-            client.markdown.render(
+            github.markdown.render(
                 {
                     text: 'Hello world github/linguist#1 **cool**, and #1!',
                     mode: 'gfm',
@@ -37,5 +28,5 @@ define(['githubjs'], function (Client) {
             );
         });
     });
-});
+}());
 

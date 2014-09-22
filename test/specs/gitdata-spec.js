@@ -1,23 +1,14 @@
 /*global define, describe, it, beforeEach, expect*/
-/*
- * Copyright 2012 Cloud9 IDE, Inc.
- *
- * This product includes software developed by
- * Cloud9 IDE, Inc (http://c9.io).
- *
- * Author: Mike de Boer <info@mikedeboer.nl>
- */
-
-define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
+(function () {
     'use strict';
 
     describe('[gitdata]', function () {
-        var client;
+        var github;
         var token = '44046cd4b4b85afebfe3ccaec13fd8c08cc80aad';
 
         beforeEach(function () {
-            client = new Client();
-            client.authenticate({
+            github = new Github();
+            github.authenticate({
                 type: 'oauth',
                 token: token
             });
@@ -27,7 +18,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
             // found an object after executing:
             // git rev-list --all | xargs -l1 git diff-tree -r -c -M -C --no-commit-id | awk '{print $3}'
             // [jweber] me too ;-)
-            client.gitdata.getBlob(
+            github.gitdata.getBlob(
                 {
                     user: 'jwebertest',
                     repo: 'gh-review',
@@ -50,7 +41,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
                 expect(typeof res.sha).toBe('string');
                 var sha = res.sha;
 
-                client.gitdata.getBlob(
+                github.gitdata.getBlob(
                     {
                         user: 'jwebertest',
                         repo: 'forTestUseOnly',
@@ -67,7 +58,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
                 );
             }
 
-            client.gitdata.createBlob(
+            github.gitdata.createBlob(
                 {
                     user: 'jwebertest',
                     repo: 'forTestUseOnly',
@@ -77,7 +68,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
         });
 
         it('should successfully execute GET /repos/:user/:repo/git/commits/:sha (getCommit)', function (done) {
-            client.gitdata.getCommit(
+            github.gitdata.getCommit(
                 {
                     user: 'jwebertest',
                     repo: 'gh-review',
@@ -96,7 +87,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
         it('should successfully execute POST /repos/:user/:repo/git/commits (createCommit)', function (done) {
             // got valid tree reference by executing
             // git cat-file -p HEAD
-            client.gitdata.createCommit(
+            github.gitdata.createCommit(
                 {
                     user: 'jwebertest',
                     repo: 'gh-review',
@@ -127,7 +118,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
         });
 
         it('should successfully execute GET /repos/:user/:repo/git/refs/:ref (getReference)', function (done) {
-            client.gitdata.getReference(
+            github.gitdata.getReference(
                 {
                     user: 'jwebertest',
                     repo: 'forTestUseOnly',
@@ -144,7 +135,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
         });
 
         it('should successfully execute GET /repos/:user/:repo/git/refs (getAllReferences)', function (done) {
-            client.gitdata.getAllReferences(
+            github.gitdata.getAllReferences(
                 {
                     user: 'jwebertest',
                     repo: 'forTestUseOnly'
@@ -161,7 +152,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
         });
 
         it('should successfully execute POST /repos/:user/:repo/git/refs (createReference)', function (done) {
-            client.gitdata.createReference(
+            github.gitdata.createReference(
                 {
                     user: 'jwebertest',
                     repo: 'forTestUseOnly',
@@ -172,7 +163,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
                     expect(err).toBeNull();
                     expect(res.ref).toBe('refs/heads/anotherTest1');
                     expect(res.object.sha).toBe('9e635bc0a7348d1df04dbb5a8fd6e0a6fb90fee5');
-                    client.gitdata.deleteReference(
+                    github.gitdata.deleteReference(
                         {
                             user: 'jwebertest',
                             repo: 'forTestUseOnly',
@@ -196,7 +187,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
                 expect(res.object.type).toBe('commit');
                 expect(res.object.sha).toBe('9e635bc0a7348d1df04dbb5a8fd6e0a6fb90fee5');
 
-                client.gitdata.updateReference(
+                github.gitdata.updateReference(
                     {
                         user: 'jwebertest',
                         repo: 'forTestUseOnly',
@@ -223,7 +214,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
 
                 // do `force=true` because we go backward in history, which yields a warning
                 // that it's not a reference that can be fast-forwarded to.
-                client.gitdata.updateReference(
+                github.gitdata.updateReference(
                     {
                         user: 'jwebertest',
                         repo: 'forTestUseOnly',
@@ -232,7 +223,8 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
                         force: true
                     }, updateReferenceClbk);
             }
-            client.gitdata.getReference(
+
+            github.gitdata.getReference(
                 {
                     user: 'jwebertest',
                     repo: 'forTestUseOnly',
@@ -476,10 +468,10 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
     });
 
     describe('[gitdata] failure', function () {
-        var client;
+        var github;
 
         beforeEach(function () {
-            client = new Client();
+            github = new Github();
         });
 
         it('should successfully execute POST /repos/:user/:repo/git/blobs (createBlob)', function (done) {
@@ -489,7 +481,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
                 done();
             }
 
-            client.gitdata.createBlob(
+            github.gitdata.createBlob(
                 {
                     user: 'jwebertest',
                     repo: 'forTestUseOnly',
@@ -498,4 +490,4 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
                 }, blobCreateClbk);
         });
     });
-});
+}())

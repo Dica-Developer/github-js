@@ -1,15 +1,14 @@
 /*global define, describe, it, expect, beforeEach, xit*/
-define(['GitHubUtils'], function (util) {
-    'use strict';
-
-    describe('[util]', function () {
+(function () {
+    xdescribe('[util]', function () {
 
         it('Should be defined', function () {
             expect(util).toBeDefined();
         });
 
         it('util#extend should shallow copy one object to another and not override existing members', function () {
-            var srcObj = {'number': 1, 'string': 'test', 'boolean': true, 'function': function(){}, 'array': [1,2,3]};
+            var srcObj = {'number': 1, 'string': 'test', 'boolean': true, 'function': function () {
+            }, 'array': [1, 2, 3]};
             var destObj = {'number': 2};
 
             var newObj = util.extend(destObj, srcObj);
@@ -21,7 +20,8 @@ define(['GitHubUtils'], function (util) {
         });
 
         it('util#extend should shallow copy one object to another and should override existing members', function () {
-            var srcObj = {'number': 1, 'string': 'test', 'boolean': true, 'function': function(){}, 'array': [1,2,3]};
+            var srcObj = {'number': 1, 'string': 'test', 'boolean': true, 'function': function () {
+            }, 'array': [1, 2, 3]};
             var destObj = {'number': 2};
 
             var newObj = util.extend(destObj, srcObj, true);
@@ -48,7 +48,7 @@ define(['GitHubUtils'], function (util) {
             expect(util.isTrue(1)).toBeTruthy();
             expect(util.isTrue('1')).toBeTruthy();
         });
-        
+
         it('util#isFalse should return true', function () {
             expect(util.isFalse(false)).toBeTruthy();
             expect(util.isFalse('false')).toBeTruthy();
@@ -57,4 +57,4 @@ define(['GitHubUtils'], function (util) {
             expect(util.isFalse('0')).toBeTruthy();
         });
     });
-});
+}());

@@ -1,29 +1,20 @@
 /*global define, describe, it, expect, beforeEach*/
-/*
- * Copyright 2012 Cloud9 IDE, Inc.
- *
- * This product includes software developed by
- * Cloud9 IDE, Inc (http://c9.io).
- *
- * Author: Mike de Boer <info@mikedeboer.nl>
- */
-
-define(['githubjs'], function (Client) {
+(function () {
     'use strict';
     describe('[search]', function () {
-        var client;
+        var github;
         var token = '44046cd4b4b85afebfe3ccaec13fd8c08cc80aad';
 
         beforeEach(function () {
-            client = new Client();
-            client.authenticate({
+            github = new Github();
+            github.authenticate({
                 type: 'oauth',
                 token: token
             });
         });
 
         it('should successfully execute GET /legacy/issues/search/:user/:repo/:state/:keyword (issues)', function (done) {
-            client.search.issues(
+            github.search.issues(
                 {
                     user: 'jwebertest',
                     repo: 'forTestUseOnly',
@@ -44,7 +35,7 @@ define(['githubjs'], function (Client) {
         });
 
         it('should successfully execute GET /legacy/repos/search/:keyword (repos)', function (done) {
-            client.search.repos(
+            github.search.repos(
                 {
                     keyword: 'pasta',
                     language: 'JavaScript'
@@ -60,7 +51,7 @@ define(['githubjs'], function (Client) {
         });
 
         it('should successfully execute GET /legacy/user/search/:keyword (users)', function (done) {
-            client.search.users({ keyword: 'mikedeboer' },
+            github.search.users({ keyword: 'mikedeboer' },
                 function (err, res) {
                     expect(err).toBeNull();
                     expect(res.users.length).toBe(2);
@@ -74,7 +65,7 @@ define(['githubjs'], function (Client) {
         });
 
         it('should successfully execute GET /legacy/user/search/code ', function (done) {
-            client.search.code({
+            github.search.code({
                     q: 'test repo:dica-developer/gh-review'
                 },
                 function (err, res) {
@@ -91,4 +82,4 @@ define(['githubjs'], function (Client) {
         });
 
     });
-});
+}());

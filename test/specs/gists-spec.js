@@ -1,14 +1,5 @@
-/*global define, describe, it, expect, beforeEach, xit*/
-/*
- * Copyright 2012 Cloud9 IDE, Inc.
- *
- * This product includes software developed by
- * Cloud9 IDE, Inc (http://c9.io).
- *
- * Author: Mike de Boer <info@mikedeboer.nl>
- */
-
-define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
+/*global describe, it, expect, beforeEach, xit*/
+(function () {
     'use strict';
 
     var gistTmpl = {
@@ -22,19 +13,19 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
     };
 
     describe('[gists]', function () {
-        var client;
+        var github;
         var token = '44046cd4b4b85afebfe3ccaec13fd8c08cc80aad';
 
         beforeEach(function () {
-            client = new Client();
-            client.authenticate({
+            github = new Github();
+            github.authenticate({
                 type: 'oauth',
                 token: token
             });
         });
 
         it('should successfully execute GET /gists (getAll)', function (done) {
-            client.gists.getAll({},
+            github.gists.getAll({},
                 function (err, res) {
                     expect(err).toBeNull();
                     expect(res.length).toBe(1);
@@ -51,7 +42,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
         });
 
         it('should successfully execute GET /users/:user/gists (getFromUser)', function (done) {
-            client.gists.getFromUser({ user: 'jwebertest' },
+            github.gists.getFromUser({ user: 'jwebertest' },
                 function (err, res) {
                     expect(err).toBeNull();
                     expect(res.length).toBe(1);
@@ -77,7 +68,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
                 expect(res.id).toBe(id);
                 expect(res.description).toBe('Another bowl of pasta');
 
-                client.gists.delete({ id: id },
+                github.gists.delete({ id: id },
                     function (err) {
                         expect(err).toBeNull();
                         done();
@@ -88,10 +79,10 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
             function gistCreateCbk(err, res) {
                 expect(err).toBeNull();
                 id = res.id;
-                client.gists.get({ id: id }, gistGetClbk);
+                github.gists.get({ id: id }, gistGetClbk);
             }
 
-            client.gists.create(gistTmpl, gistCreateCbk);
+            github.gists.create(gistTmpl, gistCreateCbk);
         });
 
         xit('should successfully execute PATCH /gists/:id (edit)', function (done) {
@@ -100,7 +91,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
             function gistEditClbk(err) {
                 expect(err).toBeNull();
 
-                client.gists.get({ id: id },
+                github.gists.get({ id: id },
                     function (err, res) {
                         expect(err).toBeNull();
                         expect(res.owner.login).toBe('jwebertest');
@@ -110,7 +101,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
                         expect(res.description).toBe('changed');
                         expect(res.files['ravioli.js'].content).toBe('alert("no ketchup, please.");');
 
-                        client.gists.delete({ id: id },
+                        github.gists.delete({ id: id },
                             function (err) {
                                 expect(err).toBeNull();
                                 done();
@@ -123,7 +114,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
             function gistCreateClbk(err, res) {
                 expect(err).toBeNull();
                 id = res.id;
-                client.gists.edit(
+                github.gists.edit(
                     {
                         id: id,
                         description: 'changed',
@@ -135,11 +126,11 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
                     }, gistEditClbk);
             }
 
-            client.gists.create(gistTmpl, gistCreateClbk);
+            github.gists.create(gistTmpl, gistCreateClbk);
         });
 
         it('should successfully execute GET /gists/starred (starred)', function (done) {
-            client.gists.starred(
+            github.gists.starred(
                 {},
                 function (err, res) {
                     expect(err).toBeNull();
@@ -162,7 +153,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
                 expect(err).toBeNull();
                 id = res.id;
 
-                client.gists.get({ id: id },
+                github.gists.get({ id: id },
                     function (err, res) {
                         expect(err).toBeNull();
                         expect(res.owner.login).toBe('jwebertest');
@@ -171,7 +162,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
                         expect(res.id).toBe(id);
                         expect(res.description).toBe('Another bowl of pasta');
 
-                        client.gists.delete({ id: id },
+                        github.gists.delete({ id: id },
                             function (err) {
                                 expect(err).toBeNull();
                                 done();
@@ -181,7 +172,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
                 );
             }
 
-            client.gists.create(gistTmpl, gistCreateClbk);
+            github.gists.create(gistTmpl, gistCreateClbk);
         });
 
         it('should successfully execute PUT /gists/:id/star (star)', function (done) {
@@ -189,12 +180,12 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
 
             function gistStarClbk(err) {
                 expect(err).toBeNull();
-                client.gists.checkStar({ id: id },
+                github.gists.checkStar({ id: id },
                     function (err) {
                         expect(err).toBeNull();
                         //TODO: NO RESULT HERE???
 
-                        client.gists.delete({ id: id },
+                        github.gists.delete({ id: id },
                             function (err) {
                                 expect(err).toBeNull();
                                 done();
@@ -207,10 +198,10 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
             function gistCreateClbk(err, res) {
                 expect(err).toBeNull();
                 id = res.id;
-                client.gists.star({ id: id }, gistStarClbk);
+                github.gists.star({ id: id }, gistStarClbk);
             }
 
-            client.gists.create(gistTmpl, gistCreateClbk);
+            github.gists.create(gistTmpl, gistCreateClbk);
         });
 
         it('should successfully execute DELETE /gists/:id/star (deleteStar)', function (done) {
@@ -220,13 +211,13 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
                 expect(err).toBeNull();
                 id = res.id;
 
-                client.gists.star({ id: id },
+                github.gists.star({ id: id },
                     function (err) {
                         expect(err).toBeNull();
-                        client.gists.deleteStar({ id: id },
+                        github.gists.deleteStar({ id: id },
                             function (err) {
                                 expect(err).toBeNull();
-                                client.gists.delete({ id: id },
+                                github.gists.delete({ id: id },
                                     function (err) {
                                         expect(err).toBeNull();
                                         done();
@@ -238,20 +229,20 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
                 );
             }
 
-            client.gists.create(gistTmpl, gistCreateClbk);
+            github.gists.create(gistTmpl, gistCreateClbk);
         });
 
         it('should successfully execute GET /gists/:id/star (checkStar)', function (done) {
-            client.gists.create(gistTmpl,
+            github.gists.create(gistTmpl,
                 function (err, res) {
                     expect(err).toBeNull();
                     var id = res.id;
 
-                    client.gists.star({ id: id },
+                    github.gists.star({ id: id },
                         function (err) {
                             expect(err).toBeNull();
 
-                            client.gists.delete({ id: id },
+                            github.gists.delete({ id: id },
                                 function (err) {
                                     expect(err).toBeNull();
                                     done();
@@ -264,7 +255,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
         });
 
         it('should successfully execute POST /gists/:id/fork (fork)', function (done) {
-            client.gists.fork({ id: '3047099' },
+            github.gists.fork({ id: '3047099' },
                 function (err, res) {
                     expect(err).toBeNull();
                     var id = res.id;
@@ -274,7 +265,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
                     expect(res.description).toBe('Why to call resume() after next()');
                     expect(typeof res.files['resume_after_next.md']).toBe('object');
 
-                    client.gists.delete({ id: id },
+                    github.gists.delete({ id: id },
                         function (err) {
                             expect(err).toBeNull();
                             done();
@@ -285,12 +276,12 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
         });
 
         it('should successfully execute DELETE /gists/:id (delete)', function (done) {
-            client.gists.create(gistTmpl,
+            github.gists.create(gistTmpl,
                 function (err, res) {
                     expect(err).toBeNull();
                     var id = res.id;
 
-                    client.gists.delete({ id: id },
+                    github.gists.delete({ id: id },
                         function (err) {
                             expect(err).toBeNull();
                             done();
@@ -301,7 +292,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
         });
 
         it('should successfully execute GET /gists/:gist_id/comments/:id (getComments)', function (done) {
-            client.gists.createComment(
+            github.gists.createComment(
                 {
                     gist_id: '1e2f2c21e78106c2cd14',
                     body: 'This is a test comment.'
@@ -310,7 +301,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
                     expect(err).toBeNull();
                     var id = res.id;
 
-                    client.gists.getComments({ gist_id: '1e2f2c21e78106c2cd14' },
+                    github.gists.getComments({ gist_id: '1e2f2c21e78106c2cd14' },
                         function (err, res) {
                             expect(err).toBeNull();
 
@@ -319,7 +310,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
                             expect(comment.id).toBe(id);
                             expect(comment.body).toBe('This is a test comment.');
 
-                            client.gists.deleteComment(
+                            github.gists.deleteComment(
                                 {
                                     gist_id: '1e2f2c21e78106c2cd14',
                                     id: id
@@ -336,7 +327,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
         });
 
         it('should successfully execute GET /gists/:gist_id/comments/:id (getComment)', function (done) {
-            client.gists.createComment(
+            github.gists.createComment(
                 {
                     gist_id: '1e2f2c21e78106c2cd14',
                     body: 'This is a test comment.'
@@ -345,7 +336,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
                     expect(err).toBeNull();
                     var id = res.id;
 
-                    client.gists.getComment(
+                    github.gists.getComment(
                         {
                             gist_id: '1e2f2c21e78106c2cd14',
                             id: id
@@ -356,7 +347,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
                             expect(res.id).toBe(id);
                             expect(res.body).toBe('This is a test comment.');
 
-                            client.gists.deleteComment(
+                            github.gists.deleteComment(
                                 {
                                     gist_id: '1e2f2c21e78106c2cd14',
                                     id: id
@@ -373,7 +364,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
         });
 
         it('should successfully execute POST /gists/:gist_id/comments (createComment)', function (done) {
-            client.gists.createComment(
+            github.gists.createComment(
                 {
                     gist_id: '1e2f2c21e78106c2cd14',
                     body: 'This is a test comment.'
@@ -382,7 +373,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
                     expect(err).toBeNull();
                     var id = res.id;
 
-                    client.gists.getComment(
+                    github.gists.getComment(
                         {
                             gist_id: '1e2f2c21e78106c2cd14',
                             id: id
@@ -393,7 +384,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
                             expect(res.id).toBe(id);
                             expect(res.body).toBe('This is a test comment.');
 
-                            client.gists.deleteComment(
+                            github.gists.deleteComment(
                                 {
                                     gist_id: '1e2f2c21e78106c2cd14',
                                     id: id
@@ -410,7 +401,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
         });
 
         xit('should successfully execute PATCH /gists/:gist_id/comments/:id (editComment)', function (done) {
-            client.gists.createComment(
+            github.gists.createComment(
                 {
                     gist_id: '1e2f2c21e78106c2cd14',
                     body: 'This is a test comment.'
@@ -419,7 +410,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
                     expect(err).toBeNull();
                     var id = res.id;
 
-                    client.gists.editComment(
+                    github.gists.editComment(
                         {
                             gist_id: '1e2f2c21e78106c2cd14',
                             id: id,
@@ -428,7 +419,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
                         function (err, res) {
                             expect(err).toBeNull();
                             var id = res.id;
-                            client.gists.getComment(
+                            github.gists.getComment(
                                 {
                                     gist_id: '1e2f2c21e78106c2cd14',
                                     id: id
@@ -439,7 +430,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
                                     expect(res.id).toBe(id);
                                     expect(res.body).toBe('This comment has been edited.');
 
-                                    client.gists.deleteComment(
+                                    github.gists.deleteComment(
                                         {
                                             gist_id: '1e2f2c21e78106c2cd14',
                                             id: id
@@ -458,7 +449,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
         });
 
         it('should successfully execute DELETE /gists/:gist_id/comments/:id (deleteComment)', function (done) {
-            client.gists.createComment(
+            github.gists.createComment(
                 {
                     gist_id: '1e2f2c21e78106c2cd14',
                     body: 'This is a test comment.'
@@ -467,7 +458,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
                     expect(err).toBeNull();
                     var id = res.id;
 
-                    client.gists.deleteComment(
+                    github.gists.deleteComment(
                         {
                             gist_id: '1e2f2c21e78106c2cd14',
                             id: id
@@ -483,14 +474,14 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
     });
 
     describe('[gists] failure', function () {
-        var client;
+        var github;
 
         beforeEach(function () {
-            client = new Client();
+            github = new Github();
         });
 
         it('should successfully execute POST /gists/:gist_id/comments (createComment)', function (done) {
-            client.gists.createComment(
+            github.gists.createComment(
                 {
                     gist_id: '1e2f2c21e78106c2cd14',
                     body: 'This is a test comment.'
@@ -503,4 +494,4 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
             );
         });
     });
-});
+}());

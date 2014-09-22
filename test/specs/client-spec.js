@@ -1,15 +1,6 @@
 /*global define, xdescribe, it, expect, beforeEach*/
 
-/*
- * Copyright 2012 Cloud9 IDE, Inc.
- *
- * This product includes software developed by
- * Cloud9 IDE, Inc (http://c9.io).
- *
- * Author: Mike de Boer <mike@c9.io>
- */
-
-define(['githubjs'], function (Client) {
+(function(){
     'use strict';
 
     /*
@@ -61,4 +52,4 @@ define(['githubjs'], function (Client) {
             client.user.getFollowers({ user: 'aseemk' }, callback);
         });
     });
-});
+}());

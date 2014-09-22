@@ -1,22 +1,13 @@
-/*global define, describe, it, expect, beforeEach*/
-/*
- * Copyright 2012 Cloud9 IDE, Inc.
- *
- * This product includes software developed by
- * Cloud9 IDE, Inc (http://c9.io).
- *
- * Author: Mike de Boer <info@mikedeboer.nl>
- */
-
-define(['githubjs'], function (Client) {
+/*global describe, beforeEach, it, expect*/
+(function () {
     'use strict';
     describe('[events]', function () {
-        var client;
+        var github;
         var token = '44046cd4b4b85afebfe3ccaec13fd8c08cc80aad';
 
         beforeEach(function () {
-            client = new Client();
-            client.authenticate({
+            github = new Github();
+            github.authenticate({
                 type: 'oauth',
                 token: token
             });
@@ -36,7 +27,7 @@ define(['githubjs'], function (Client) {
                 done();
             }
 
-            client.events.get({ page: 1, per_page: 30 }, callback);
+            github.events.get({ page: 1, per_page: 30 }, callback);
         });
 
         it('should successfully execute GET /repos/:user/:repo/events (getFromRepo)', function (done) {
@@ -53,7 +44,7 @@ define(['githubjs'], function (Client) {
                 done();
             }
 
-            client.events.getFromRepo({
+            github.events.getFromRepo({
                 user: 'jwebertest',
                 repo: 'gh-review'
             }, callback);
@@ -74,7 +65,7 @@ define(['githubjs'], function (Client) {
                 done();
             }
 
-            client.events.getFromRepoIssues({
+            github.events.getFromRepoIssues({
                 user: 'jwebertest',
                 repo: 'forTestUseOnly'
             }, callback);
@@ -91,7 +82,7 @@ define(['githubjs'], function (Client) {
                 done();
             }
 
-            client.events.getFromRepoNetwork({
+            github.events.getFromRepoNetwork({
                 user: 'jwebertest',
                 repo: 'forTestUseOnly'
             }, callback);
@@ -108,7 +99,7 @@ define(['githubjs'], function (Client) {
                 done();
             }
 
-            client.events.getFromOrg({ org: 'dica-developer' }, callback);
+            github.events.getFromOrg({ org: 'dica-developer' }, callback);
         });
 
         it('should successfully execute GET /users/:user/received_events (getReceived)', function (done) {
@@ -123,7 +114,7 @@ define(['githubjs'], function (Client) {
                 done();
             }
 
-            client.events.getReceived({ user: 'jwebertest' }, callback);
+            github.events.getReceived({ user: 'jwebertest' }, callback);
         });
 
         it('should successfully execute GET /users/:user/received_events/public (getReceivedPublic)', function (done) {
@@ -138,7 +129,7 @@ define(['githubjs'], function (Client) {
                 done();
             }
 
-            client.events.getReceivedPublic({ user: 'jwebertest' }, callback);
+            github.events.getReceivedPublic({ user: 'jwebertest' }, callback);
         });
 
         it('should successfully execute GET /users/:user/events (getFromUser)', function (done) {
@@ -152,7 +143,7 @@ define(['githubjs'], function (Client) {
                 done();
             }
 
-            client.events.getFromUser({ user: 'jwebertest' }, callback);
+            github.events.getFromUser({ user: 'jwebertest' }, callback);
         });
 
         it('should successfully execute GET /users/:user/events/public (getFromUserPublic)', function (done) {
@@ -166,7 +157,7 @@ define(['githubjs'], function (Client) {
                 done();
             }
 
-            client.events.getFromUserPublic({ user: 'jwebertest' }, callback);
+            github.events.getFromUserPublic({ user: 'jwebertest' }, callback);
         });
 
         //TODO investigate why callback is not called here
@@ -178,11 +169,11 @@ define(['githubjs'], function (Client) {
                 done();
             }
 
-            client.events.getFromUserOrg({
+            github.events.getFromUserOrg({
                 user: 'jweber',
                 org: 'dica-developer'
             }, callback);
         });
     });
 
-});
+}());

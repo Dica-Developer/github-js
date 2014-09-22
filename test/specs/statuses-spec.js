@@ -1,30 +1,21 @@
 /*global define, describe, it, expect, beforeEach, xit*/
-/*
- * Copyright 2012 Cloud9 IDE, Inc.
- *
- * This product includes software developed by
- * Cloud9 IDE, Inc (http://c9.io).
- *
- * Author: Mike de Boer <info@mikedeboer.nl>
- */
-
-define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
+(function () {
     'use strict';
 
     describe('[statuses]', function () {
-        var client;
+        var github;
         var token = '44046cd4b4b85afebfe3ccaec13fd8c08cc80aad';
 
         beforeEach(function () {
-            client = new Client();
-            client.authenticate({
+            github = new Github();
+            github.authenticate({
                 type: 'oauth',
                 token: token
             });
         });
 
         it('should successfully execute GET /repos/:user/:repo/statuses/:sha (get)', function (done) {
-            client.statuses.get(
+            github.statuses.get(
                 {
                     user: 'dica-developer',
                     repo: 'gh-review',
@@ -43,7 +34,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
         });
 
         it('should successfully execute POST /repos/:user/:repo/statuses/:sha (create)', function (done) {
-            client.statuses.create(
+            github.statuses.create(
                 {
                     user: 'jwebertest',
                     repo: 'forTestUseOnly',
@@ -63,14 +54,14 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
     });
 
     describe('[statuses] failure', function () {
-        var client;
+        var github;
 
         beforeEach(function () {
-            client = new Client();
+            github = new Github();
         });
 
         it('should successfully execute GET /repos/:user/:repo/statuses/:sha (get)', function (done) {
-            client.statuses.get(
+            github.statuses.get(
                 {
                     user: 'jwebertest',
                     repo: 'forTestUseOnnly',
@@ -84,4 +75,4 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
             );
         });
     });
-});
+}());

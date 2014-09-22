@@ -1,30 +1,21 @@
 /*global define, describe, it, expect, beforeEach, xit*/
-/*
- * Copyright 2012 Cloud9 IDE, Inc.
- *
- * This product includes software developed by
- * Cloud9 IDE, Inc (http://c9.io).
- *
- * Author: Mike de Boer <info@mikedeboer.nl>
- */
-
-define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
+(function(){
     'use strict';
 
     describe('[issues]', function () {
-        var client;
+        var github;
         var token = '44046cd4b4b85afebfe3ccaec13fd8c08cc80aad';
 
         beforeEach(function () {
-            client = new Client();
-            client.authenticate({
+            github = new Github();
+            github.authenticate({
                 type: 'oauth',
                 token: token
             });
         });
 
         it('should successfully execute GET /issues (getAll)', function (done) {
-            client.issues.getAll(
+            github.issues.getAll(
                 {
                     filter: 'created',
                     state: 'open',
@@ -49,7 +40,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
         });
 
         it('should successfully execute GET /repos/:user/:repo/issues (repoIssues)', function (done) {
-            client.issues.repoIssues(
+            github.issues.repoIssues(
                 {
                     user: 'jwebertest',
                     repo: 'forTestUseOnly',
@@ -73,7 +64,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
         });
 
         it('should successfully execute GET /repos/:user/:repo/issues/:number (getRepoIssue)', function (done) {
-            client.issues.getRepoIssue(
+            github.issues.getRepoIssue(
                 {
                     user: 'jwebertest',
                     repo: 'forTestUseOnly',
@@ -419,4 +410,4 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
          );
          });*/
     });
-});
+}())
