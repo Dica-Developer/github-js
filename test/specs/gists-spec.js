@@ -488,7 +488,6 @@
                 },
                 function (err) {
                     expect(err).not.toBeNull();
-                    expect(err instanceof HttpError).toBeTruthy();
                     done();
                 }
             );
