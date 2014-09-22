@@ -39,7 +39,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
                     expect(err).toBeNull();
                     expect(res.length).toBe(1);
                     var gist = res.pop();
-                    expect(gist.user.login).toBe('jwebertest');
+                    expect(gist.owner.login).toBe('jwebertest');
                     expect(gist.html_url).toBe('https://gist.github.com/1e2f2c21e78106c2cd14');
                     expect(gist.created_at).toBe('2014-03-15T17:44:40Z');
                     expect(gist.public).toBeFalsy();
@@ -56,7 +56,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
                     expect(err).toBeNull();
                     expect(res.length).toBe(1);
                     var gist = res.pop();
-                    expect(gist.user.login).toBe('jwebertest');
+                    expect(gist.owner.login).toBe('jwebertest');
                     expect(gist.html_url).toBe('https://gist.github.com/1e2f2c21e78106c2cd14');
                     expect(gist.created_at).toBe('2014-03-15T17:44:40Z');
                     expect(gist.public).toBeFalsy();
@@ -71,7 +71,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
 
             function gistGetClbk(err, res) {
                 expect(err).toBeNull();
-                expect(res.user.login).toBe('jwebertest');
+                expect(res.owner.login).toBe('jwebertest');
                 expect(res.html_url).toBe('https://gist.github.com/' + id);
                 expect(res.public).toBeFalsy();
                 expect(res.id).toBe(id);
@@ -103,7 +103,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
                 client.gists.get({ id: id },
                     function (err, res) {
                         expect(err).toBeNull();
-                        expect(res.user.login).toBe('jwebertest');
+                        expect(res.owner.login).toBe('jwebertest');
                         expect(res.html_url).toBe('https://gist.github.com/' + id);
                         expect(res.public).toBeFalsy();
                         expect(res.id).toBe(id);
@@ -145,7 +145,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
                     expect(err).toBeNull();
                     expect(res.length).toBe(1);
                     var gist = res.pop();
-                    expect(gist.user.login).toBe('jwebertest');
+                    expect(gist.owner.login).toBe('jwebertest');
                     expect(gist.html_url).toBe('https://gist.github.com/1e2f2c21e78106c2cd14');
                     expect(gist.created_at).toBe('2014-03-15T17:44:40Z');
                     expect(gist.public).toBeFalsy();
@@ -165,7 +165,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
                 client.gists.get({ id: id },
                     function (err, res) {
                         expect(err).toBeNull();
-                        expect(res.user.login).toBe('jwebertest');
+                        expect(res.owner.login).toBe('jwebertest');
                         expect(res.html_url).toBe('https://gist.github.com/' + id);
                         expect(res.public).toBeFalsy();
                         expect(res.id).toBe(id);
@@ -435,7 +435,7 @@ define(['githubjs', 'GitHubHttpError'], function (Client, HttpError) {
                                 },
                                 function (err, res) {
                                     expect(err).toBeNull();
-                                    expect(res.user.login).toBe('jwebertest');
+                                    expect(res.owner.login).toBe('jwebertest');
                                     expect(res.id).toBe(id);
                                     expect(res.body).toBe('This comment has been edited.');
 
