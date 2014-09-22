@@ -6,8 +6,8 @@ module.exports = function(config) {
         frameworks: ['jasmine'],
 
         files: [
-            {pattern: 'lib/wo_require/github.js', included: false},
-            {pattern: 'test/specs/**/*-spec.js', included: false}
+            {pattern: 'lib/wo_require/github.js', included: true},
+            {pattern: 'test/specs/**/*-spec.js', included: true}
         ],
 
         browsers: ['PhantomJS'],
