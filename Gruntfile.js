@@ -9,9 +9,10 @@ module.exports = function (grunt) {
     var config = {
         requirejs: {
             lib: 'lib/requirejs',
-            api: 'lib/requirejs/api',
-            dist: 'dist'
+            api: 'lib/requirejs/api'
         },
+        dist: 'dist',
+        coverage: 'test/coverage',
         templates: 'templates/wo_requirejs',
         build: 'lib/wo_require',
         test: 'test'
@@ -19,22 +20,6 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         config: config,
-        watch: {
-            options: {
-                nospawn: true
-            },
-            dev: {
-                files: [
-                    '<%= config.app %>/css/*',
-                    '<%= config.app %>/js/**/*',
-                    '<%= config.app %>/worker/**/*',
-                    '<%= config.app %>/*.html',
-                    '<%= config.app %>/templates/**/*',
-                    '!<%= config.app %>/bower_components/*'
-                ],
-                tasks: ['devWatch']
-            }
-        },
         clean: {
             dist: {
                 files: [{
@@ -84,7 +69,7 @@ module.exports = function (grunt) {
         coveralls: {
             options: {
                 debug: true,
-                coverage_dir: 'coverage'
+                coverage_dir: '<%= coverage %>'
             }
         }
     });
@@ -95,7 +80,7 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('dist', [
-//        'clean:dist',
+        'clean:dist',
         'jshint',
         'requirejs:dist'
     ]);
