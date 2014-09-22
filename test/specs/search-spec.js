@@ -75,15 +75,15 @@ define(['githubjs'], function (Client) {
 
         it('should successfully execute GET /legacy/user/search/code ', function (done) {
             client.search.code({
-                    q: 'test helper repo:dica-developer/gh-review'
+                    q: 'test repo:dica-developer/gh-review'
                 },
                 function (err, res) {
                     expect(err).toBeNull();
-                    expect(res.items.length).toBe(3);
-                    var result = res.items.shift();
+                    expect(res.items.length).toBe(12);
+                    var result = res.items[1];
                     expect(result.name).toBe('dev.karma.conf.js');
                     expect(result.path).toBe('test/dev.karma.conf.js');
-                    expect(result.sha).toBe('b8854a2711504db327c941b7d2d98555345395f9');
+                    expect(result.sha).toBe('55a9e77bd5d055bd3513ffcc0ac2b82a438427b3');
 
                     done();
                 }
