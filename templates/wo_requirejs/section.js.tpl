@@ -1,6 +1,4 @@
-    var <%= section %> = {
-        <%= section %>: {}
-    };
+    var <%= section %> = {};
 
 
 <%= sectionBody %>
