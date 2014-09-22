@@ -69,7 +69,7 @@ module.exports = function (grunt) {
         coveralls: {
             options: {
                 debug: true,
-                coverage_dir: '<%= coverage %>'
+                coverage_dir: 'test/coverage'
             }
         }
     });
