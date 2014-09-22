@@ -20,10 +20,10 @@
         baseUrl: '/base/src',
 
         paths: {
-            githubjs: '../lib/githubjs',
-            GitHubUtils: '../lib/util',
-            GitHubHttpError: '../lib/HttpError',
-            GitHubApiIndex: '../lib/api/index'
+            githubjs: '../lib/requirejs/githubjs',
+            GitHubUtils: '../lib/requirejs/util',
+            GitHubHttpError: '../lib/requirejs/HttpError',
+            GitHubApiIndex: '../lib/requirejs/api/index'
         },
         map: {
             githubjs: {
@@ -34,19 +34,19 @@
 
             'GitHubApiIndex': {
                 'util': 'GitHubUtils',
-                'api/routes': '../lib/api/routes',
-                'api/gists': '../lib/api/gists',
-                'api/gitdata': '../lib/api/gitdata',
-                'api/authorization': '../lib/api/authorization',
-                'api/orgs': '../lib/api/orgs',
-                'api/statuses': '../lib/api/statuses',
-                'api/pullRequests': '../lib/api/pullRequests',
-                'api/repos': '../lib/api/repos',
-                'api/user': '../lib/api/user',
-                'api/events': '../lib/api/events',
-                'api/search': '../lib/api/search',
-                'api/issues': '../lib/api/issues',
-                'api/markdown': '../lib/api/markdown'
+                'api/routes': '../lib/requirejs/api/routes',
+                'api/gists': '../lib/requirejs/api/gists',
+                'api/gitdata': '../lib/requirejs/api/gitdata',
+                'api/authorization': '../lib/requirejs/api/authorization',
+                'api/orgs': '../lib/requirejs/api/orgs',
+                'api/statuses': '../lib/requirejs/api/statuses',
+                'api/pullRequests': '../lib/requirejs/api/pullRequests',
+                'api/repos': '../lib/requirejs/api/repos',
+                'api/user': '../lib/requirejs/api/user',
+                'api/events': '../lib/requirejs/api/events',
+                'api/search': '../lib/requirejs/api/search',
+                'api/issues': '../lib/requirejs/api/issues',
+                'api/markdown': '../lib/requirejs/api/markdown'
             }
 
         },

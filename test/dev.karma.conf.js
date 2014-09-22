@@ -6,7 +6,7 @@ module.exports = function(config) {
         frameworks: ['jasmine', 'requirejs'],
 
         files: [
-            {pattern: 'lib/**/*.js', included: false},
+            {pattern: 'lib/requirejs/**/*.js', included: false},
             {pattern: 'test/specs/**/*-spec.js', included: false},
 
             'test/test-main.js'
@@ -15,7 +15,7 @@ module.exports = function(config) {
         browsers: ['PhantomJS'],
         reporters: ['dots', 'coverage'],
         preprocessors: {
-            'lib/**/*.js': ['coverage']
+            'lib/requirejs//**/*.js': ['coverage']
         },
         coverageReporter: {
             type : 'html',
