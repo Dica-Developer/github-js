@@ -13,7 +13,7 @@
             });
         });
 
-        xit('should successfully execute GET /repos/:user/:repo/git/blobs/:sha (getBlob)', function (done) {
+        it('should successfully execute GET /repos/:user/:repo/git/blobs/:sha (getBlob)', function (done) {
             // found an object after executing:
             // git rev-list --all | xargs -l1 git diff-tree -r -c -M -C --no-commit-id | awk '{print $3}'
             // [jweber] me too ;-)
@@ -34,7 +34,7 @@
             );
         });
 
-        xit('should successfully execute POST /repos/:user/:repo/git/blobs (createBlob)', function (done) {
+        it('should successfully execute POST /repos/:user/:repo/git/blobs (createBlob)', function (done) {
             function blobCreateClbk(err, res) {
                 expect(err).toBeNull();
                 expect(typeof res.sha).toBe('string');
@@ -66,7 +66,7 @@
                 }, blobCreateClbk);
         });
 
-        xit('should successfully execute GET /repos/:user/:repo/git/commits/:sha (getCommit)', function (done) {
+        it('should successfully execute GET /repos/:user/:repo/git/commits/:sha (getCommit)', function (done) {
             github.gitdata.getCommit(
                 {
                     user: 'jwebertest',
@@ -83,7 +83,7 @@
             );
         });
 
-        xit('should successfully execute POST /repos/:user/:repo/git/commits (createCommit)', function (done) {
+        it('should successfully execute POST /repos/:user/:repo/git/commits (createCommit)', function (done) {
             // got valid tree reference by executing
             // git cat-file -p HEAD
             github.gitdata.createCommit(
@@ -116,7 +116,7 @@
             );
         });
 
-        xit('should successfully execute GET /repos/:user/:repo/git/refs/:ref (getReference)', function (done) {
+        it('should successfully execute GET /repos/:user/:repo/git/refs/:ref (getReference)', function (done) {
             github.gitdata.getReference(
                 {
                     user: 'jwebertest',
@@ -133,7 +133,7 @@
             );
         });
 
-        xit('should successfully execute GET /repos/:user/:repo/git/refs (getAllReferences)', function (done) {
+        it('should successfully execute GET /repos/:user/:repo/git/refs (getAllReferences)', function (done) {
             github.gitdata.getAllReferences(
                 {
                     user: 'jwebertest',
@@ -258,14 +258,14 @@
             );
         });
 
-        xit('should successfully execute GET /repos/:user/:repo/git/tags/:sha (getTag)', function (done) {
+        it('should successfully execute GET /repos/:user/:repo/git/tags/:sha (getTag)', function (done) {
             github.gitdata.createTag(
                 {
                     user: 'jwebertest',
                     repo: 'forTestUseOnly',
-                    tag: 'v0.1',
+                    tag: 'test-pasta',
                     message: 'Grandma\'s secret sauce',
-                    object: '17e0734295ffd8174f91f04ba8e8f8e51954b793',
+                    object: 'master',
                     type: 'commit',
                     tagger: {
                         name: 'test-chef',
@@ -291,25 +291,14 @@
                             expect(res.sha).toBe(sha);
                             expect(res.tagger.name).toBe('test-chef');
                             expect(res.tagger.email).toBe('test-chef@pasta-nirvana.it');
-
-                            github.gitdata.deleteReference(
-                                {
-                                    user: 'jwebertest',
-                                    repo: 'forTestUseOnly',
-                                    ref: 'tags/' + sha
-                                },
-                                function (err, res) {
-                                    expect(err).toBeNull();
-                                    done();
-                                }
-                            );
+                            done();
                         }
                     );
                 }
             );
         });
 
-        xit('should successfully execute POST /repos/:user/:repo/git/tags (createTag)', function (done) {
+        it('should successfully execute POST /repos/:user/:repo/git/tags (createTag)', function (done) {
             github.gitdata.createTag(
                 {
                     user: 'jwebertest',
@@ -335,7 +324,7 @@
             );
         });
 
-        xit('should successfully execute GET /repos/:user/:repo/git/trees/:sha (getTree)', function (done) {
+        it('should successfully execute GET /repos/:user/:repo/git/trees/:sha (getTree)', function (done) {
             github.gitdata.getTree(
                 {
                     user: 'jwebertest',
@@ -356,7 +345,7 @@
             );
         });
 
-        xit('should successfully execute POST /repos/:user/:repo/git/trees (createTree)', function (done) {
+        it('should successfully execute POST /repos/:user/:repo/git/trees (createTree)', function (done) {
             github.gitdata.getTree(
                 {
                     user: 'jwebertest',
