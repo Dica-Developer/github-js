@@ -226,7 +226,7 @@ module.exports = function (grunt) {
                 });
 
             api.push(sectionTemplate);
-            grunt.file.write(config.test + '/new/' + sectionName + '-spec.js', testSectionTemplate, 'utf8');
+//            grunt.file.write(config.test + '/new/' + sectionName + '-spec.js', testSectionTemplate, 'utf8');
         });
 
         routes.defines = defines;
