@@ -36,6 +36,20 @@ module.exports = function (grunt) {
                 }
             }
         },
+        uglify: {
+            options: {
+                mangle: {
+                    except: ['URL']
+                },
+                sourceMap: true,
+                sourceMapName: '<%= config.dist %>/sourcemap.map'
+            },
+            dist: {
+                files: {
+                    '<%= config.dist %>/github.min.js': ['<%= config.dist %>/github.js']
+                }
+            }
+        },
         karma: {
             dev: {
                 configFile: '<%= config.test %>/dev.karma.conf.js'
@@ -52,12 +66,6 @@ module.exports = function (grunt) {
         }
     });
 
-
-    grunt.registerTask('dist', [
-        'build',
-        'requirejs'
-    ]);
-
     grunt.registerTask('test', [
         'build',
         'karma:dev'
@@ -71,7 +79,8 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
-        'buildScript'
+        'buildScript',
+        'uglify:dist'
     ]);
 
     grunt.registerTask('buildScript', function () {
@@ -234,7 +243,6 @@ module.exports = function (grunt) {
             });
 
         grunt.file.write(config.dist + '/github.js', appTemplate, 'utf8');
-
     });
 
 };
