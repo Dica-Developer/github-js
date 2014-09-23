@@ -29,7 +29,7 @@
     consoleTypes.forEach(function (type) {
         Util.prototype[type] = function () {
             if (typeof console !== 'undefined' && typeof console[type] !== 'undefined') {
-                return console[type];
+                return console[type].apply(console, arguments);
             } else {
                 return null;
             }
