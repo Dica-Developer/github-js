@@ -36,12 +36,6 @@ module.exports = function (grunt) {
                 }
             }
         },
-        jshint: {
-            options: {
-                jshintrc: '.jshintrc'
-            },
-            files: '<%= config.dist %>/github.js'
-        },
         karma: {
             dev: {
                 configFile: '<%= config.test %>/dev.karma.conf.js'
@@ -59,23 +53,25 @@ module.exports = function (grunt) {
     });
 
 
-    grunt.registerTask('devWatch', [
-        'jshint'
-    ]);
-
     grunt.registerTask('dist', [
-        'clean:dist',
-        'jshint',
-        'requirejs:dist'
+        'build',
+        'requirejs'
     ]);
 
     grunt.registerTask('test', [
+        'build',
         'karma:dev'
     ]);
 
     grunt.registerTask('travis', [
+        'build',
         'karma:travis',
         'coveralls'
+    ]);
+
+    grunt.registerTask('build', [
+        'clean:dist',
+        'buildScript'
     ]);
 
     grunt.registerTask('buildScript', function () {
