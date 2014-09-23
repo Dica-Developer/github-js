@@ -91,7 +91,7 @@ module.exports = function (grunt) {
             TestSectionTpl = grunt.file.read(config.buildFiles+ '/test_section.js.tpl'),
             defines = routes.defines,
             headers = defines['response-headers'],
-            sections = {}, dashedSectionNames = {}, testSections = {}, api = [];
+            sections = {}, testSections = {}, api = [];
 
 
         delete routes.defines;
@@ -154,7 +154,6 @@ module.exports = function (grunt) {
                 } else {
                     var parts = messageType.split('/');
                     var sectionName = toCamelCase(parts[1].toLowerCase());
-                    dashedSectionNames[sectionName] = parts[1].toLowerCase();
                     if (!block.method) {
                         grunt.fail.fatal('No HTTP method specified for ' + messageType + ' in section ' + sectionName);
                     }
