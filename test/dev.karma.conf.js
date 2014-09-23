@@ -6,8 +6,8 @@ module.exports = function(config) {
         frameworks: ['jasmine'],
 
         files: [
-            {pattern: 'dist/github.js', included: true},
-            {pattern: 'test/specs/**/*-spec.js', included: true}
+            'dist/github.js',
+            'test/specs/*-spec.js'
         ],
 
         browsers: ['PhantomJS'],
@@ -22,7 +22,7 @@ module.exports = function(config) {
 
         logLevel: config.LOG_INFO,
 
-        autoWatch: true,
-        singleRun: false
+        autoWatch: false,
+        singleRun: true
     });
 };
