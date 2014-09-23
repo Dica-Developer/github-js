@@ -103,6 +103,8 @@ module.exports = function (grunt) {
             github = grunt.file.read(config.templates + '/github.js'),
             util = grunt.file.read(config.templates + '/util.js'),
             httpError = grunt.file.read(config.templates + '/HttpError.js'),
+            TestHandlerTpl = grunt.file.read(config.templates + '/test_handler.js.tpl'),
+            TestSectionTpl = grunt.file.read(config.templates + '/test_section.js.tpl'),
             defines = routes.defines,
             headers = defines['response-headers'],
             sections = {}, dashedSectionNames = {}, testSections = {}, api = [];
@@ -124,6 +126,32 @@ module.exports = function (grunt) {
                 return str;
             }
             return str.charAt(0).toLowerCase() + str.substr(1);
+        }
+
+        function getParams(paramsStruct, indent) {
+            var params = Object.keys(paramsStruct);
+            if (!params.length){
+                return '{}';
+            }
+            var values = [];
+            var paramName, def;
+            for (var i = 0, l = params.length; i < l; i = i + 1) {
+                paramName = params[i];
+                if (paramName.charAt(0) === '$') {
+                    paramName = paramName.substr(1);
+                    if (!defines.params[paramName]) {
+                        console.log('Invalid variable parameter name substitution; param ' + paramName + ' not found in defines block');
+                        process.exit(1);
+                    } else{
+                        def = defines.params[paramName];
+                    }
+                } else {
+                    def = paramsStruct[paramName];
+                }
+
+                values.push(indent + '    ' + paramName + ': \'' + def.type + '\'');
+            }
+            return '{\n' + values.join(',\n') + '\n' + indent + '}';
         }
 
         function prepareApi(struct, baseType) {
@@ -180,8 +208,14 @@ module.exports = function (grunt) {
                         testSections[sectionName] = [];
                     }
 
-//                    var testHandlerTemplate = grunt.template.process(TestHandlerTpl, options);
-//                    testSections[sectionName].push(testHandlerTemplate);
+                    var testHandlerTemplate = grunt.template.process(TestHandlerTpl, {
+                        data: {
+                            name: block.method + ' ' + block.url + ' (' + funcName + ')',
+                            funcName: sectionName + '.' + funcName,
+                            params: getParams(block.params, '                ')
+                        }
+                    });
+                    testSections[sectionName].push(testHandlerTemplate);
                 }
             });
         }
@@ -189,17 +223,23 @@ module.exports = function (grunt) {
         prepareApi(routes);
 
         Object.keys(sections).forEach(function (sectionName) {
+            console.log(testSections[sectionName].join('\n'));
             var options = {
                     data: {
                         section: sectionName,
                         sectionBody: sections[sectionName].join('\n')
                     }
                 },
-                sectionTemplate = grunt.template.process(SectionTpl, options);
-//                testSectionTemplate = grunt.template.process(TestSectionTpl, options);
+                sectionTemplate = grunt.template.process(SectionTpl, options),
+                testSectionTemplate = grunt.template.process(TestSectionTpl, {
+                    data: {
+                        sectionName: sectionName,
+                        testBody: testSections[sectionName].join('\n')
+                    }
+                });
 
             api.push(sectionTemplate);
-//            grunt.file.write(config.test + '/unit/routes/' + sectionName + '.spec.js', testSectionTemplate, 'utf8');
+            grunt.file.write(config.test + '/new/' + sectionName + '-spec.js', testSectionTemplate, 'utf8');
         });
 
         routes.defines = defines;
