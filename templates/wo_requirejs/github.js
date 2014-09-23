@@ -446,4 +446,10 @@
         xhr.send(hasBody ? query : null);
     };
 
-    root.Github = Github;
+    if ( typeof define === 'function' && define.amd ) {
+        define(function() {
+            return Github;
+        });
+    } else {
+        root.Github = Github;
+    }
