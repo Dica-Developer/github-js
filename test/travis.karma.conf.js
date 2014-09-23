@@ -6,14 +6,14 @@ module.exports = function(config) {
         frameworks: ['jasmine'],
 
         files: [
-            {pattern: 'lib/wo_require/github.js', included: true},
+            {pattern: 'dist/github.js', included: true},
             {pattern: 'test/specs/**/*-spec.js', included: true}
         ],
 
         browsers: ['PhantomJS'],
         reporters: ['dots', 'coverage'],
         preprocessors: {
-            'lib/wo_require/github.js': ['coverage']
+            'dist/github.js': ['coverage']
         },
         coverageReporter: {
             type : 'lcov',
