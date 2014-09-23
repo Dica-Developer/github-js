@@ -7,14 +7,9 @@ module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
     grunt.loadNpmTasks('grunt-karma-coveralls');
     var config = {
-        requirejs: {
-            lib: 'lib/requirejs',
-            api: 'lib/requirejs/api'
-        },
         dist: 'dist',
         coverage: 'test/coverage',
-        templates: 'templates/wo_requirejs',
-        build: 'lib/wo_require',
+        buildFiles: 'buildFiles',
         test: 'test'
     };
 
@@ -45,18 +40,7 @@ module.exports = function (grunt) {
             options: {
                 jshintrc: '.jshintrc'
             },
-            files: '<%= config.lib %>/js/{,*/}*.js'
-        },
-        requirejs: {
-            options: {
-                loglevel: 5,
-                inlineText: true,
-                baseUrl: './lib/requirejs',
-                optimize: 'uglify2',
-                name: 'githubjs',
-                out: 'dist/github.requirejs.min.js'
-            },
-            dist: {}
+            files: '<%= config.dist %>/github.js'
         },
         karma: {
             dev: {
@@ -95,16 +79,16 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('buildScript', function () {
-        var AppTpl = grunt.file.read(config.templates + '/index.js.tpl', 'utf8'),
-            SectionTpl = grunt.file.read(config.templates + '/section.js.tpl', 'utf8'),
-            HandlerTpl = grunt.file.read(config.templates + '/handler.js.tpl', 'utf8'),
-            AfterRequestTpl = grunt.file.read(config.templates + '/after_request.js.tpl', 'utf8'),
-            routes = grunt.file.readJSON(config.templates + '/routes.json'),
-            github = grunt.file.read(config.templates + '/github.js'),
-            util = grunt.file.read(config.templates + '/util.js'),
-            httpError = grunt.file.read(config.templates + '/HttpError.js'),
-            TestHandlerTpl = grunt.file.read(config.templates + '/test_handler.js.tpl'),
-            TestSectionTpl = grunt.file.read(config.templates + '/test_section.js.tpl'),
+        var AppTpl = grunt.file.read(config.buildFiles+ '/index.js.tpl', 'utf8'),
+            SectionTpl = grunt.file.read(config.buildFiles+ '/section.js.tpl', 'utf8'),
+            HandlerTpl = grunt.file.read(config.buildFiles+ '/handler.js.tpl', 'utf8'),
+            AfterRequestTpl = grunt.file.read(config.buildFiles+ '/after_request.js.tpl', 'utf8'),
+            routes = grunt.file.readJSON(config.buildFiles+ '/routes.json'),
+            github = grunt.file.read(config.buildFiles+ '/github.js'),
+            util = grunt.file.read(config.buildFiles+ '/util.js'),
+            httpError = grunt.file.read(config.buildFiles+ '/HttpError.js'),
+            TestHandlerTpl = grunt.file.read(config.buildFiles+ '/test_handler.js.tpl'),
+            TestSectionTpl = grunt.file.read(config.buildFiles+ '/test_section.js.tpl'),
             defines = routes.defines,
             headers = defines['response-headers'],
             sections = {}, dashedSectionNames = {}, testSections = {}, api = [];
@@ -223,7 +207,6 @@ module.exports = function (grunt) {
         prepareApi(routes);
 
         Object.keys(sections).forEach(function (sectionName) {
-            console.log(testSections[sectionName].join('\n'));
             var options = {
                     data: {
                         section: sectionName,
@@ -255,7 +238,7 @@ module.exports = function (grunt) {
                 }
             });
 
-        grunt.file.write(config.build + '/github.js', appTemplate, 'utf8');
+        grunt.file.write(config.dist + '/github.js', appTemplate, 'utf8');
 
     });
 
