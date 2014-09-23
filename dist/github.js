@@ -86,10 +86,11 @@
         511: 'Network Authentication Required'
     };
 
-    var HttpError = function (message, code) {
+    var HttpError = function (message, code, xhr) {
         this.message = message;
         this.code = code;
         this.defaultMessage = statusCodes[code];
+        this.xhr = xhr;
     };
 
     HttpError.prototype.toString = function () {
@@ -3075,8 +3076,8 @@
                     res.data = xhr.responseText;
                     callback(null, res);
                 } else if (xhr.status >= 400 && xhr.status < 600 || xhr.status < 10) {
-                    util.error(xhr.status, xhr.responseText); //TODO use HttpError instead
-                    callback(new HttpError(xhr.responseText, xhr.status), null);
+                    util.error(method, path, query, xhr.responseText); //TODO use HttpError instead
+                    callback(new HttpError(xhr.responseText, xhr.status, xhr), null);
                 }
             }
         };
