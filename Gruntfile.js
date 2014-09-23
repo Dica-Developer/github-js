@@ -113,18 +113,17 @@ module.exports = function (grunt) {
         }
 
         function getParams(paramsStruct, indent) {
-            var params = Object.keys(paramsStruct);
+            var params = Object.keys(paramsStruct), values = [], def;
+
             if (!params.length){
                 return '{}';
             }
-            var values = [];
-            var paramName, def;
-            for (var i = 0, l = params.length; i < l; i = i + 1) {
-                paramName = params[i];
+
+            params.forEach(function(paramName){
                 if (paramName.charAt(0) === '$') {
                     paramName = paramName.substr(1);
                     if (!defines.params[paramName]) {
-                        console.log('Invalid variable parameter name substitution; param ' + paramName + ' not found in defines block');
+                        grunt.fail.fatal('Invalid variable parameter name substitution; param ' + paramName + ' not found in defines block');
                         process.exit(1);
                     } else{
                         def = defines.params[paramName];
@@ -134,7 +133,8 @@ module.exports = function (grunt) {
                 }
 
                 values.push(indent + '    ' + paramName + ': \'' + def.type + '\'');
-            }
+
+            });
             return '{\n' + values.join(',\n') + '\n' + indent + '}';
         }
 
