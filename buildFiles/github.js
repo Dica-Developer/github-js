@@ -34,7 +34,7 @@
                 if (paramName.charAt(0) === '$') {
                     paramName = paramName.substr(1);
                     if (!defines.params[paramName]) {
-                        util.error('Invalid variable parameter name substitution; param "' +
+                        throw('Invalid variable parameter name substitution; param "' +
                             paramName + '" not found in defines block');
                     } else {
                         def = defines.params[paramName];
@@ -48,7 +48,7 @@
                     // we don't need to validation for undefined parameter values
                     // that are not required.
                     if (def.required) {
-                        util.error('Empty value for parameter "' + paramName + '": ' + value);
+                        throw('Empty value for parameter "' + paramName + '": ' + value);
                     } else {
                         continue;
                     }
@@ -57,7 +57,7 @@
                 // validate the value and type of parameter:
                 if (def.validation) {
                     if (!new RegExp(def.validation).test(value)) {
-                        util.error('Invalid value for parameter "' + paramName + '": ' + value);
+                        throw('Invalid value for parameter "' + paramName + '": ' + value);
                     }
                 }
 
@@ -66,7 +66,7 @@
                     if (type === 'number') {
                         value = parseInt(value, 10);
                         if (isNaN(value)) {
-                            util.error('Invalid value for parameter "' + paramName + '": ' + msg[paramName] + ' is NaN');
+                            throw('Invalid value for parameter "' + paramName + '": ' + msg[paramName] + ' is NaN');
                         }
                     } else if (type === 'float') {
                         value = parseFloat(value);
