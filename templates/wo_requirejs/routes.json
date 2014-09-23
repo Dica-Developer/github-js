@@ -7,11 +7,13 @@
             "host": "api.github.com",
             "port": 443,
             "dateFormat": "YYYY-MM-DDTHH:MM:SSZ",
-            "requestFormat": "json"
+            "requestFormat": "json",
+            "requestMedia": "application/vnd.github.beta+json"
         },
         "response-headers": [
             "X-RateLimit-Limit",
             "X-RateLimit-Remaining",
+            "X-RateLimit-Reset",
             "X-Oauth-Scopes",
             "Link",
             "Location",
@@ -23,7 +25,9 @@
             "If-Modified-Since",
             "If-None-Match",
             "Cookie",
-            "User-Agent"
+            "User-Agent",
+            "Accept",
+            "X-GitHub-OTP"
         ],
         "params": {
             "files": {
@@ -31,7 +35,7 @@
                 "required": true,
                 "validation": "",
                 "invalidmsg": "",
-                "description": "Files that make up this gist. The key of which should be a required string filename and the value another required hash with parameters: \"content\""
+                "description": "Files that make up this gist. The key of which should be a required string filename and the value another required hash with parameters: 'content'"
             },
             "user": {
                 "type": "String",
@@ -87,7 +91,7 @@
                 "required": true,
                 "validation": "",
                 "invalidmsg": "",
-                "description": ""
+                "description": "Id (SHA1 hash) of the gist."
             },
             "ref": {
                 "type": "String",
@@ -122,14 +126,14 @@
                 "required": false,
                 "validation": "",
                 "invalidmsg": "",
-                "description": "Optional string of a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ"
+                "description": "Timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ"
             },
             "until": {
                 "type": "Date",
                 "required": false,
                 "validation": "",
                 "invalidmsg": "",
-                "description": "Optional string of a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ"
+                "description": "Timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ"
             },
             "state": {
                 "type": "String",
@@ -142,8 +146,8 @@
                 "type": "String",
                 "required": true,
                 "validation": "",
-                "invalidmsg": "Required string - 6 character hex code, without a leading #.",
-                "description": "Required string - 6 character hex code, without a leading #."
+                "invalidmsg": "6 character hex code, without a leading #.",
+                "description": "6 character hex code, without a leading #."
             },
             "permission": {
                 "type": "String",
@@ -157,42 +161,42 @@
                 "required": true,
                 "validation": "",
                 "invalidmsg": "",
-                "description": "Required string - The branch (or git ref) you want your changes pulled into. This should be an existing branch on the current repository. You cannot submit a pull request to one repo that requests a merge to a base of another repo."
+                "description": "The branch (or git ref) you want your changes pulled into. This should be an existing branch on the current repository. You cannot submit a pull request to one repo that requests a merge to a base of another repo."
             },
             "head": {
                 "type": "String",
                 "required": true,
                 "validation": "",
                 "invalidmsg": "",
-                "description": "Required string - The branch (or git ref) where your changes are implemented."
+                "description": "The branch (or git ref) where your changes are implemented."
             },
             "commit_id": {
                 "type": "String",
                 "required": true,
                 "validation": "",
-                "invalidmsg": "Required string - Sha of the commit to comment on.",
-                "description": "Required string - Sha of the commit to comment on."
+                "invalidmsg": "Sha of the commit to comment on.",
+                "description": "Sha of the commit to comment on."
             },
             "line": {
                 "type": "Number",
                 "required": true,
                 "validation": "",
-                "invalidmsg": "Required number - Line index in the diff to comment on.",
-                "description": "Required number - Line index in the diff to comment on."
+                "invalidmsg": "Line index in the diff to comment on.",
+                "description": "Line index in the diff to comment on."
             },
             "path": {
                 "type": "String",
                 "required": true,
                 "validation": "",
-                "invalidmsg": "Required string - Relative path of the file to comment on.",
-                "description": "Required string - Relative path of the file to comment on."
+                "invalidmsg": "Relative path of the file to comment on.",
+                "description": "Relative path of the file to comment on."
             },
             "position": {
                 "type": "Number",
                 "required": true,
                 "validation": "",
-                "invalidmsg": "Required number - Column index in the diff to comment on.",
-                "description": "Required number - Column index in the diff to comment on."
+                "invalidmsg": "Column index in the diff to comment on.",
+                "description": "Column index in the diff to comment on."
             },
             "body": {
                 "type": "String",
@@ -213,28 +217,35 @@
                 "required": false,
                 "validation": "",
                 "invalidmsg": "",
-                "description": "Optional boolean - true to create a private repository, false to create a public one. Creating private repositories requires a paid GitHub account. Default is false."
+                "description": "True to create a private repository, false to create a public one. Creating private repositories requires a paid GitHub account. Default is false."
             },
             "has_issues": {
                 "type": "Boolean",
                 "required": false,
                 "validation": "",
                 "invalidmsg": "",
-                "description": "Optional boolean - true to enable issues for this repository, false to disable them. Default is true."
+                "description": "True to enable issues for this repository, false to disable them. Default is true."
             },
             "has_wiki": {
                 "type": "Boolean",
                 "required": false,
                 "validation": "",
                 "invalidmsg": "",
-                "description": "Optional boolean - true to enable the wiki for this repository, false to disable it. Default is true."
+                "description": "True to enable the wiki for this repository, false to disable it. Default is true."
             },
             "has_downloads": {
                 "type": "Boolean",
                 "required": false,
                 "validation": "",
                 "invalidmsg": "",
-                "description": "Optional boolean - true to enable downloads for this repository, false to disable them. Default is true."
+                "description": "True to enable downloads for this repository, false to disable them. Default is true."
+            },
+            "default_branch": {
+                "type": "String",
+                "required": false,
+                "validation": "",
+                "invalidmsg": "",
+                "description": "Updates the default branch for this repository."
             },
             "collabuser": {
                 "type": "String",
@@ -276,35 +287,64 @@
                 "required": false,
                 "validation": "",
                 "invalidmsg": "",
-                "description": "Optional array - A list of scopes that this authorization is in."
+                "description": "A list of scopes that this authorization is in."
             },
             "note": {
                 "type": "String",
                 "required": false,
                 "validation": "",
                 "invalidmsg": "",
-                "description": "Optional string - A note to remind you what the OAuth token is for."
+                "description": "A note to remind you what the OAuth token is for."
             },
             "note_url": {
                 "type": "String",
                 "required": false,
                 "validation": "",
                 "invalidmsg": "",
-                "description": "Optional string - A URL to remind you what app the OAuth token is for."
+                "description": "A URL to remind you what app the OAuth token is for."
             },
             "auto_init": {
                 "type": "Boolean",
                 "required": false,
                 "validation": "",
                 "invalidmsg": "",
-                "description": "Optional boolean - true to create an initial commit with empty README. Default is false"
+                "description": "True to create an initial commit with empty README. Default is false"
             },
             "gitignore_template": {
                 "type": "String",
                 "required": false,
                 "validation": "",
                 "invalidmsg": "",
-                "description": "Optional string - Desired language or platform .gitignore template to apply. Ignored if auto_init parameter is not provided."
+                "description": "Desired language or platform .gitignore template to apply. Ignored if auto_init parameter is not provided."
+            },
+            "content": {
+                "type": "String",
+                "required": false,
+                "validation": "",
+                "invalidmsg": "",
+                "description": ""
+            },
+            "message": {
+                "type": "String",
+                "required": false,
+                "validation": "",
+                "invalidmsg": "",
+                "description": ""
+            },
+            "order": {
+                "type": "String",
+                "required": false,
+                "validation": "^(asc|desc)$",
+                "invalidmsg": "The sort order if sort parameter is provided. One of asc or desc. Default: desc",
+                "description": "asc or desc"
+            },
+            "q": {
+                "type": "String",
+                "required": true,
+                "validation": "",
+                "invalidmsg": "",
+                "description": "Search Term",
+                "combined": true
             }
         }
     },
@@ -599,7 +639,7 @@
                 "$sha": null,
                 "force": {
                     "type": "Boolean",
-                    "required": true,
+                    "required": false,
                     "validation": "",
                     "invalidmsg": "",
                     "description": "Boolean indicating whether to force the update or to make sure the update is a fast-forward update. The default is false, so leaving this out or setting it to false will make sure you’re not overwriting work."
@@ -724,7 +764,13 @@
                     "invalidmsg": "",
                     "description": ""
                 },
-                "$state": null,
+                "state": {
+                    "type": "String",
+                    "required": false,
+                    "validation": "^(open|closed|all)$",
+                    "invalidmsg": "open, closed, all, default: open",
+                    "description": "open, closed, or all"
+                },
                 "labels": {
                     "type": "String",
                     "required": false,
@@ -762,9 +808,9 @@
                 "state": {
                     "type": "String",
                     "required": false,
-                    "validation": "^(open|closed)$",
-                    "invalidmsg": "open, closed, default: open",
-                    "description": "open or closed"
+                    "validation": "^(open|closed|all)$",
+                    "invalidmsg": "open, closed, all, default: open",
+                    "description": "open, closed, or all"
                 },
                 "assignee": {
                     "type": "String",
@@ -836,21 +882,21 @@
                     "required": false,
                     "validation": "",
                     "invalidmsg": "",
-                    "description": "Optional string - Login for the user that this issue should be assigned to."
+                    "description": "Login for the user that this issue should be assigned to."
                 },
                 "milestone": {
                     "type": "Number",
                     "required": false,
                     "validation": "^[0-9]+$",
                     "invalidmsg": "",
-                    "description": "Optional number - Milestone to associate this issue with."
+                    "description": "Milestone to associate this issue with."
                 },
                 "labels": {
                     "type": "Json",
                     "required": true,
                     "validation": "",
                     "invalidmsg": "",
-                    "description": "Optional array of strings - Labels to associate with this issue."
+                    "description": "Array of strings - Labels to associate with this issue."
                 }
             }
         },
@@ -881,21 +927,21 @@
                     "required": false,
                     "validation": "",
                     "invalidmsg": "",
-                    "description": "Optional string - Login for the user that this issue should be assigned to."
+                    "description": "Login for the user that this issue should be assigned to."
                 },
                 "milestone": {
                     "type": "Number",
                     "required": false,
                     "validation": "^[0-9]+$",
                     "invalidmsg": "",
-                    "description": "Optional number - Milestone to associate this issue with."
+                    "description": "Milestone to associate this issue with."
                 },
                 "labels": {
                     "type": "Json",
                     "required": false,
                     "validation": "",
                     "invalidmsg": "",
-                    "description": "Optional array of strings - Labels to associate with this issue."
+                    "description": "Array of strings - Labels to associate with this issue."
                 },
                 "state": {
                     "type": "String",
@@ -1031,7 +1077,9 @@
             "method": "GET",
             "params": {
                 "$user": null,
-                "$repo": null
+                "$repo": null,
+                "$page": null,
+                "$per_page": null
             }
         },
 
@@ -1074,6 +1122,16 @@
                 "$user": null,
                 "$repo": null,
                 "$name": null
+            }
+        },
+
+        "get-issue-labels": {
+            "url": "/repos/:user/:repo/issues/:number/labels",
+            "method": "GET",
+            "params": {
+                "$user": null,
+                "$repo": null,
+                "$number": null
             }
         },
 
@@ -1125,8 +1183,8 @@
                     "type": "Date",
                     "required": false,
                     "validation": "",
-                    "invalidmsg": "Optional string - ISO 8601 time.",
-                    "description": "Optional string - ISO 8601 time."
+                    "invalidmsg": "Timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ",
+                    "description": "Timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ"
                 }
             }
         },
@@ -1151,8 +1209,8 @@
                     "type": "Date",
                     "required": false,
                     "validation": "",
-                    "invalidmsg": "Optional string - ISO 8601 time.",
-                    "description": "Optional string - ISO 8601 time."
+                    "invalidmsg": "Timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ",
+                    "description": "Timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ"
                 }
             }
         },
@@ -1204,14 +1262,14 @@
                     "required": false,
                     "validation": "",
                     "invalidmsg": "",
-                    "description": "Optional array - A list of scopes to add to this authorization."
+                    "description": "A list of scopes to add to this authorization."
                 },
                 "remove_scopes": {
                     "type": "Array",
                     "required": false,
                     "validation": "",
                     "invalidmsg": "",
-                    "description": "Optional array - A list of scopes to remove from this authorization."
+                    "description": "A list of scopes to remove from this authorization."
                 },
                 "$note": null,
                 "$note_url": null
@@ -1257,7 +1315,7 @@
                     "required": false,
                     "validation": "",
                     "invalidmsg": "",
-                    "description": "Optional string - Billing email address. This address is not publicized."
+                    "description": "Billing email address. This address is not publicized."
                 },
                 "company": {
                     "type": "String",
@@ -1271,7 +1329,7 @@
                     "required": false,
                     "validation": "",
                     "invalidmsg": "",
-                    "description": "Optional string - Publicly visible email address."
+                    "description": "Publicly visible email address."
                 },
                 "location": {
                     "type": "String",
@@ -1357,7 +1415,9 @@
             "url": "/orgs/:org/teams",
             "method": "GET",
             "params": {
-                "$org": null
+                "$org": null,
+                "$page": null,
+                "$per_page": null
             }
         },
 
@@ -1380,7 +1440,7 @@
                     "required": false,
                     "validation": "",
                     "invalidmsg": "",
-                    "description": "Optional array of strings"
+                    "description": "Array of strings"
                 },
                 "$permission": null
             }
@@ -1532,9 +1592,23 @@
             "params": {
                 "$user": null,
                 "$repo": null,
-                "$state": null,
+                "state": {
+                    "type": "String",
+                    "required": false,
+                    "validation": "^(open|closed|all)$",
+                    "invalidmsg": "open, closed, all, default: open",
+                    "description": "open, closed, or all"
+                },
                 "$page": null,
-                "$per_page": null
+                "$per_page": null,
+                "sort": {
+                    "type": "String",
+                    "required": false,
+                    "validation": "^(created|updated|popularity|long-running)$",
+                    "invalidmsg": "Possible values are: `created`, `updated`, `popularity`, `long-running`, Default: `created`",
+                    "description": "Possible values are: `created`, `updated`, `popularity`, `long-running`, Default: `created`"
+                },
+                "$direction": null
             }
         },
 
@@ -1664,7 +1738,7 @@
                     "required": false,
                     "validation": "",
                     "invalidmsg": "",
-                    "description": "Optional string - The message that will be used for the merge commit"
+                    "description": "The message that will be used for the merge commit"
                 }
             }
         },
@@ -1847,7 +1921,7 @@
                     "required": false,
                     "validation": "^[0-9]+$",
                     "invalidmsg": "",
-                    "description": "Optional number - The id of the team that will be granted access to this repository. This is only valid when creating a repo in an organization."
+                    "description": "The id of the team that will be granted access to this repository. This is only valid when creating a repo in an organization."
                 }
             }
         },
@@ -1858,6 +1932,14 @@
             "params": {
                 "$user": null,
                 "$repo": null
+            }
+        },
+
+        "one": {
+            "url": "/repositories/:id",
+            "method": "GET",
+            "params": {
+                "$id": null
             }
         },
 
@@ -1873,7 +1955,8 @@
                 "$private": null,
                 "$has_issues": null,
                 "$has_wiki": null,
-                "$has_downloads": null
+                "$has_downloads": null,
+                "$default_branch": null
             }
         },
 
@@ -1899,7 +1982,7 @@
                     "required": false,
                     "validation": "",
                     "invalidmsg": "",
-                    "description": "Optional string - Commit message to use for the merge commit. If omitted, a default message will be used."
+                    "description": "Commit message to use for the merge commit. If omitted, a default message will be used."
                 }
             }
         },
@@ -1915,7 +1998,7 @@
                     "required": false,
                     "validation": "",
                     "invalidmsg": "",
-                    "description": "Optional flag. Set to 1 or true to include anonymous contributors in results."
+                    "description": "Set to 1 or true to include anonymous contributors in results."
                 },
                 "$page": null,
                 "$per_page": null
@@ -2030,38 +2113,26 @@
                     "required": false,
                     "validation": "",
                     "invalidmsg": "",
-                    "description": "Optional string - Sha or branch to start listing commits from."
+                    "description": "Sha or branch to start listing commits from."
                 },
                 "path": {
                     "type": "String",
                     "required": false,
                     "validation": "",
                     "invalidmsg": "",
-                    "description": "Optional string - Only commits containing this file path will be returned."
+                    "description": "Only commits containing this file path will be returned."
                 },
                 "author": {
                     "type": "String",
                     "required": false,
                     "validation": "",
                     "invalidmsg": "",
-                    "description": "Optional string - Only commits commited by this author."
+                    "description": "GitHub login or email address by which to filter by commit author."
                 },
                 "$page": null,
                 "$per_page": null,
-                "$since": {
-                    "type": "Date",
-                    "required": false,
-                    "validation": "",
-                    "invalidmsg": "Optional string - ISO 8601 time.",
-                    "description": "Optional string - ISO 8601 time."
-                },
-                "$until": {
-                    "type": "Date",
-                    "required": false,
-                    "validation": "",
-                    "invalidmsg": "Optional string - ISO 8601 time.",
-                    "description": "Optional string - ISO 8601 time."
-                }
+                "$since": null,
+                "$until": null
             }
         },
 
@@ -2112,21 +2183,21 @@
                     "required": false,
                     "validation": "",
                     "invalidmsg": "",
-                    "description": "Optional string - Relative path of the file to comment on."
+                    "description": "Relative path of the file to comment on."
                 },
                 "position": {
                     "type": "Number",
                     "required": false,
                     "validation": "",
                     "invalidmsg": "",
-                    "description": "Optional number - Line index in the diff to comment on."
+                    "description": "Line index in the diff to comment on."
                 },
                 "line": {
                     "type": "Number",
                     "required": false,
                     "validation": "",
                     "invalidmsg": "",
-                    "description": "Optional number - Line number in the file to comment on. Defaults to 1."
+                    "description": "Line number in the file to comment on. Defaults to 1."
                 }
             }
         },
@@ -2211,6 +2282,190 @@
                 }
             }
         },
+        "create-content": {
+            "url": "/repos/:user/:repo/contents/:path",
+            "method": "PUT",
+            "params": {
+                "$user": null,
+                "$repo": null,
+                "$content":null,
+                "$message":null,
+                "path": {
+                    "type": "String",
+                    "required": false,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "The content path."
+                },
+                "ref": {
+                    "type": "String",
+                    "required": false,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "The String name of the Commit/Branch/Tag. Defaults to master."
+                }
+            }
+        },
+
+        "create-file": {
+            "url": "/repos/:user/:repo/contents/:path",
+            "method": "PUT",
+            "params": {
+                "$user": null,
+                "$repo": null,
+                "path": {
+                    "type": "String",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "The content path."
+                },
+                "message": {
+                    "type": "String",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "The commit message."
+                },
+                "content": {
+                    "type": "String",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "The new file content, Base64 encoded."
+                },
+                "branch": {
+                    "type": "String",
+                    "required": false,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "The branch name. If not provided, uses the repository’s default branch (usually master)."
+                },
+                "author": {
+                    "type": "Json",
+                    "required": false,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": ""
+                },
+                "committer": {
+                    "type": "Json",
+                    "required": false,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": ""
+                }
+            }
+        },
+
+        "update-file": {
+            "url": "/repos/:user/:repo/contents/:path",
+            "method": "PUT",
+            "params": {
+                "$user": null,
+                "$repo": null,
+                "path": {
+                    "type": "String",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "The content path."
+                },
+                "message": {
+                    "type": "String",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "The commit message."
+                },
+                "content": {
+                    "type": "String",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "The updated file content, Base64 encoded."
+                },
+                "sha": {
+                    "type": "String",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "The blob SHA of the file being replaced."
+                },
+                "branch": {
+                    "type": "String",
+                    "required": false,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "The branch name. If not provided, uses the repository’s default branch (usually master)."
+                },
+                "author": {
+                    "type": "Json",
+                    "required": false,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": ""
+                },
+                "committer": {
+                    "type": "Json",
+                    "required": false,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": ""
+                }
+            }
+        },
+
+        "delete-file": {
+            "url": "/repos/:user/:repo/contents/:path",
+            "method": "DELETE",
+            "params": {
+                "$user": null,
+                "$repo": null,
+                "path": {
+                    "type": "String",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "The content path."
+                },
+                "message": {
+                    "type": "String",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "The commit message."
+                },
+                "sha": {
+                    "type": "String",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "The blob SHA of the file being removed."
+                },
+                "branch": {
+                    "type": "String",
+                    "required": false,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "The branch name. If not provided, uses the repository’s default branch (usually master)."
+                },
+                "author": {
+                    "type": "Json",
+                    "required": false,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": ""
+                },
+                "committer": {
+                    "type": "Json",
+                    "required": false,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": ""
+                }
+            }
+        },
 
         "get-archive-link": {
             "url": "/repos/:user/:repo/:archive_format/:ref",
@@ -2218,7 +2473,13 @@
             "params": {
                 "$user": null,
                 "$repo": null,
-                "$ref": null,
+                "ref": {
+                    "type": "String",
+                    "required": false,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "String of the name of the fully qualified reference (ie: heads/master). If it doesn’t have at least one slash, it will be rejected."
+                },
                 "archive_format": {
                     "type": "String",
                     "required": true,
@@ -2284,12 +2545,12 @@
             "params": {
                 "$user": null,
                 "$repo": null,
-                "org": {
+                "organization": {
                     "type": "String",
                     "required": false,
                     "validation": "",
                     "invalidmsg": "",
-                    "description": "Optional String - Organization login. The repository will be forked into this organization."
+                    "description": "Organization login. The repository will be forked into this organization."
                 }
             }
         },
@@ -2499,21 +2760,21 @@
                     "required": true,
                     "validation": "",
                     "invalidmsg": "",
-                    "description": "Required hash - A Hash containing key/value pairs to provide settings for this hook. These settings vary between the services and are defined in the github-services repo. Booleans are stored internally as `1` for true, and `0` for false. Any JSON true/false values will be converted automatically."
+                    "description": "A Hash containing key/value pairs to provide settings for this hook. These settings vary between the services and are defined in the github-services repo. Booleans are stored internally as `1` for true, and `0` for false. Any JSON true/false values will be converted automatically."
                 },
                 "events": {
                     "type": "Array",
                     "required": false,
                     "validation": "",
                     "invalidmsg": "",
-                    "description": "Optional array - Determines what events the hook is triggered for. Default: `[\"push\"]`."
+                    "description": "Determines what events the hook is triggered for. Default: `['push']`."
                 },
                 "active": {
                     "type": "Boolean",
                     "required": false,
                     "validation": "",
                     "invalidmsg": "",
-                    "description": "Optional boolean - Determines whether the hook is actually triggered on pushes."
+                    "description": "Determines whether the hook is actually triggered on pushes."
                 }
             }
         },
@@ -2531,35 +2792,35 @@
                     "required": true,
                     "validation": "",
                     "invalidmsg": "",
-                    "description": "Required hash - A Hash containing key/value pairs to provide settings for this hook. Modifying this will replace the entire config object. These settings vary between the services and are defined in the github-services repo. Booleans are stored internally as `1` for true, and `0` for false. Any JSON true/false values will be converted automatically."
+                    "description": "A Hash containing key/value pairs to provide settings for this hook. Modifying this will replace the entire config object. These settings vary between the services and are defined in the github-services repo. Booleans are stored internally as `1` for true, and `0` for false. Any JSON true/false values will be converted automatically."
                 },
                 "events": {
                     "type": "Array",
                     "required": false,
                     "validation": "",
                     "invalidmsg": "",
-                    "description": "Optional array - Determines what events the hook is triggered for. This replaces the entire array of events. Default: `[\"push\"]`."
+                    "description": "Determines what events the hook is triggered for. This replaces the entire array of events. Default: `['push']`."
                 },
                 "add_events": {
                     "type": "Array",
                     "required": false,
                     "validation": "",
                     "invalidmsg": "",
-                    "description": "Optional array - Determines a list of events to be added to the list of events that the Hook triggers for."
+                    "description": "Determines a list of events to be added to the list of events that the Hook triggers for."
                 },
                 "remove_events": {
                     "type": "Array",
                     "required": false,
                     "validation": "",
                     "invalidmsg": "",
-                    "description": "Optional array - Determines a list of events to be removed from the list of events that the Hook triggers for."
+                    "description": "Determines a list of events to be removed from the list of events that the Hook triggers for."
                 },
                 "active": {
                     "type": "Boolean",
                     "required": false,
                     "validation": "",
                     "invalidmsg": "",
-                    "description": "Optional boolean - Determines whether the hook is actually triggered on pushes."
+                    "description": "Determines whether the hook is actually triggered on pushes."
                 }
             }
         },
@@ -2665,6 +2926,15 @@
             }
         },
 
+        "get-teams": {
+            "url": "/user/teams",
+            "method": "GET",
+            "params": {
+                "$page": null,
+                "$per_page": null
+            }
+        },
+
         "get-emails": {
             "url": "/user/emails",
             "method": "GET",
@@ -2745,6 +3015,16 @@
             "url": "/user/keys",
             "method": "GET",
             "params": {
+                "$page": null,
+                "$per_page": null
+            }
+        },
+
+        "get-keys-from-user": {
+            "url": "/users/:user/keys",
+            "method": "GET",
+            "params": {
+                "$user": null,
                 "$page": null,
                 "$per_page": null
             }
@@ -2890,103 +3170,342 @@
             }
         }
     },
-    "search": {
-        "issues": {
-            "url": "/legacy/issues/search/:user/:repo/:state/:keyword",
+
+    "releases": {
+        "list-releases": {
+            "url": "/repos/:owner/:repo/releases",
             "method": "GET",
             "params": {
-                "$user": null,
-                "$repo": null,
-                "state": {
-                    "type": "String",
-                    "required": true,
-                    "validation": "^(open|closed)$",
-                    "invalidmsg": "open, closed, default: open",
-                    "description": "open or closed"
-                },
-                "keyword": {
+                "owner": {
                     "type": "String",
                     "required": true,
                     "validation": "",
                     "invalidmsg": "",
-                    "description": "Search term"
+                    "description": ""
+                },
+                "$repo": null,
+                "$page": null,
+                "$per_page": null
+            }
+        },
+        "get-release": {
+            "url": "/repos/:owner/:repo/releases/:id",
+            "method": "GET",
+            "params": {
+                "owner": {
+                    "type": "String",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": ""
+                },
+                "id": {
+                    "type": "Number",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": ""
+                },
+                "$repo": null
+            }
+        },
+        "create-release": {
+            "url": "/repos/:owner/:repo/releases",
+            "method": "POST",
+            "params": {
+                "owner": {
+                    "type": "String",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": ""
+                },
+                "$repo": null,
+                "tag_name": {
+                    "type": "String",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "String of the tag"
+                },
+                "target_commitish": {
+                    "type": "String",
+                    "required": false,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "Specifies the commitish value that determines where the Git tag is created from. Can be any branch or commit SHA. Unused if the Git tag already exists. Default: the repository's default branch (usually master)."
+                },
+                "name": {
+                    "type": "String",
+                    "required": false,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": ""
+                },
+                "body": {
+                    "type": "String",
+                    "required": false,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": ""
+                },
+                "draft": {
+                    "type": "Boolean",
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "true to create a draft (unpublished) release, false to create a published one. Default: false"
+                },
+                "prerelease": {
+                    "type": "Boolean",
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "true to identify the release as a prerelease. false to identify the release as a full release. Default: false"
                 }
+            }
+        },
+        "edit-release": {
+            "url": "/repos/:owner/:repo/releases/:id",
+            "method": "PATCH",
+            "params": {
+                "owner": {
+                    "type": "String",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": ""
+                },
+                "id": {
+                    "type": "Number",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": ""
+                },
+                "$repo": null,
+                "tag_name": {
+                    "type": "String",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "String of the tag"
+                },
+                "target_commitish": {
+                    "type": "String",
+                    "required": false,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "Specifies the commitish value that determines where the Git tag is created from. Can be any branch or commit SHA. Unused if the Git tag already exists. Default: the repository's default branch (usually master)."
+                },
+                "name": {
+                    "type": "String",
+                    "required": false,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": ""
+                },
+                "body": {
+                    "type": "String",
+                    "required": false,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": ""
+                },
+                "draft": {
+                    "type": "Boolean",
+                    "required": false,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "true to create a draft (unpublished) release, false to create a published one. Default: false"
+                },
+                "prerelease": {
+                    "type": "Boolean",
+                    "required": false,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "true to identify the release as a prerelease. false to identify the release as a full release. Default: false"
+                }
+            }
+        },
+        "delete-release": {
+            "url": "/repos/:owner/:repo/releases/:id",
+            "method": "DELETE",
+            "params": {
+                "owner": {
+                    "type": "String",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": ""
+                },
+                "id": {
+                    "type": "Number",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": ""
+                },
+                "$repo": null
+            }
+        },
+        "list-assets": {
+            "url": "/repos/:owner/:repo/releases/:id/assets",
+            "method": "GET",
+            "params": {
+                "owner": {
+                    "type": "String",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": ""
+                },
+                "id": {
+                    "type": "Number",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": ""
+                },
+                "$repo": null
+            }
+        },
+        "get-asset": {
+            "url": "/repos/:owner/:repo/releases/assets/:id",
+            "method": "GET",
+            "params": {
+                "owner": {
+                    "type": "String",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": ""
+                },
+                "id": {
+                    "type": "Number",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": ""
+                },
+                "$repo": null
+            }
+        },
+        "edit-asset": {
+            "url": "/repos/:owner/:repo/releases/assets/:id",
+            "method": "PATCH",
+            "params": {
+                "owner": {
+                    "type": "String",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": ""
+                },
+                "id": {
+                    "type": "Number",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": ""
+                },
+                "$repo": null,
+                "$name": null,
+                "label": {
+                    "type": "String",
+                    "required": false,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "An alternate short description of the asset. Used in place of the filename."
+                }
+            }
+        },
+        "delete-asset": {
+            "url": "/repos/:owner/:repo/releases/assets/:id",
+            "method": "DELETE",
+            "params": {
+                "owner": {
+                    "type": "String",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": ""
+                },
+                "id": {
+                    "type": "Number",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": ""
+                },
+                "$repo": null
+            }
+        }
+    },
+
+    "search": {
+        "issues": {
+            "url": "/search/issues",
+            "method": "GET",
+            "params": {
+                "$q": null,
+                "sort": {
+                    "type": "String",
+                    "required": false,
+                    "validation": "^(comments|created|updated)$",
+                    "invalidmsg": "comments, created, or updated",
+                    "description": "comments, created, or updated"
+                },
+                "$order": null,
+                "$page": null,
+                "$per_page": null
             }
         },
 
         "repos": {
-            "url": "/legacy/repos/search/:keyword",
+            "url": "/search/repositories",
             "method": "GET",
             "params": {
-                "keyword": {
-                    "type": "String",
-                    "required": true,
-                    "validation": "",
-                    "invalidmsg": "",
-                    "description": "Search term"
-                },
-                "language": {
+                "$q": null,
+                "sort": {
                     "type": "String",
                     "required": false,
-                    "validation": "",
-                    "invalidmsg": "",
-                    "description": "Filter results by language, see https://github.com/languages"
+                    "validation": "^(stars|forks|updated)$",
+                    "invalidmsg": "One of stars, forks, or updated. Default: results are sorted by best match.",
+                    "description": "stars, forks, or updated"
                 },
-                "start_page": {
-                    "type": "Number",
-                    "required": false,
-                    "validation": "^[0-9]+$",
-                    "invalidmsg": "",
-                    "description": "Page number to fetch"
-                }
+                "$order": null,
+                "$page": null,
+                "$per_page": null
             }
         },
 
         "users": {
-            "url": "/legacy/user/search/:keyword",
+            "url": "/search/users",
             "method": "GET",
             "params": {
-                "keyword": {
-                    "type": "String",
-                    "required": true,
-                    "validation": "",
-                    "invalidmsg": "",
-                    "description": "Keyword search parameters"
-                },
-                "start_page": {
-                    "type": "Number",
-                    "required": false,
-                    "validation": "^[0-9]+$",
-                    "invalidmsg": "",
-                    "description": "Page number to fetch"
-                }
-            }
-        },
-
-        "code": {
-            "url": "/search/code",
-            "method": "GET",
-            "params": {
-                "q": {
-                    "type": "String",
-                    "required": true,
-                    "validation": "",
-                    "invalidmsg": "",
-                    "description": "Search query"
-                },
+                "$q": null,
                 "sort": {
                     "type": "String",
                     "required": false,
-                    "validation": "",
-                    "invalidmsg": "",
-                    "description": ""
+                    "validation": "^(followers|repositories|joined)$",
+                    "invalidmsg": "Can be followers, repositories, or joined. Default: results are sorted by best match.",
+                    "description": "followers, repositories, or joined"
                 },
-                "order": {
+                "$order": null,
+                "$page": null,
+                "$per_page": null
+            }
+        },
+
+        "email": {
+            "url": "/legacy/user/email/:email",
+            "method": "GET",
+            "params": {
+                "email": {
                     "type": "String",
-                    "required": false,
+                    "required": true,
                     "validation": "",
                     "invalidmsg": "",
-                    "description": ""
+                    "description": "Email address"
                 }
             }
         }
@@ -3019,6 +3538,45 @@
                     "description": "The repository context, only taken into account when rendering as `gfm`"
                 }
             }
+        }
+    },
+
+    "gitignore": {
+        "templates": {
+            "url": "/gitignore/templates",
+            "method": "GET",
+            "params": { }
+        },
+        "template": {
+            "url": "/gitignore/templates/:name",
+            "method": "GET",
+            "params": {
+                "name": {
+                    "type": "String",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "The name of the .gitignore template to get"
+                }
+            }
+        }
+    },
+
+    "misc": {
+        "emojis": {
+            "url": "/emojis",
+            "method": "GET",
+            "params": { }
+        },
+        "meta": {
+            "url": "/meta",
+            "method": "GET",
+            "params": { }
+        },
+        "rate-limit": {
+            "url": "/rate_limit",
+            "method": "GET",
+            "params": { }
         }
     }
 }
