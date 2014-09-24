@@ -124,7 +124,7 @@
     });
 
     describe('Pagination', function(){
-        var github, consoleErrorSpy, windowURLOverwritten = false;
+        var github, consoleErrorSpy;
 
         beforeEach(function(){
             github = new Github();
