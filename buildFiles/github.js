@@ -238,7 +238,7 @@
             util.error('No ' + which + ' page found');
         } else {
             var api = client.api;
-            client.httpSendForGetPage(new URL(url), function (err, res) {
+            client.httpSendForGetPage(url, function (err, res) {
                 if (err) {
                     return api.sendError(err, null, url, callback);
                 }
