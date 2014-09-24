@@ -7,7 +7,7 @@
 
         beforeEach(function () {
             github = new Github();
-            client.authenticate({
+            github.authenticate({
                 type: 'oauth',
                 token: token
             });
@@ -16,14 +16,15 @@
         it('should successfully execute POST /markdown (render)', function (done) {
             var callback = function (err, res) {
                 expect(err).toBeNull();
+                expect(res.data).toBeDefined();
                 done();
             };
 
             github.markdown.render(
                 {
-                    text: 'String',
-                    mode: 'String',
-                    context: 'String'
+                    "text": "Hello world github/linguist#1 **cool**, and #1!",
+                    "mode": "gfm",
+                    "context": "jwebertest/forTestUseOnly"
                 },
                 callback
             );
