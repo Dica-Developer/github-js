@@ -275,7 +275,6 @@
                 },
                 function (err, res) {
                     expect(err).toBeNull();
-                    console.log('createTag ---> :', res);
                     var sha = res.sha;
 
                     github.gitdata.getTag(

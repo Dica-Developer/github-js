@@ -572,7 +572,6 @@
                     },
                     function(err, res){
                         expect(err).toBeNull();
-                        console.log(res);
                         github.issues.deleteMilestone(
                             {
                                 user: 'jwebertest',
