@@ -10,7 +10,7 @@ module.exports = function(config) {
             {pattern: 'test/specs/**/*-spec.js', included: true}
         ],
 
-        browsers: ['PhantomJS'],
+        browsers: ['Firefox'],
         reporters: ['dots', 'coverage'],
         preprocessors: {
             'dist/github.js': ['coverage']
