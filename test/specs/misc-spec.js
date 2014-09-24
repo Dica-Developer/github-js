@@ -7,7 +7,7 @@
 
         beforeEach(function () {
             github = new Github();
-            client.authenticate({
+            github.authenticate({
                 type: 'oauth',
                 token: token
             });
