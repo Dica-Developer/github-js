@@ -17,6 +17,7 @@
         it('should successfully execute GET /gitignore/templates (templates)', function (done) {
             var callback = function (err, res) {
                 expect(err).toBeNull();
+                expect(res.length).toBeGreaterThan(0);
                 done();
             };
 
@@ -26,15 +27,16 @@
             );
         });
 
-        xit('should successfully execute GET /gitignore/templates/:name (template)', function (done) {
+        it('should successfully execute GET /gitignore/templates/:name (template)', function (done) {
             var callback = function (err, res) {
                 expect(err).toBeNull();
+                expect(res.name).toBe('Java');
                 done();
             };
 
             github.gitignore.template(
                 {
-                    name: 'String'
+                    name: 'Java'
                 },
                 callback
             );
