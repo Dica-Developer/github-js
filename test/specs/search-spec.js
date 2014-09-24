@@ -63,7 +63,6 @@
         xit('should successfully execute GET /legacy/user/email/:email (email)', function (done) {
             var callback = function (err, res) {
                 expect(err).toBeNull();
-                console.log(res);
                 done();
             };
 
