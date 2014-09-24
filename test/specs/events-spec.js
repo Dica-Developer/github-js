@@ -54,7 +54,7 @@
         it('should successfully execute GET /repos/:user/:repo/issues/events (getFromRepoIssues)', function (done) {
             function callback(err, res) {
                 expect(err).toBeNull();
-                expect(res.length).toBe(2);
+                expect(res.length).toBeGreaterThan(1);
                 var last = res.pop();
                 expect(last.event).toBe('closed');
                 expect(last.created_at).toBe('2014-03-15T00:40:10Z');
