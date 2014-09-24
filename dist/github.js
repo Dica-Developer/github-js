@@ -2796,24 +2796,39 @@
 
     Github.prototype.authenticate = function (authConfig) {
         if (!authConfig) {
+            util.info('Continuing without authentication');
             this.auth = false;
             return;
         }
-        if (!authConfig.type || 'basic|oauth|token'.indexOf(authConfig.type) === -1) {
-            util.error('Invalid authentication type, must be "basic", "oauth" or "token"');
-        }
-        if (authConfig.type === 'basic' && (!authConfig.username || !authConfig.password)) {
-            util.error('Basic authentication requires both a username and password to be set');
-        }
-        if (authConfig.type === 'oauth' && !authConfig.token) {
-            util.error('OAuth2 authentication requires a token to be set');
-        }
-
-        if (authConfig.type === 'token' && !authConfig.token) {
-            util.error('OAuth2 authentication requires a token to be set');
-        }
 
         this.auth = authConfig;
+        switch(authConfig.type){
+        case 'basic':
+            if (!authConfig.username || !authConfig.password) {
+                util.error('Basic authentication requires both a username and password to be set');
+                util.info('Continuing without authentication');
+                this.auth = false;
+            }
+            break;
+        case 'oauth':
+            if (!authConfig.token) {
+                util.error('OAuth2 authentication requires a token to be set');
+                util.info('Continuing without authentication');
+                this.auth = false;
+            }
+            break;
+        case 'token':
+            if (!authConfig.token) {
+                util.error('OAuth2 authentication requires a token to be set');
+                util.info('Continuing without authentication');
+                this.auth = false;
+            }
+            break;
+        default:
+            util.error('Invalid authentication type, must be "basic", "oauth" or "token"');
+            util.info('Continuing without authentication');
+            this.auth = false;
+        }
     };
 
     function _getPageLinks(link) {
