@@ -277,8 +277,19 @@
         var self = this;
         var headers = [];
         headers['content-type'] = 'application/json; charset=utf-8';
-        headers.authorization = 'token ' + this.auth.token;
-        var callbackCalled = false;
+        if (this.auth) {
+            switch (this.auth.type) {
+            case 'oauth':
+                url += (url.indexOf('?') === -1 ? '?' : '&') +
+                    'access_token=' + encodeURIComponent(this.auth.token);
+                break;
+            case 'token':
+                headers.authorization = 'token ' + this.auth.token;
+                break;
+            default:
+                break;
+            }
+        }
 
         var xhr = new XMLHttpRequest();
         xhr.open('GET', url, true);
