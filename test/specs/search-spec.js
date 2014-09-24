@@ -7,7 +7,7 @@
 
         beforeEach(function () {
             github = new Github();
-            client.authenticate({
+            github.authenticate({
                 type: 'oauth',
                 token: token
             });
@@ -16,16 +16,15 @@
         it('should successfully execute GET /search/issues (issues)', function (done) {
             var callback = function (err, res) {
                 expect(err).toBeNull();
+                expect(res.items.length).toBeGreaterThan(0);
                 done();
             };
 
             github.search.issues(
                 {
-                    q: 'String',
-                    sort: 'String',
-                    order: 'String',
-                    page: 'Number',
-                    per_page: 'Number'
+                    q: 'repo:dica-developer/gh-review',
+                    sort: 'created',
+                    order: 'asc'
                 },
                 callback
             );
@@ -34,16 +33,13 @@
         it('should successfully execute GET /search/repositories (repos)', function (done) {
             var callback = function (err, res) {
                 expect(err).toBeNull();
+                expect(res.items.length).toBeGreaterThan(0);
                 done();
             };
 
             github.search.repos(
                 {
-                    q: 'String',
-                    sort: 'String',
-                    order: 'String',
-                    page: 'Number',
-                    per_page: 'Number'
+                    q: 'gh-review'
                 },
                 callback
             );
@@ -52,30 +48,28 @@
         it('should successfully execute GET /search/users (users)', function (done) {
             var callback = function (err, res) {
                 expect(err).toBeNull();
+                expect(res.items.length).toBe(1);
                 done();
             };
 
             github.search.users(
                 {
-                    q: 'String',
-                    sort: 'String',
-                    order: 'String',
-                    page: 'Number',
-                    per_page: 'Number'
+                    q: 'jwebertest'
                 },
                 callback
             );
         });
 
-        it('should successfully execute GET /legacy/user/email/:email (email)', function (done) {
+        xit('should successfully execute GET /legacy/user/email/:email (email)', function (done) {
             var callback = function (err, res) {
                 expect(err).toBeNull();
+                console.log(res);
                 done();
             };
 
             github.search.email(
                 {
-                    email: 'String'
+                    email: 'horus381@gmx.de'
                 },
                 callback
             );
