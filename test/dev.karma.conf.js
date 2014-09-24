@@ -11,7 +11,7 @@ module.exports = function(config) {
         ],
 
         browsers: ['Firefox'],
-        reporters: ['dots', 'coverage'],
+        reporters: ['story', 'coverage'],
         preprocessors: {
             'dist/github.js': ['coverage']
         },
