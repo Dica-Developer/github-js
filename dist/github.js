@@ -86,11 +86,10 @@
         511: 'Network Authentication Required'
     };
 
-    var HttpError = function (message, code, xhr) {
+    var HttpError = function (message, code) {
         this.message = message;
         this.code = code;
         this.defaultMessage = statusCodes[code];
-        this.xhr = xhr;
     };
 
     HttpError.prototype.toString = function () {
