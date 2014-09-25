@@ -92,7 +92,7 @@
         it('should successfully execute GET /users/:user/received_events/public (getReceivedPublic)', function (done) {
             function callback(err, res) {
                 expect(err).toBeNull();
-                expect(res.length).toBe(1);
+                expect(res.length).toBeGreaterThan(0);
                 var first = res[res.length - 1];
                 expect(first.id).toBe('2303987589');
                 expect(first.type).toBe('PushEvent');
@@ -119,7 +119,7 @@
         it('should successfully execute GET /users/:user/received_events (getReceived)', function (done) {
             function callback(err, res) {
                 expect(err).toBeNull();
-                expect(res.length).toBe(1);
+                expect(res.length).toBeGreaterThan(0);
                 var first = res[res.length - 1];
                 expect(first.id).toBe('2303987589');
                 expect(first.type).toBe('PushEvent');
