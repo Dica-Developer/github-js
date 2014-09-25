@@ -3497,6 +3497,24 @@
             }
         },
 
+        "code": {
+            "url": "/search/code",
+            "method": "GET",
+            "params": {
+                "$q": null,
+                "sort": {
+                    "type": "String",
+                    "required": false,
+                    "validation": "^(indexed)$",
+                    "invalidmsg": "The sort field. Can only be indexed, which indicates how recently a file has been indexed by the GitHub search infrastructure. Default: results are sorted by best match.",
+                    "description": "The sort field. Can only be indexed, which indicates how recently a file has been indexed by the GitHub search infrastructure. Default: results are sorted by best match."
+                },
+                "$order": null,
+                "$page": null,
+                "$per_page": null
+            }
+        },
+
         "email": {
             "url": "/legacy/user/email/:email",
             "method": "GET",
