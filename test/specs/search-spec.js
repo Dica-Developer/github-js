@@ -60,6 +60,21 @@
             );
         });
 
+        it('should successfully execute GET /search/code (code)', function (done) {
+            var callback = function (err, res) {
+                expect(err).toBeNull();
+                expect(res.items.length).toBeGreaterThan(0);
+                done();
+            };
+
+            github.search.code(
+                {
+                    q: 'Events repo:dica-developer/gh-review'
+                },
+                callback
+            );
+        });
+
         xit('should successfully execute GET /legacy/user/email/:email (email)', function (done) {
             var callback = function (err, res) {
                 expect(err).toBeNull();
