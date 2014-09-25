@@ -3,28 +3,26 @@ module.exports = function(config) {
 
     config.set({
         basePath: '..',
-        frameworks: ['jasmine', 'requirejs'],
+        frameworks: ['jasmine'],
 
         files: [
-            {pattern: 'lib/**/*.js', included: false},
-            {pattern: 'test/specs/**/*-spec.js', included: false},
-
-            'test/test-main.js'
+            'dist/github.js',
+            'test/specs/*-spec.js'
         ],
 
-        browsers: ['PhantomJS'],
-        reporters: ['dots', 'coverage'],
+        browsers: ['Firefox'],
+        reporters: ['story', 'coverage'],
         preprocessors: {
-            'lib/**/*.js': ['coverage']
+            'dist/github.js': ['coverage']
         },
         coverageReporter: {
             type : 'html',
-            dir : 'coverage'
+            dir : 'test/coverage'
         },
 
         logLevel: config.LOG_INFO,
 
-        autoWatch: true,
-        singleRun: false
+        autoWatch: false,
+        singleRun: true
     });
 };

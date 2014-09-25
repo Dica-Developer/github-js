@@ -1,94 +1,79 @@
-/*global define, describe, it, expect, beforeEach*/
-/*
- * Copyright 2012 Cloud9 IDE, Inc.
- *
- * This product includes software developed by
- * Cloud9 IDE, Inc (http://c9.io).
- *
- * Author: Mike de Boer <info@mikedeboer.nl>
- */
-
-define(['githubjs'], function (Client) {
+(function () {
     'use strict';
-    describe('[search]', function () {
-        var client;
+
+    describe('search', function () {
+        var github;
         var token = '44046cd4b4b85afebfe3ccaec13fd8c08cc80aad';
 
         beforeEach(function () {
-            client = new Client();
-            client.authenticate({
+            github = new Github();
+            github.authenticate({
                 type: 'oauth',
                 token: token
             });
         });
 
-        it('should successfully execute GET /legacy/issues/search/:user/:repo/:state/:keyword (issues)', function (done) {
-            client.search.issues(
+        it('should successfully execute GET /search/issues (issues)', function (done) {
+            var callback = function (err, res) {
+                expect(err).toBeNull();
+                expect(res.items.length).toBeGreaterThan(0);
+                done();
+            };
+
+            github.search.issues(
                 {
-                    user: 'jwebertest',
-                    repo: 'forTestUseOnly',
-                    state: 'closed',
-                    keyword: 'Event'
+                    q: 'repo:dica-developer/gh-review',
+                    sort: 'created',
+                    order: 'asc'
                 },
-                function (err, res) {
-                    expect(err).toBeNull();
-                    expect(res.issues.length).toBe(1);
-                    var issue = res.issues[0];
-                    expect(issue.title).toBe('Create Event');
-                    expect(issue.position).toBe(1);
-                    expect(issue.state).toBe('closed');
-
-                    done();
-                }
+                callback
             );
         });
 
-        it('should successfully execute GET /legacy/repos/search/:keyword (repos)', function (done) {
-            client.search.repos(
+        it('should successfully execute GET /search/repositories (repos)', function (done) {
+            var callback = function (err, res) {
+                expect(err).toBeNull();
+                expect(res.items.length).toBeGreaterThan(0);
+                done();
+            };
+
+            github.search.repos(
                 {
-                    keyword: 'pasta',
-                    language: 'JavaScript'
+                    q: 'gh-review'
                 },
-                function (err, res) {
-                    expect(err).toBeNull();
-                    expect(res.repositories.length).toBeGreaterThan(0);
-                    expect(res.repositories[0].language).toBe('JavaScript');
-
-                    done();
-                }
+                callback
             );
         });
 
-        it('should successfully execute GET /legacy/user/search/:keyword (users)', function (done) {
-            client.search.users({ keyword: 'mikedeboer' },
-                function (err, res) {
-                    expect(err).toBeNull();
-                    expect(res.users.length).toBe(2);
-                    var user = res.users[0];
-                    expect(user.name).toBe('Mike de Boer');
-                    expect(user.username.indexOf('mikedeboer')).toBe(0);
+        it('should successfully execute GET /search/users (users)', function (done) {
+            var callback = function (err, res) {
+                expect(err).toBeNull();
+                expect(res.items.length).toBe(1);
+                done();
+            };
 
-                    done();
-                }
-            );
-        });
-
-        it('should successfully execute GET /legacy/user/search/code ', function (done) {
-            client.search.code({
-                    q: 'test helper repo:dica-developer/gh-review'
+            github.search.users(
+                {
+                    q: 'jwebertest'
                 },
-                function (err, res) {
-                    expect(err).toBeNull();
-                    expect(res.items.length).toBe(3);
-                    var result = res.items.shift();
-                    expect(result.name).toBe('dev.karma.conf.js');
-                    expect(result.path).toBe('test/dev.karma.conf.js');
-                    expect(result.sha).toBe('b8854a2711504db327c941b7d2d98555345395f9');
-
-                    done();
-                }
+                callback
             );
         });
+
+        xit('should successfully execute GET /legacy/user/email/:email (email)', function (done) {
+            var callback = function (err, res) {
+                expect(err).toBeNull();
+                done();
+            };
+
+            github.search.email(
+                {
+                    email: 'horus381@gmx.de'
+                },
+                callback
+            );
+        });
+
 
     });
-});
+}());

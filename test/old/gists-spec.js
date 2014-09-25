@@ -1,4 +1,4 @@
-/*global describe, beforeEach, it, expect, xit*/
+/*global describe, it, expect, beforeEach, xit*/
 (function () {
     'use strict';
 
@@ -11,8 +11,8 @@
             }
         }
     };
-    
-    describe('gists', function () {
+
+    describe('[gists]', function () {
         var github;
         var token = '44046cd4b4b85afebfe3ccaec13fd8c08cc80aad';
 
@@ -127,20 +127,6 @@
             }
 
             github.gists.create(gistTmpl, gistCreateClbk);
-        });
-
-        xit('should successfully execute GET /gists/public (public)', function (done) {
-            var callback = function (err, res) {
-                expect(err).toBeNull();
-                done();
-            };
-
-            github.gists.public(
-                {
-                    since: 'Date'
-                },
-                callback
-            );
         });
 
         it('should successfully execute GET /gists/starred (starred)', function (done) {
@@ -305,7 +291,7 @@
             );
         });
 
-        it('should successfully execute GET /gists/:gist_id/comments (getComments)', function (done) {
+        it('should successfully execute GET /gists/:gist_id/comments/:id (getComments)', function (done) {
             github.gists.createComment(
                 {
                     gist_id: '1e2f2c21e78106c2cd14',
@@ -318,7 +304,11 @@
                     github.gists.getComments({ gist_id: '1e2f2c21e78106c2cd14' },
                         function (err, res) {
                             expect(err).toBeNull();
-                            expect(res.length).toBeGreaterThan(0);
+
+                            var comment = res.pop();
+                            expect(comment.user.login).toBe('jwebertest');
+                            expect(comment.id).toBe(id);
+                            expect(comment.body).toBe('This is a test comment.');
 
                             github.gists.deleteComment(
                                 {
@@ -481,10 +471,9 @@
                 }
             );
         });
-
     });
 
-    describe('gists failure', function () {
+    describe('[gists] failure', function () {
         var github;
 
         beforeEach(function () {
