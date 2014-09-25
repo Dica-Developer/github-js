@@ -447,7 +447,8 @@
                 util.log('STATUS: ' + xhr.status);
             }
             if (xhr.readyState === 4) {
-                if (xhr.status >= 200 && xhr.status < 300) {
+                //If using header 'If-None-Match' github returns 304 'Not modified' header
+                if (xhr.status >= 200 && xhr.status < 300 || xhr.status === 304) {
                     var res = {
                         headers: {},
                         data: null
@@ -461,7 +462,7 @@
                             res.headers[key] = header.substring(dividerIndex + 1).trim();
                         }
                     }
-                    res.data = xhr.responseText;
+                    res.data = xhr.responseText || false;
                     callback(null, res);
                 } else if (xhr.status >= 400 && xhr.status < 600 || xhr.status < 10) {
                     util.error(method, path, query, xhr.responseText); //TODO use HttpError instead
