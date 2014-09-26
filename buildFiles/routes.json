@@ -390,7 +390,7 @@
 
         "edit": {
             "url": "/gists/:id",
-            "method": "PATCH",
+            "method": "POST",
             "params": {
                 "$id": null,
                 "$description": null,
@@ -490,7 +490,7 @@
 
         "edit-comment": {
             "url": "/gists/:gist_id/comments/:id",
-            "method": "PATCH",
+            "method": "POST",
             "params": {
                 "$gist_id": null,
                 "$id": null,
@@ -632,7 +632,7 @@
 
         "update-reference": {
             "url": "/repos/:user/:repo/git/refs/:ref",
-            "method": "PATCH",
+            "method": "POST",
             "params": {
                 "$user": null,
                 "$repo": null,
@@ -904,7 +904,7 @@
 
         "edit": {
             "url": "/repos/:user/:repo/issues/:number",
-            "method": "PATCH",
+            "method": "POST",
             "params": {
                 "$user": null,
                 "$repo": null,
@@ -1015,7 +1015,7 @@
 
         "edit-comment": {
             "url": "/repos/:user/:repo/issues/comments/:id",
-            "method": "PATCH",
+            "method": "POST",
             "params": {
                 "$user": null,
                 "$repo": null,
@@ -1192,7 +1192,7 @@
 
         "update-milestone": {
             "url": "/repos/:user/:repo/milestones/:number",
-            "method": "PATCH",
+            "method": "POST",
             "params": {
                 "$user": null,
                 "$repo": null,
@@ -1254,7 +1254,7 @@
         },
         "update": {
             "url": "/authorizations/:id",
-            "method": "PATCH",
+            "method": "POST",
             "params": {
                 "$id": null,
                 "$scopes": null,
@@ -1308,7 +1308,7 @@
 
         "update": {
             "url": "/orgs/:org",
-            "method": "PATCH",
+            "method": "POST",
             "params": {
                 "$org": null,
                 "billing_email": {
@@ -1449,7 +1449,7 @@
 
         "update-team": {
             "url": "/teams/:id",
-            "method": "PATCH",
+            "method": "POST",
             "params": {
                 "$id": null,
                 "$name": null,
@@ -1668,7 +1668,7 @@
 
         "update": {
             "url": "/repos/:user/:repo/pulls/:number",
-            "method": "PATCH",
+            "method": "POST",
             "params": {
                 "$user": null,
                 "$repo": null,
@@ -1800,7 +1800,7 @@
 
         "update-comment": {
             "url": "/repos/:user/:repo/pulls/comments/:number",
-            "method": "PATCH",
+            "method": "POST",
             "params": {
                 "$user": null,
                 "$repo": null,
@@ -1946,7 +1946,7 @@
 
         "update": {
             "url": "/repos/:user/:repo",
-            "method": "PATCH",
+            "method": "POST",
             "params": {
                 "$user": null,
                 "$repo": null,
@@ -2214,7 +2214,7 @@
 
         "update-commit-comment": {
             "url": "/repos/:user/:repo/comments/:id",
-            "method": "PATCH",
+            "method": "POST",
             "params": {
                 "$user": null,
                 "$repo": null,
@@ -2781,7 +2781,7 @@
 
         "update-hook": {
             "url": "/repos/:user/:repo/hooks/:id",
-            "method": "PATCH",
+            "method": "POST",
             "params": {
                 "$user": null,
                 "$repo": null,
@@ -2863,7 +2863,7 @@
 
         "update": {
             "url": "/user",
-            "method": "PATCH",
+            "method": "POST",
             "params": {
                 "name": {
                     "type": "String",
@@ -3049,7 +3049,7 @@
 
         "update-key": {
             "url": "/user/keys/:id",
-            "method": "PATCH",
+            "method": "POST",
             "params": {
                 "$id": null,
                 "$title": null,
@@ -3265,7 +3265,7 @@
         },
         "edit-release": {
             "url": "/repos/:owner/:repo/releases/:id",
-            "method": "PATCH",
+            "method": "POST",
             "params": {
                 "owner": {
                     "type": "String",
@@ -3391,7 +3391,7 @@
         },
         "edit-asset": {
             "url": "/repos/:owner/:repo/releases/assets/:id",
-            "method": "PATCH",
+            "method": "POST",
             "params": {
                 "owner": {
                     "type": "String",
