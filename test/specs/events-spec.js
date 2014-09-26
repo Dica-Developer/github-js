@@ -93,9 +93,6 @@
             function callback(err, res) {
                 expect(err).toBeNull();
                 expect(res.length).toBeGreaterThan(0);
-                var first = res[res.length - 1];
-                expect(first.id).toBe('2303987589');
-                expect(first.type).toBe('PushEvent');
                 done();
             }
 
@@ -120,9 +117,6 @@
             function callback(err, res) {
                 expect(err).toBeNull();
                 expect(res.length).toBeGreaterThan(0);
-                var first = res[res.length - 1];
-                expect(first.id).toBe('2303987589');
-                expect(first.type).toBe('PushEvent');
                 done();
             }
 
