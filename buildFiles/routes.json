@@ -2178,7 +2178,6 @@
                 "$repo": null,
                 "$sha": null,
                 "$body": null,
-                "$commit_id": null,
                 "path": {
                     "type": "String",
                     "required": false,
