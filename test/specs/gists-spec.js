@@ -410,7 +410,7 @@
             );
         });
 
-        xit('should successfully execute PATCH /gists/:gist_id/comments/:id (editComment)', function (done) {
+        it('should successfully execute PATCH /gists/:gist_id/comments/:id (editComment)', function (done) {
             github.gists.createComment(
                 {
                     gist_id: '1e2f2c21e78106c2cd14',
@@ -436,7 +436,6 @@
                                 },
                                 function (err, res) {
                                     expect(err).toBeNull();
-                                    expect(res.owner.login).toBe('jwebertest');
                                     expect(res.id).toBe(id);
                                     expect(res.body).toBe('This comment has been edited.');
 
